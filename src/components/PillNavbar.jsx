@@ -9,7 +9,9 @@ export default function PillNavbar({ refs, announcementOpen }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navTop = announcementOpen ? '64px' : '14px';
-  const dropdownTop = announcementOpen ? '126px' : '76px';
+  // Dropdown sits just below the navbar pill (navbar top + ~56px pill height),
+  // independent of the announcement bar's variable height, and above it in z.
+  const dropdownTop = announcementOpen ? '128px' : '78px';
 
   const navItems = [
     { label: 'Home', ref: refs?.home },
@@ -103,26 +105,28 @@ export default function PillNavbar({ refs, announcementOpen }) {
         </div>
       </motion.nav>
 
-      {/* Mobile dropdown */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.97 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="fixed z-40 rounded-2xl overflow-hidden"
-            style={{
-              top: dropdownTop,
-              left: '1rem',
-              right: '1rem',
-              backgroundColor: 'rgba(255,255,255,0.98)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              boxShadow: '0 16px 48px rgba(6,17,83,0.20)',
-              border: '1px solid rgba(6,17,83,0.08)',
-            }}
-          >
+       {/* Mobile dropdown */}
+       <AnimatePresence>
+         {mobileOpen && (
+           <motion.div
+             initial={{ opacity: 0, y: -8, scale: 0.97 }}
+             animate={{ opacity: 1, y: 0, scale: 1 }}
+             exit={{ opacity: 0, y: -8, scale: 0.97 }}
+             transition={{ duration: 0.18, ease: 'easeOut' }}
+             className="fixed z-[70] rounded-2xl overflow-hidden"
+             style={{
+               top: dropdownTop,
+               left: '1rem',
+               right: '1rem',
+               maxHeight: 'calc(100vh - 8rem)',
+               overflowY: 'auto',
+               backgroundColor: 'rgba(255,255,255,0.98)',
+               backdropFilter: 'blur(24px)',
+               WebkitBackdropFilter: 'blur(24px)',
+               boxShadow: '0 16px 48px rgba(6,17,83,0.20)',
+               border: '1px solid rgba(6,17,83,0.08)',
+             }}
+           >
              <div className="p-3 flex flex-col gap-1">
               {navItems.map((item) => (
                 <button
