@@ -8,8 +8,8 @@ export default function PillNavbar({ refs, announcementOpen }) {
   const scrolled = useScrollAnimation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navTop = announcementOpen ? '60px' : '14px';
-  const dropdownTop = announcementOpen ? '122px' : '76px';
+  const navTop = announcementOpen ? '64px' : '14px';
+  const dropdownTop = announcementOpen ? '126px' : '76px';
 
   const navItems = [
     { label: 'Home', ref: refs?.home },
@@ -49,7 +49,6 @@ export default function PillNavbar({ refs, announcementOpen }) {
             ? '0 12px 40px rgba(16,83,243,0.30), 0 0 22px rgba(16,83,243,0.18), inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 1px rgba(16,83,243,0.10)'
             : '0 8px 30px rgba(16,83,243,0.22), 0 0 18px rgba(16,83,243,0.14), inset 0 1px 0 rgba(255,255,255,0.6), 0 0 0 1px rgba(16,83,243,0.08)',
           maxWidth: 'calc(100vw - 2rem)',
-          top: navTop,
         }}
       >
         {/* Logo mark */}
