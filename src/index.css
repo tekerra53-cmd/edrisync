@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-edri-navy: #061153;
+  --color-edri-dark: #061153;
+  --color-edri-light-gray: #B1B6CE;
+  --color-edri-accent: #B1B6CE;
+
+  --font-family-sans: "Inter", system-ui, sans-serif;
+  --font-family-heading: "Poppins", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #061153;
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #061153;
+}
+::-webkit-scrollbar-thumb {
+  background: #B1B6CE;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #007dc1;
+}
+
+/* Selection */
+::selection {
+  background: rgba(177, 182, 206, 0.3);
+  color: #061153;
+}
+
+/* Remove default button styles */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Remove default anchor styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Infinite panning grid lines */
+@keyframes gridPan {
+  0% { background-position: 0 0; }
+  100% { background-position: 52px 52px; }
+}
+.animate-grid-pan {
+  animation: gridPan 6s linear infinite;
+}
+
+/* Image drag prevention */
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
