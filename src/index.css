@@ -75,6 +75,25 @@ a {
   animation: gridPan 6s linear infinite;
 }
 
+/* Services section — mobile: stack image on top, text below (desktop untouched) */
+@media (max-width: 768px) {
+  .service-card-inner {
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+  .service-card-img {
+    width: 100% !important;
+    height: 220px !important;
+  }
+  .service-card-img img {
+    height: 100% !important;
+  }
+  .service-card-content {
+    width: 100% !important;
+    padding: 28px !important;
+  }
+}
+
 /* Image drag prevention */
 img {
   user-select: none;

@@ -166,9 +166,9 @@ export default function ServicesSection({ sectionRef: externalRef }) {
               margin: '0 auto',
               boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
               minHeight: '400px'
-            }}>
+            }} className="service-card-inner">
               {/* Image Side */}
-              <div style={{ width: '50%', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ width: '50%', position: 'relative', overflow: 'hidden' }} className="service-card-img">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -177,7 +177,7 @@ export default function ServicesSection({ sectionRef: externalRef }) {
               </div>
 
               {/* Content Side */}
-              <div style={{ width: '50%', padding: '40px', position: 'relative' }}>
+              <div style={{ width: '50%', padding: '40px', position: 'relative' }} className="service-card-content">
                 {/* Category Tag */}
                 <span style={{
                   display: 'inline-block',
