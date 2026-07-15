@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import edrisyncLogo from '../assests/img/edrisync-logo.png';
 
 export default function PillNavbar({ refs, announcementOpen }) {
-  const scrolled = useScrollAnimation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Navbar is hidden at the very top and slides down to stick once the user
@@ -44,12 +42,10 @@ export default function PillNavbar({ refs, announcementOpen }) {
         className="nav-fixed fixed z-50 left-4 right-4 mx-auto w-fit max-w-[920px] flex items-center gap-2 lg:gap-6 px-4 lg:px-5 py-2.5 rounded-full transition-all duration-400"
         style={{
           top: navTop,
-          backgroundColor: scrolled ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.65)',
+          backgroundColor: 'rgba(255,255,255,0.65)',
           backdropFilter: 'blur(22px) saturate(160%)',
           WebkitBackdropFilter: 'blur(22px) saturate(160%)',
-          boxShadow: scrolled
-            ? '0 12px 40px rgba(16,83,243,0.30), 0 0 22px rgba(16,83,243,0.18), inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 1px rgba(16,83,243,0.10)'
-            : '0 8px 30px rgba(16,83,243,0.22), 0 0 18px rgba(16,83,243,0.14), inset 0 1px 0 rgba(255,255,255,0.6), 0 0 0 1px rgba(16,83,243,0.08)',
+          boxShadow: '0 8px 30px rgba(16,83,243,0.22), 0 0 18px rgba(16,83,243,0.14), inset 0 1px 0 rgba(255,255,255,0.6), 0 0 0 1px rgba(16,83,243,0.08)',
         }}
       >
         {/* Logo mark */}
