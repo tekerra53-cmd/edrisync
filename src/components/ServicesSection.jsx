@@ -68,63 +68,70 @@ export default function ServicesSection({ sectionRef: externalRef }) {
   const cardsRef = useRef([]);
 
   useEffect(() => {
-    const cards = cardsRef.current;
-    const ctx = gsap.context(() => {
-      cards.forEach((card, i) => {
-        // Subtle rise as each card (except the first) locks into its sticky slot
-        if (i > 0) {
-          gsap.fromTo(
-            card,
-            { y: 60 },
-            {
-              y: 0,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top bottom',
-                end: `top ${STICKY_TOP}px`,
-                scrub: true,
-              },
-            }
-          );
-        }
+    const mm = gsap.matchMedia();
 
-        // Previous card disappears (opacity 0) ONLY while this card slides up
-        // and fully covers it. All cards lock into the SAME slot, so the next
-        // card completely hides the previous — fade starts when the incoming
-        // card reaches the previous card's bottom edge and ends when it locks in.
-        const prev = cards[i - 1];
-        if (prev) {
-          const prevBottom = STICKY_TOP + prev.offsetHeight;
-          gsap.fromTo(
-            prev,
-            { scale: 1, opacity: 1 },
-            {
-              scale: 0.97,
-              opacity: 0,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                start: `top ${prevBottom}px`,
-                end: `top ${STICKY_TOP}px`,
-                scrub: true,
-              },
-            }
-          );
-        }
-      });
-    }, sectionRef);
+    // Sticky scroll-stack animation only on desktop/tablet (>= 769px).
+    // On mobile the cards simply stack in normal flow.
+    mm.add('(min-width: 769px)', () => {
+      const cards = cardsRef.current;
+      const ctx = gsap.context(() => {
+        cards.forEach((card, i) => {
+          // Subtle rise as each card (except the first) locks into its sticky slot
+          if (i > 0) {
+            gsap.fromTo(
+              card,
+              { y: 60 },
+              {
+                y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top bottom',
+                  end: `top ${STICKY_TOP}px`,
+                  scrub: true,
+                },
+              }
+            );
+          }
 
-    // Recompute trigger positions once images/layout settle
-    const onLoad = () => ScrollTrigger.refresh();
-    window.addEventListener('load', onLoad);
-    const t = setTimeout(() => ScrollTrigger.refresh(), 400);
+          // Previous card disappears (opacity 0) ONLY while this card slides up
+          // and fully covers it. All cards lock into the SAME slot, so the next
+          // card completely hides the previous — fade starts when the incoming
+          // card reaches the previous card's bottom edge and ends when it locks in.
+          const prev = cards[i - 1];
+          if (prev) {
+            const prevBottom = STICKY_TOP + prev.offsetHeight;
+            gsap.fromTo(
+              prev,
+              { scale: 1, opacity: 1 },
+              {
+                scale: 0.97,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: card,
+                  start: `top ${prevBottom}px`,
+                  end: `top ${STICKY_TOP}px`,
+                  scrub: true,
+                },
+              }
+            );
+          }
+        });
+      }, sectionRef);
 
-    return () => {
-      window.removeEventListener('load', onLoad);
-      clearTimeout(t);
-      ctx.revert();
-    };
+      // Recompute trigger positions once images/layout settle
+      const onLoad = () => ScrollTrigger.refresh();
+      window.addEventListener('load', onLoad);
+      const t = setTimeout(() => ScrollTrigger.refresh(), 400);
+
+      return () => {
+        window.removeEventListener('load', onLoad);
+        clearTimeout(t);
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -138,14 +145,14 @@ export default function ServicesSection({ sectionRef: externalRef }) {
       </div>
 
       {/* Hero Title */}
-      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '140px 20px 60px', color: 'white' }}>
-        <h1 style={{ fontSize: '48px', fontWeight: 300, margin: 0 }}>
+      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '140px 20px 60px', color: 'white' }} className="service-hero">
+        <h1 style={{ fontSize: 'clamp(2rem, 8vw, 48px)', fontWeight: 300, margin: 0, lineHeight: 1.15 }}>
           Digital Transformation & <span style={{ fontWeight: 700 }}>IT Solutions</span>
         </h1>
       </div>
 
       {/* Sticky Cards Container */}
-      <div ref={sectionRef} style={{ position: 'relative', zIndex: 1, padding: '0 60px 200px' }}>
+      <div ref={sectionRef} style={{ position: 'relative', zIndex: 1, padding: '0 60px 200px' }} className="service-section-inner">
         {services.map((service, index) => (
           <div
             key={service.title}
@@ -156,6 +163,7 @@ export default function ServicesSection({ sectionRef: externalRef }) {
               zIndex: 10 + index * 10,
               marginBottom: index === services.length - 1 ? '0' : '28px',
             }}
+            className="service-card-wrap"
           >
             <div style={{
               background: 'white',

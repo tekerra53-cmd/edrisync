@@ -75,8 +75,30 @@ a {
   animation: gridPan 6s linear infinite;
 }
 
+/* CTA attention pulse — draws the eye to primary buttons */
+@keyframes ctaPulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(1.12); opacity: 0; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+.animate-cta-pulse {
+  animation: ctaPulse 2s ease-out infinite;
+}
+
 /* Services section — mobile: stack image on top, text below (desktop untouched) */
 @media (max-width: 768px) {
+  .service-hero {
+    padding: 100px 20px 36px !important;
+  }
+  .service-section-inner {
+    padding: 0 20px 80px !important;
+  }
+  .service-card-wrap {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    margin-bottom: 20px !important;
+  }
   .service-card-inner {
     flex-direction: column !important;
     min-height: auto !important;

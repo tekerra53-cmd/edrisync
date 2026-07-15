@@ -114,18 +114,25 @@ export default function AboutSection({ sectionRef, onAbout }) {
           </div>
 
           {/* CTA */}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              onAbout?.();
-            }}
-            className="inline-flex items-center gap-2 mt-9 text-sm font-medium hover:gap-3 transition-all duration-200"
-            style={{ color: '#007dc1' }}
-          >
-            Learn more about us
-            <ArrowRight className="w-4 h-4" />
-          </a>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onAbout?.();
+              }}
+              className="group inline-flex items-center gap-2 mt-9 text-sm font-medium transition-all duration-200"
+              style={{ color: '#007dc1' }}
+            >
+              Learn more about us
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
+                className="inline-flex"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </motion.span>
+              <span className="block h-px w-0 group-hover:w-full transition-all duration-300 rounded-full" style={{ backgroundColor: '#007dc1' }} />
+            </a>
         </motion.div>
       </div>
     </section>

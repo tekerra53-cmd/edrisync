@@ -18,6 +18,7 @@ import AboutPage from './components/AboutPage';
 
 export default function App() {
   const [view, setView] = useState<'home' | 'blog' | 'about'>('home');
+  const [announcementOpen, setAnnouncementOpen] = useState(true);
   const pendingScroll = useRef<any>(null);
 
   const homeRef = useRef<HTMLElement>(null);
@@ -81,8 +82,11 @@ export default function App() {
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
       {/* Fixed top UI */}
-      <AnnouncementBar />
-      <PillNavbar refs={refs} />
+      <AnnouncementBar
+        open={announcementOpen}
+        onClose={() => setAnnouncementOpen(false)}
+      />
+      <PillNavbar refs={refs} announcementOpen={announcementOpen} />
 
       {/* Page sections */}
       <main>

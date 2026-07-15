@@ -4,9 +4,12 @@ import { Menu, X } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import edrisyncLogo from '../assests/img/edrisync-logo.png';
 
-export default function PillNavbar({ refs }) {
+export default function PillNavbar({ refs, announcementOpen }) {
   const scrolled = useScrollAnimation();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navTop = announcementOpen ? '60px' : '14px';
+  const dropdownTop = announcementOpen ? '122px' : '76px';
 
   const navItems = [
     { label: 'Home', ref: refs?.home },
@@ -36,7 +39,7 @@ export default function PillNavbar({ refs }) {
         transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
         className="fixed z-50 flex items-center gap-2 lg:gap-6 px-4 lg:px-5 py-2.5 rounded-full transition-all duration-400"
         style={{
-          top: '58px',
+          top: navTop,
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: scrolled ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.65)',
@@ -46,6 +49,7 @@ export default function PillNavbar({ refs }) {
             ? '0 12px 40px rgba(16,83,243,0.30), 0 0 22px rgba(16,83,243,0.18), inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 1px rgba(16,83,243,0.10)'
             : '0 8px 30px rgba(16,83,243,0.22), 0 0 18px rgba(16,83,243,0.14), inset 0 1px 0 rgba(255,255,255,0.6), 0 0 0 1px rgba(16,83,243,0.08)',
           maxWidth: 'calc(100vw - 2rem)',
+          top: navTop,
         }}
       >
         {/* Logo mark */}
@@ -116,7 +120,7 @@ export default function PillNavbar({ refs }) {
             transition={{ duration: 0.18, ease: 'easeOut' }}
             className="fixed z-40 rounded-2xl overflow-hidden"
             style={{
-              top: '118px',
+              top: dropdownTop,
               left: '1rem',
               right: '1rem',
               backgroundColor: 'rgba(255,255,255,0.98)',

@@ -97,7 +97,7 @@ export default function VisionSection() {
                 </div>
 
                 <div
-                  className="relative bg-white rounded-[28px] p-10 h-full text-center cursor-default overflow-hidden"
+                  className="relative bg-white rounded-[28px] p-7 sm:p-10 h-full text-center cursor-default overflow-hidden"
                   style={{ boxShadow: '0 14px 40px rgba(6,17,83,0.08)', border: '1px solid rgba(6,17,83,0.06)' }}
                 >
                   {/* Abstract line background (behind content) */}

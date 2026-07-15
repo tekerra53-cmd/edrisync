@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const words = [
-  'Business',
-  'Solutions',
-  'Excellence'
+  'Growth Through Innovation',
+  'Solutions to Empower Your Business',
+  'Excellence in Every Line of Code',
 ];
 
 const wordVariants = {

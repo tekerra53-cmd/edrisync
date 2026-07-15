@@ -111,7 +111,7 @@ export default function ApproachSection() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.55, delay: (i % 2) * 0.08 + Math.floor(i / 2) * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -6 }}
-                className="group relative bg-white rounded-2xl p-7 cursor-default overflow-hidden transition-shadow duration-300"
+                className="group relative bg-white rounded-2xl p-6 sm:p-7 cursor-default overflow-hidden transition-shadow duration-300"
                 style={{ border: '1px solid rgba(6,17,83,0.07)', boxShadow: '0 8px 30px rgba(6,17,83,0.06)' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = '0 22px 50px rgba(6,17,83,0.14)';

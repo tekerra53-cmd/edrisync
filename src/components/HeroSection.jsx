@@ -48,7 +48,7 @@ export default function HeroSection({ sectionRef, refs }) {
       {/* Main content — left aligned */}
       <div
         className="relative z-10 w-full px-6 lg:px-0"
-        style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingTop: '6rem', paddingBottom: '6rem' }}
+        style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingTop: 'clamp(7.5rem, 14vh, 9rem)', paddingBottom: '6rem' }}
       >
         <div style={{ maxWidth: '580px' }}>
           {/* Eyebrow label */}
@@ -74,7 +74,7 @@ export default function HeroSection({ sectionRef, refs }) {
             className="text-white font-light leading-[1.06] tracking-tight"
             style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.25rem)', fontFamily: 'var(--font-family-heading)' }}
           >
-             Innovative IT
+             EdriSync
             <br />
             <AnimatedText className="font-medium" />
           </motion.h1>
@@ -97,16 +97,29 @@ export default function HeroSection({ sectionRef, refs }) {
             transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             className="flex flex-wrap gap-4 mt-10"
           >
-            <button
-              onClick={() => refs?.goSection?.(refs?.about)}
-              className="flex items-center gap-2 bg-white rounded-xl px-8 py-4 font-semibold text-sm transition-all duration-200 min-h-[52px] shadow-xl hover:shadow-2xl cursor-pointer"
-              style={{ color: '#061153', backgroundColor: '#B1B6CE' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#9ca3b8')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B1B6CE')}
-            >
-              Discover More
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="relative inline-block">
+              <span
+                className="absolute inset-0 rounded-xl animate-cta-pulse"
+                style={{ backgroundColor: '#B1B6CE' }}
+                aria-hidden="true"
+              />
+              <button
+                onClick={() => refs?.goSection?.(refs?.about)}
+                className="relative flex items-center gap-2 bg-white rounded-xl px-8 py-4 font-semibold text-sm transition-all duration-200 min-h-[52px] shadow-xl hover:shadow-2xl cursor-pointer"
+                style={{ color: '#061153', backgroundColor: '#B1B6CE' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#9ca3b8')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B1B6CE')}
+              >
+                Discover More
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+                  className="inline-flex"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </motion.span>
+              </button>
+            </div>
             <button
               onClick={() => refs?.goSection?.(refs?.cta)}
               className="flex items-center gap-2 text-white rounded-xl px-8 py-4 font-medium text-sm transition-all duration-200 min-h-[52px] cursor-pointer"
