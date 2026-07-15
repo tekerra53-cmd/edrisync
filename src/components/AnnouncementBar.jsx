@@ -10,7 +10,7 @@ export default function AnnouncementBar({ open, onClose }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -40, opacity: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-center gap-2 text-center px-3 sm:px-6 py-2"
+          className="announcement-fixed fixed top-0 left-0 right-0 z-[60] flex items-center justify-center gap-2 text-center px-3 sm:px-6 py-2"
           style={{ backgroundColor: '#061153' }}
         >
           {/* Center content — wraps cleanly on small screens, never hidden behind the X */}

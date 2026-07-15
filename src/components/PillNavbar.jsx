@@ -39,7 +39,7 @@ export default function PillNavbar({ refs, announcementOpen }) {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-        className="fixed z-50 left-4 right-4 mx-auto w-fit max-w-[920px] flex items-center gap-2 lg:gap-6 px-4 lg:px-5 py-2.5 rounded-full transition-all duration-400"
+        className="nav-fixed fixed z-50 left-4 right-4 mx-auto w-fit max-w-[920px] flex items-center gap-2 lg:gap-6 px-4 lg:px-5 py-2.5 rounded-full transition-all duration-400"
         style={{
           top: navTop,
           backgroundColor: scrolled ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.65)',
@@ -113,7 +113,7 @@ export default function PillNavbar({ refs, announcementOpen }) {
              animate={{ opacity: 1, y: 0, scale: 1 }}
              exit={{ opacity: 0, y: -8, scale: 0.97 }}
              transition={{ duration: 0.18, ease: 'easeOut' }}
-             className="fixed z-[70] rounded-2xl overflow-hidden"
+             className="dropdown-fixed fixed z-[70] rounded-2xl overflow-hidden"
              style={{
                top: dropdownTop,
                left: '1rem',

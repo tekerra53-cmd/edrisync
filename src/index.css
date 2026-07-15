@@ -19,6 +19,9 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Clamp any accidental horizontal overflow so fixed top bars never "lap" */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -29,6 +32,19 @@ body {
   padding: 0;
   background-color: #ffffff;
   color: #061153;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Fixed top UI stays pinned to the viewport even if a horizontal scroll
+   ever appears, preventing the announcement bar / navbar / dropdown from
+   shifting or overlapping content. */
+.announcement-fixed,
+.nav-fixed,
+.dropdown-fixed {
+  position: sticky !important;
+  top: var(--bar-top, 0);
 }
 
 /* Custom scrollbar for webkit */
