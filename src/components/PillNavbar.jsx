@@ -80,9 +80,6 @@ export default function PillNavbar({ refs, announcementOpen }) {
         {/* Right actions */}
         <div className="hidden lg:flex items-center gap-2 shrink-0 pl-2"
           style={{ borderLeft: '1px solid rgba(6,17,83,0.10)' }}>
-          <button className="text-[#061153] hover:text-[#1053F3] text-[13px] px-3 py-2 transition-colors duration-200 whitespace-nowrap">
-            Client Portal
-          </button>
           <button
             onClick={() => refs?.goSection?.(refs?.cta)}
             className="text-white text-[13px] px-5 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap"
@@ -138,9 +135,6 @@ export default function PillNavbar({ refs, announcementOpen }) {
                 </button>
               ))}
               <div className="border-t mt-1 pt-2" style={{ borderColor: 'rgba(6,17,83,0.08)' }}>
-                <button className="text-[#061153] text-sm text-left px-4 py-3 w-full min-h-[48px] flex items-center">
-                  Client Portal
-                </button>
                 <button
                   onClick={() => refs?.goSection?.(refs?.cta)}
                   className="text-white text-sm w-full px-4 py-3 rounded-xl font-medium mt-1 min-h-[48px] transition-all duration-200"
