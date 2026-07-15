@@ -8,6 +8,8 @@ export default function PillNavbar({ refs, announcementOpen }) {
   const scrolled = useScrollAnimation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Navbar is hidden at the very top and slides down to stick once the user
+  // scrolls (sticky-on-scroll). `scrolled` flips true after 100px of scroll.
   const navTop = announcementOpen ? '64px' : '14px';
   // Dropdown sits just below the navbar pill (navbar top + ~56px pill height),
   // independent of the announcement bar's variable height, and above it in z.
@@ -36,9 +38,9 @@ export default function PillNavbar({ refs, announcementOpen }) {
     <>
       {/* Floating Pill Navbar — light theme so the blue logo stays visible */}
       <motion.nav
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: scrolled ? 0 : -90, opacity: scrolled ? 1 : 0 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         className="nav-fixed fixed z-50 left-4 right-4 mx-auto w-fit max-w-[920px] flex items-center gap-2 lg:gap-6 px-4 lg:px-5 py-2.5 rounded-full transition-all duration-400"
         style={{
           top: navTop,
