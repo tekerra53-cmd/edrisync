@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import AnnouncementBar from './components/AnnouncementBar';
+import Preloader from './components/Preloader';
 import PillNavbar from './components/PillNavbar';
 import HeroSection from './components/HeroSection';
 import ClientLogos from './components/ClientLogos';
@@ -19,7 +21,13 @@ import AboutPage from './components/AboutPage';
 export default function App() {
   const [view, setView] = useState<'home' | 'blog' | 'about'>('home');
   const [announcementOpen, setAnnouncementOpen] = useState(true);
+  const [loading, setLoading] = useState(true);
   const pendingScroll = useRef<any>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1900);
+    return () => clearTimeout(t);
+  }, []);
 
   const homeRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -81,6 +89,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+      {/* Initial loading screen */}
+      <AnimatePresence>{loading && <Preloader />}</AnimatePresence>
+
       {/* Fixed top UI */}
       <AnnouncementBar
         open={announcementOpen}

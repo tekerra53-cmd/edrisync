@@ -13,7 +13,7 @@ const features = [
   {
     icon: Award,
     title: 'Certified Experts',
-    desc: 'AWS, Azure, Cisco, and CompTIA certified engineers on every engagement — no junior staff on your account.',
+    desc: 'AWS, Azure, Cisco, and CompTIA certified engineers on every engagement.',
   },
   {
     icon: DollarSign,
@@ -142,7 +142,7 @@ export default function WhyEdrisync({ sectionRef }) {
 
           <p className="text-gray-600 text-base mt-5 leading-relaxed max-w-md">
             We embed ourselves in your business, learn your goals, and build systems that last.
-            Our clients average a 3-year relationship — because results speak louder than contracts.
+            Our clients average a 3-year relationship, because results speak louder than contracts.
           </p>
 
           <div className="mt-9 space-y-4">

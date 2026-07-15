@@ -55,7 +55,7 @@ export default function CTASection({ sectionRef }) {
               about IT?
             </h2>
             <p className="text-[#cbd5e1] mt-5 text-base leading-relaxed max-w-md">
-              Schedule a free infrastructure assessment. No obligation, no sales pressure — just an honest conversation about what's working and what isn't.
+              Schedule a free infrastructure assessment. No obligation, no sales pressure, just an honest conversation about what's working and what isn't.
             </p>
           </motion.div>
 
