@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import AnnouncementBar from './components/AnnouncementBar';
 import Preloader from './components/Preloader';
@@ -15,8 +15,8 @@ import VisionSection from './components/VisionSection';
 import ApproachSection from './components/ApproachSection';
 import AboutSection from './components/AboutSection';
 import PortfolioSection from './components/PortfolioSection';
-import BlogPage from './components/BlogPage';
-import AboutPage from './components/AboutPage';
+const BlogPage = lazy(() => import('./components/BlogPage'));
+const AboutPage = lazy(() => import('./components/AboutPage'));
 
 export default function App() {
   const [view, setView] = useState<'home' | 'blog' | 'about'>('home');
@@ -116,9 +116,9 @@ export default function App() {
             <CTASection sectionRef={ctaRef} />
           </>
         ) : view === 'blog' ? (
-          <BlogPage onHome={goHome} />
+          <Suspense fallback={null}><BlogPage onHome={goHome} /></Suspense>
         ) : (
-          <AboutPage onHome={goHome} />
+          <Suspense fallback={null}><AboutPage onHome={goHome} /></Suspense>
         )}
       </main>
 
