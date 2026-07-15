@@ -20,7 +20,6 @@ const AboutPage = lazy(() => import('./components/AboutPage'));
 
 export default function App() {
   const [view, setView] = useState<'home' | 'blog' | 'about'>('home');
-  const [announcementOpen, setAnnouncementOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const pendingScroll = useRef<any>(null);
 
@@ -93,11 +92,8 @@ export default function App() {
       <AnimatePresence>{loading && <Preloader />}</AnimatePresence>
 
       {/* Fixed top UI */}
-      <AnnouncementBar
-        open={announcementOpen}
-        onClose={() => setAnnouncementOpen(false)}
-      />
-      <PillNavbar refs={refs} announcementOpen={announcementOpen} />
+      <AnnouncementBar />
+      <PillNavbar refs={refs} />
 
       {/* Page sections */}
       <main>

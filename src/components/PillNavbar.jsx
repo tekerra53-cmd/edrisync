@@ -3,15 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import edrisyncLogo from '../assests/img/edrisync-logo.png';
 
-export default function PillNavbar({ refs, announcementOpen }) {
+export default function PillNavbar({ refs }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Navbar is hidden at the very top and slides down to stick once the user
-  // scrolls (sticky-on-scroll). `scrolled` flips true after 100px of scroll.
-  const navTop = announcementOpen ? '64px' : '14px';
-  // Dropdown sits just below the navbar pill (navbar top + ~56px pill height),
-  // independent of the announcement bar's variable height, and above it in z.
-  const dropdownTop = announcementOpen ? '128px' : '78px';
+  // Both bars are always visible (fixed), so the navbar sits a fixed offset
+  // below the announcement bar regardless of scroll.
+  const navTop = '64px';
+  // Dropdown sits just below the navbar pill (navbar top + ~56px pill height)
+  // and above the announcement bar in z-index.
+  const dropdownTop = '128px';
 
   const navItems = [
     { label: 'Home', ref: refs?.home },
