@@ -13,7 +13,7 @@ export default function ClientLogos() {
   return (
     <section
       className="relative py-14 px-0 overflow-hidden"
-      style={{ background: 'linear-gradient(90deg, #061153 0%, #0a1640 55%, #061153 100%)' }}
+      style={{ background: 'linear-gradient(90deg, #061153 0%, #153b7d 55%, #061153 100%)' }}
     >
       {/* Heading */}
       <motion.div
@@ -23,7 +23,7 @@ export default function ClientLogos() {
         transition={{ duration: 0.5 }}
         className="text-center mb-10 px-6"
       >
-        <p className="text-xs uppercase tracking-[0.28em] text-white/70 font-medium">
+        <p className="text-xs uppercase tracking-[0.28em] text-[#8bd3ff] font-medium">
           Trusted by forward-thinking companies worldwide
         </p>
       </motion.div>
@@ -55,7 +55,7 @@ export default function ClientLogos() {
       </div>
 
       {/* Fade divider into next section */}
-      <div className="mt-12 max-w-6xl mx-auto border-b border-white/10" />
+      <div className="mt-12 max-w-6xl mx-auto border-b border-[#8bd3ff]/20" />
     </section>
   );
 }

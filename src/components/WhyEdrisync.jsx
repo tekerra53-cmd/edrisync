@@ -1,28 +1,28 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Activity, Award, DollarSign, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Activity, Award, DollarSign, ShieldCheck, TrendingUp, Users, CheckCircle } from 'lucide-react';
 
 const IMAGE_URL = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80';
 
 const features = [
   {
-    icon: Activity,
-    title: '99.9% Uptime SLA',
-    desc: 'Guaranteed reliability backed by proactive infrastructure monitoring and a rapid-response team available around the clock.',
+    icon: ShieldCheck,
+    title: 'Integrated Advisory',
+    desc: 'Cybersecurity, GRC, Microsoft, and Digital Transformation, delivered as one coordinated engagement, not disconnected projects.',
   },
   {
-    icon: Award,
-    title: 'Certified Experts',
-    desc: 'AWS, Azure, Cisco, and CompTIA certified engineers on every engagement.',
+    icon: TrendingUp,
+    title: 'Measurable Outcomes',
+    desc: 'We tie every recommendation to business metrics: reduced risk, compliant operations, and digital efficiency you can track.',
   },
   {
-    icon: DollarSign,
-    title: 'Transparent Pricing',
-    desc: 'No hidden fees. Flat-rate or per-user plans that scale linearly with your team, billed monthly with no lock-in.',
+    icon: Users,
+    title: 'Embedded Partnership',
+    desc: 'We become an extension of your team, working alongside your stakeholders from strategy through implementation and continuous improvement.',
   },
 ];
 
-export default function WhyEdrisync({ sectionRef }) {
+export default function WhyEdrisync({ sectionRef, refs }) {
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -48,7 +48,7 @@ export default function WhyEdrisync({ sectionRef }) {
         ref={containerRef}
         className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
       >
-        {/* Left — image with parallax */}
+        {/* Left: image with parallax */}
         <motion.div
           initial={{ opacity: 0, x: -28, scale: 0.98 }}
           whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -103,7 +103,7 @@ export default function WhyEdrisync({ sectionRef }) {
           </motion.div>
         </motion.div>
 
-        {/* Right — text */}
+        {/* Right: text */}
         <motion.div
           initial={{ opacity: 0, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -126,8 +126,7 @@ export default function WhyEdrisync({ sectionRef }) {
           </div>
 
           <h2 className="text-4xl lg:text-[2.7rem] font-light mt-5 leading-[1.12]" style={{ color: '#0a1628' }}>
-            Technology partners,
-            <br />
+            Cybersecurity, compliance, and digital
             <span
               style={{
                 backgroundImage: 'linear-gradient(100deg, #007dc1, #1053F3)',
@@ -136,7 +135,7 @@ export default function WhyEdrisync({ sectionRef }) {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              not just vendors.
+              transformation, unified.
             </span>
           </h2>
 
@@ -193,24 +192,6 @@ export default function WhyEdrisync({ sectionRef }) {
             })}
           </div>
 
-          <motion.a
-            href="#"
-            onClick={(e) => e.preventDefault()}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="group inline-flex items-center gap-2 mt-9 text-sm font-semibold hover:gap-3 transition-all duration-200"
-            style={{ color: '#007dc1' }}
-          >
-            Meet our team
-            <span
-              className="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200"
-              style={{ background: 'rgba(0,125,193,0.12)' }}
-            >
-              <ArrowRight className="w-4 h-4" />
-            </span>
-          </motion.a>
         </motion.div>
       </div>
     </section>

@@ -115,24 +115,7 @@ export default function StatsBar({ statsData = DEFAULT_STATS }) {
   const isVisible = useInView(ref, { once: true, margin: '-50px' });
 
   return (
-    <section className="relative py-24 px-6 overflow-hidden" style={{ backgroundColor: '#061153' }}>
-      {/* Decorative gradient glows */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(60% 60% at 15% 20%, rgba(0,125,193,0.35) 0, transparent 60%), radial-gradient(55% 55% at 85% 80%, rgba(16,83,243,0.30) 0, transparent 60%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.07] animate-grid-pan"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-          backgroundSize: '52px 52px',
-        }}
-      />
-
+    <section className="relative py-24 px-6 overflow-hidden" style={{ backgroundColor: 'var(--edri-nav-blue)' }}>
       <div className="relative max-w-6xl mx-auto">
         {/* Section eyebrow */}
         <motion.div

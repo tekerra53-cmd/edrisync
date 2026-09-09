@@ -24,7 +24,7 @@ export default function Preloader() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="relative flex flex-col items-center"
       >
-        {/* Logo — gentle float */}
+        {/* Logo: gentle float */}
         <motion.img
           src={edrisyncLogo}
           alt="EdriSync"

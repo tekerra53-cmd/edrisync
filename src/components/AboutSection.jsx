@@ -77,21 +77,23 @@ export default function AboutSection({ sectionRef, onAbout }) {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#007dc1' }}>
-            About EdriSync
+           <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#007dc1' }}>
+            About EDRISYNC
           </p>
           <div className="w-12 h-1 rounded-full mt-3" style={{ background: 'linear-gradient(90deg, #1053F3, #007dc1)' }} />
           <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-light mt-5 leading-[1.2] text-balance" style={{ color: '#061153', fontFamily: 'var(--font-family-heading)' }}>
-            Digital transformation{' '}
-            <span className="font-medium">is no longer optional.</span>
+            Cybersecurity, compliance, and digital
+            <span className="font-medium"> transformation</span>
+            <span className="block">is a business outcome,</span>
+            <span className="font-medium"> not an IT project.</span>
           </h2>
 
           <p className="text-gray-600 text-[15px] sm:text-base mt-5 leading-relaxed text-pretty">
-            At EDRISYNC, we bridge the gap between business needs and technology execution helping organizations adopt the right tools, streamline operations, and build digital environments that scale.
+            At EDRISYNC, we bridge the gap between business needs and technology execution. We help organizations navigate cybersecurity risk, compliance obligations, and digital transformation as one interconnected challenge, from strategy through implementation and continuous improvement.
           </p>
 
           <p className="text-gray-600 text-[15px] sm:text-base mt-4 leading-relaxed text-pretty">
-            We operate at the intersection of business strategy and technology, guiding companies through efficient, secure, and fully digital work environments built for long-term growth.
+            We operate as an extension of your team, starting with your business problem, then connecting cybersecurity, governance, Microsoft enablement, and digital transformation into one coordinated roadmap.
           </p>
 
           {/* Stats row */}

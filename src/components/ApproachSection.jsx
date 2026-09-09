@@ -32,41 +32,9 @@ const steps = [
   },
 ];
 
-function AbstractLines({ color, rotate = 0, opacity = 0.14 }) {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      viewBox="0 0 400 320"
-      preserveAspectRatio="xMidYMid slice"
-      style={{ transform: `rotate(${rotate}deg)`, opacity }}
-      aria-hidden="true"
-    >
-      <path d="M-40 40 C 60 -10, 140 110, 240 30 S 430 80, 470 10" fill="none" stroke={color} strokeWidth="0.75" />
-      <path d="M-40 95 C 70 40, 150 170, 250 85 S 430 140, 470 60" fill="none" stroke={color} strokeWidth="0.75" />
-      <path d="M-40 150 C 90 90, 170 230, 280 140 S 440 200, 480 110" fill="none" stroke={color} strokeWidth="1" />
-      <path d="M-40 205 C 80 150, 160 280, 270 195 S 430 255, 470 175" fill="none" stroke={color} strokeWidth="0.75" />
-      <path d="M-40 260 C 90 210, 170 320, 280 245 S 440 300, 480 220" fill="none" stroke={color} strokeWidth="0.75" />
-      <path d="M-40 300 C 80 260, 160 360, 270 290 S 430 340, 470 270" fill="none" stroke={color} strokeWidth="0.75" />
-      <circle cx="40" cy="40" r="34" fill="none" stroke={color} strokeWidth="0.75" />
-      <circle cx="360" cy="280" r="48" fill="none" stroke={color} strokeWidth="0.75" />
-      <circle cx="120" cy="190" r="22" fill="none" stroke={color} strokeWidth="0.75" />
-      <circle cx="300" cy="80" r="14" fill="none" stroke={color} strokeWidth="0.75" />
-      <circle cx="210" cy="160" r="2" fill={color} />
-      <circle cx="90" cy="250" r="2" fill={color} />
-      <circle cx="330" cy="160" r="2" fill={color} />
-    </svg>
-  );
-}
-
 export default function ApproachSection() {
   return (
     <section className="relative py-24 lg:py-20 px-6 overflow-hidden" style={{ backgroundColor: '#f8f9fa' }}>
-      {/* Abstract line background (same design as the vision cards) */}
-      <div className="absolute inset-0 pointer-events-none">
-        <AbstractLines color="#1053F3" rotate={0} opacity={0.06} />
-        <AbstractLines color="#6b2cf5" rotate={180} opacity={0.05} />
-      </div>
-
       {/* Decorative accents */}
       <div
         className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none"
@@ -95,7 +63,7 @@ export default function ApproachSection() {
             <span className="font-medium">results for our clients</span>
           </h2>
           <p className="text-gray-500 mt-5 text-base max-w-md mx-auto leading-relaxed">
-            A clear, accountable path from first conversation to long-term partnership — no guesswork, no surprises.
+            A clear, accountable path from first conversation to long-term partnership, with no guesswork and no surprises.
           </p>
         </motion.div>
 

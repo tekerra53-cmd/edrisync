@@ -1,71 +1,79 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, Shield, FileCheck, Landmark, Settings, TrendingUp } from 'lucide-react';
 
 const posts = [
   {
     featured: true,
-    category: 'Cloud',
+    category: 'Cybersecurity',
     date: 'Jun 12, 2026',
     readTime: '6 min read',
-    title: '5 Ways Cloud Workspaces Are Reshaping Remote Teams',
+    title: 'Zero Trust in Practice: Moving Beyond the Checklist',
     excerpt:
-      'Distributed teams are no longer the exception. We break down how modern cloud workspaces remove friction, improve security, and keep everyone aligned, no matter where they log in from.',
+      'Distributed workforces demand more than perimeter security. We break down how to design a zero-trust architecture that actually works for your Microsoft environment.',
     image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
     accent: '#1053F3',
   },
   {
-    category: 'Automation',
+    category: 'GRC',
     date: 'May 28, 2026',
     readTime: '4 min read',
-    title: 'Automating the Boring: A Practical Guide to Business Process Automation',
+    title: 'Regulatory Readiness: Preparing Your Next Audit Without the Panic',
     excerpt:
-      'Repetitive work quietly drains your team. Learn how to spot the right processes to automate and roll them out without disrupting delivery.',
+      'Audits don\'t have to be crisis events. A proactive GRC framework turns compliance into continuous practice.',
     image: 'https://images.unsplash.com/photo-1512758117926-5019c9d0b9b5?auto=format&fit=crop&w=800&q=80',
     accent: '#6b2cf5',
   },
   {
-    category: 'Design',
+    category: 'Microsoft',
     date: 'May 14, 2026',
     readTime: '5 min read',
-    title: 'UI/UX Trends That Will Define 2026',
+    title: 'Securing Your Microsoft 365 Investment: A Defender XDR Playbook',
     excerpt:
-      'From calm interfaces to motion that means something, here are the design directions worth adopting this year.',
+      'Microsoft 365 delivers productivity, but only if you secure it properly. Practical hardening steps every tenant should ship by default.',
     image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80',
     accent: '#007dc1',
   },
   {
-    category: 'Strategy',
+    category: 'Digital Transformation',
     date: 'Apr 30, 2026',
     readTime: '7 min read',
-    title: 'How Nigerian Startups Are Scaling With the Right Tech Stack',
+    title: 'From Paper to Digital: The 4 Stages of Process Maturity',
     excerpt:
-      'A look at the pragmatic architecture choices helping fast-growing teams move quickly without accumulating debt.',
+      'Moving processes online is step one. True transformation means getting to automated, integrated, and measurable operations.',
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80',
     accent: '#1053F3',
   },
   {
-    category: 'Security',
+    category: 'Cybersecurity',
     date: 'Apr 09, 2026',
     readTime: '5 min read',
-    title: 'Security First: Protecting Your Digital Workspace',
+    title: 'Incident Response Planning: Your Tabletop Checklist',
     excerpt:
-      'Your workspace is only as safe as its weakest setting. Practical hardening steps every business should ship by default.',
+      'When seconds count, preparation matters. A tested incident response plan can reduce breach costs by over 60%.',
     image: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80',
     accent: '#6b2cf5',
   },
   {
-    category: 'Web',
+    category: 'GRC',
     date: 'Mar 22, 2026',
     readTime: '4 min read',
-    title: 'Choosing Between Framer, Webflow and Shopify for Your Brand',
+    title: 'Data Governance in a Hybrid World: Where to Start',
     excerpt:
-      'Three great tools, three very different jobs. A clear framework for picking the one that fits your goals.',
+      'Data lives everywhere now, across cloud, on-prem, and endpoints. Here\'s a practical framework for governing what you can\'t always see.',
     image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80',
     accent: '#007dc1',
   },
 ];
 
+const categoryIcons = {
+  Cybersecurity: Shield,
+  GRC: FileCheck,
+  Microsoft: Landmark,
+  'Digital Transformation': Settings,
+};
+
 function PostCard({ post, index }) {
+  const CatIcon = categoryIcons[post.category] || TrendingUp;
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -85,9 +93,10 @@ function PostCard({ post, index }) {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <span
-          className="absolute top-4 left-4 text-[11px] font-semibold uppercase tracking-[0.14em] px-3 py-1 rounded-full text-white"
+          className="absolute top-4 left-4 text-[11px] font-semibold uppercase tracking-[0.14em] px-3 py-1 rounded-full text-white flex items-center gap-1.5"
           style={{ backgroundColor: post.accent }}
         >
+          <CatIcon className="w-3 h-3" />
           {post.category}
         </span>
       </div>
@@ -112,7 +121,7 @@ function PostCard({ post, index }) {
   );
 }
 
-export default function BlogPage({ onHome }) {
+export default function InsightsPage({ onHome }) {
   const [featured, ...rest] = posts;
 
   return (
@@ -131,13 +140,13 @@ export default function BlogPage({ onHome }) {
             <ArrowLeft className="w-4 h-4" /> Back to home
           </button>
           <p className="text-xs uppercase tracking-[0.3em] font-medium mb-3" style={{ color: '#7fa8ff' }}>
-            Blog
+            Insights
           </p>
           <h1 className="text-4xl lg:text-[2.8rem] font-light leading-tight text-white">
-            Insights, ideas &amp; <span className="font-medium">updates</span>
+            Cybersecurity. Compliance. Microsoft. <span className="font-medium">Digital business.</span>
           </h1>
           <p className="text-white/70 mt-4 max-w-xl leading-relaxed">
-            Practical perspectives on cloud, automation, design and the technology shaping modern, digital-first businesses.
+            Practical perspectives on cybersecurity risk, GRC compliance, Microsoft enablement, and digital transformation, connecting technology decisions to business outcomes.
           </p>
         </div>
       </header>

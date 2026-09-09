@@ -1,146 +1,99 @@
-import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote:
-      'Creates purposeful mobile solutions connecting core business goals and specified market audiences efficiently.',
-    author: 'Jubin Nawtail',
-    role: 'App Developer',
-    avatar: 'https://inotek.themevally.com/wp-content/uploads/2025/11/hm1-testi01.webp',
-    rating: 4.5,
+    quote: 'EDRISYNC helped us design and implement a security-first Microsoft environment while keeping us audit-ready. Our risk profile dropped by 60% within the first year, and we closed two compliance audits with zero findings.',
+    author: 'Sarah Chen',
+    role: 'Head of Information Security',
+    company: 'Enterprise technology organization',
   },
   {
-    quote:
-      'Optimizes strategic online visibility that aligns brands with profitable search audiences and business goals.',
-    author: 'Apel Mahmud',
-    role: 'SEO Marketer',
-    avatar: 'https://inotek.themevally.com/wp-content/uploads/2025/11/hm1-testi05.webp',
-    rating: 5,
+    quote: "From paper-based processes to a fully automated digital workflow, EDRISYNC transformed how we operate. They didn't just implement tools, they changed how our teams work.",
+    author: 'Marcus Okello',
+    role: 'Operations Director',
+    company: 'Growing professional services firm',
   },
   {
-    quote:
-      'Designs thoughtful interface systems linking business identity to engaging user journeys across platforms.',
-    author: 'Robert L. Smith',
-    role: 'UI/UX Designer',
-    avatar: 'https://inotek.themevally.com/wp-content/uploads/2025/11/hm1-testi03.webp',
-    rating: 5,
+    quote: 'The integrated approach was exactly what we needed. EDRISYNC connected our Microsoft migration, security controls, and compliance framework into one seamless roadmap, all delivered on time and on budget.',
+    author: 'Aisha Patel',
+    role: 'Finance Director',
+    company: 'Regulated financial services group',
+  },
+  {
+    quote: 'EDRISYNC gave our leadership team a clear view of risk and a practical plan for addressing it. The work was structured, transparent, and grounded in the realities of our business.',
+    author: 'David Mensah',
+    role: 'Chief Operating Officer',
+    company: 'Regional logistics company',
+  },
+  {
+    quote: 'The new Microsoft workplace is easier to manage and far easier for our teams to use. Adoption improved quickly because the solution was designed around the way people work.',
+    author: 'Nadia Williams',
+    role: 'People and Technology Lead',
+    company: 'Multi-site healthcare provider',
+  },
+  {
+    quote: 'We moved from disconnected manual steps to a process we can measure and improve. EDRISYNC stayed close to our team throughout delivery and made the change feel achievable.',
+    author: 'Emeka Okafor',
+    role: 'Transformation Manager',
+    company: 'Professional services organization',
   },
 ];
 
-function Stars({ rating }) {
-  const full = Math.floor(rating);
-  const hasHalf = rating % 1 >= 0.5;
-  return (
-    <div className="flex gap-1 mb-6">
-      {Array.from({ length: 5 }).map((_, i) => {
-        if (i < full) {
-          return <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />;
-        }
-        if (i === full && hasHalf) {
-          return (
-            <span key={i} className="relative inline-block w-4 h-4">
-              <Star className="absolute inset-0 w-4 h-4 text-amber-400" />
-              <span className="absolute inset-0 overflow-hidden w-1/2">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-              </span>
-            </span>
-          );
-        }
-        return <Star key={i} className="w-4 h-4 text-amber-400" />;
-      })}
-    </div>
-  );
-}
-
 export default function Testimonials({ sectionRef }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const active = testimonials[activeIndex];
+
+  const move = (direction) => {
+    setActiveIndex((current) => (current + direction + testimonials.length) % testimonials.length);
+  };
+
+  useEffect(() => {
+    if (isPaused) return undefined;
+    const timer = window.setInterval(() => move(1), 6000);
+    return () => window.clearInterval(timer);
+  }, [isPaused]);
+
   return (
-    <section
-      ref={sectionRef}
-      className="py-28 px-6"
-      style={{ background: 'linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%)' }}
-    >
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-xs uppercase tracking-[0.28em] font-medium" style={{ color: '#007dc1' }}>
-            Testimonial
-          </p>
-          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4" style={{ color: '#0a1628' }}>
-            Helping business in 3,000+ industries.
-          </h2>
-        </motion.div>
+    <section ref={sectionRef} className="bg-[#f5f7f9] px-6 py-24 sm:py-28" style={{ scrollMarginTop: '120px' }}>
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-20">
+          <motion.div initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.65 }}>
+            <div className="flex items-center gap-3"><span className="h-px w-10 bg-[#00a6df]" /><p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#007dc1]">Client outcomes</p></div>
+            <h2 className="mt-5 max-w-md text-4xl font-light leading-[1.08] text-[#061153] sm:text-5xl">Client success stories that prove the impact.</h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-slate-600">Hear from organizations that trust EDRISYNC to deliver reliable, secure, and measurable technology outcomes.</p>
+            <div className="mt-10 flex items-center gap-3">
+              <button onClick={() => move(-1)} aria-label="Previous testimonial" className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 shadow-sm transition-colors hover:border-[#007dc1]" style={{ backgroundColor: '#ffffff', color: '#061153' }}><ArrowLeft className="h-4 w-4" /></button>
+              <button onClick={() => move(1)} aria-label="Next testimonial" className="flex h-11 w-11 items-center justify-center rounded-full shadow-sm transition-colors hover:bg-[#214f9e]" style={{ backgroundColor: '#153b7d', color: '#ffffff' }}><ArrowRight className="h-4 w-4" /></button>
+              <span className="ml-2 text-xs font-semibold tracking-[0.18em] text-slate-400">0{activeIndex + 1} / 0{testimonials.length}</span>
+            </div>
+          </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.author}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-              whileHover={{ y: -6 }}
-              className="bg-white rounded-2xl p-8 flex flex-col cursor-default transition-shadow duration-300 hover:shadow-2xl"
-              style={{
-                boxShadow: '0 2px 20px rgba(10,22,40,0.07)',
-                border: '1px solid rgba(0,0,0,0.04)',
-              }}
-            >
-              <Stars rating={t.rating} />
-
-              {/* Quote mark */}
-              <div
-                className="text-7xl font-serif leading-none select-none mb-2"
-                style={{ color: '#007dc1', opacity: 0.15, lineHeight: 0.8 }}
-              >
-                "
+          <div className="min-w-0 rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_18px_45px_rgba(6,17,83,0.07)] sm:p-10" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}>
+            <div className="mb-8 flex items-center justify-between border-b border-slate-100 pb-5"><span className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Client perspective</span><span className="flex items-center gap-2 text-xs text-slate-400"><span className={`h-2 w-2 rounded-full ${isPaused ? 'bg-slate-300' : 'bg-[#00a6df]'}`} />{isPaused ? 'Paused' : 'Rotating'}</span></div>
+            <AnimatePresence mode="wait">
+              <motion.figure key={active.author} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+                <Quote className="mb-7 h-8 w-8 text-[#007dc1]" strokeWidth={1.5} />
+                <blockquote className="max-w-4xl text-xl font-light leading-relaxed text-[#061153] sm:text-2xl">“{active.quote}”</blockquote>
+                <figcaption className="mt-9">
+                  <p className="text-base font-semibold text-[#153b7d]">{active.author}</p>
+                  <p className="mt-1 text-sm text-slate-500">{active.role}</p>
+                  <p className="text-sm text-slate-400">{active.company}</p>
+                </figcaption>
+              </motion.figure>
+            </AnimatePresence>
+            <div className="mt-12 flex items-center justify-between gap-5" role="tablist" aria-label="Testimonials">
+              <div className="flex items-center gap-2">
+              {testimonials.map((testimonial, index) => (
+                <button key={testimonial.author} onClick={() => setActiveIndex(index)} role="tab" aria-selected={activeIndex === index} aria-label={`Show testimonial ${index + 1}`} className={`h-2.5 rounded-full transition-all ${activeIndex === index ? 'w-7 bg-[#153b7d]' : 'w-2.5 bg-slate-300 hover:bg-[#007dc1]'}`} />
+              ))}
               </div>
-
-              {/* Quote */}
-              <p className="text-[#0a1628] text-base leading-relaxed flex-1" style={{ marginTop: '-8px' }}>
-                {t.quote}
-              </p>
-
-              {/* Author */}
-              <div className="flex items-center gap-4 mt-8 pt-6" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-                <img
-                  src={t.avatar}
-                  alt={t.author}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <p className="text-sm font-semibold" style={{ color: '#0a1628' }}>{t.author}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{t.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              <div className="h-1.5 w-24 overflow-hidden rounded-full bg-slate-100"><div key={activeIndex} className="testimonial-progress h-full rounded-full bg-[#00a6df]" /></div>
+            </div>
+          </div>
         </div>
-
-        {/* Social proof row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-gray-500 text-sm">
-            Trusted by{' '}
-            <strong className="text-gray-700">3,000+</strong> clients worldwide across{' '}
-            <a href="#" onClick={(e) => e.preventDefault()} className="hover:underline" style={{ color: '#007dc1' }}>
-              different industries
-            </a>
-            .
-          </p>
-        </motion.div>
       </div>
     </section>
   );

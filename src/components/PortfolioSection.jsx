@@ -1,127 +1,115 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Code2, FileCheck, Landmark, Settings } from 'lucide-react';
 
-const projects = [
+export const projects = [
   {
-    title: 'Webx – Website Development',
-    category: 'DEVELOPMENT',
-    desc: 'A modern, high-performance website build delivered for Theme-Vally, showcasing clean architecture and conversion-focused design.',
+    title: 'Secure Cloud Migration',
+    category: 'Cybersecurity',
+    desc: 'A secure migration from legacy infrastructure to Microsoft Azure with Defender for Cloud coverage and no security incidents after launch.',
     image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm2-img01.webp',
-    link: '#',
+    tags: ['Azure', 'Security', 'Microsoft'],
+    year: '2025',
+    icon: Code2,
+    accent: '#1053f3',
   },
   {
-    title: 'Care – 3D Beauty Mockup',
-    category: 'BUSINESS',
-    desc: 'A creative 3D beauty mockup concept crafted to bring a brand’s product story to life with realistic, eye-catching detail.',
+    title: 'GRC Framework Implementation',
+    category: 'GRC & Compliance',
+    desc: 'An IT governance and risk framework aligned with ISO 27001 and local regulatory requirements, delivered in six months.',
     image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm2-img02.webp',
-    link: '#',
+    tags: ['ISO 27001', 'Risk management', 'Audit'],
+    year: '2025',
+    icon: FileCheck,
+    accent: '#007dc1',
   },
   {
-    title: 'Booky – Book Cover Design',
-    category: 'DESIGNING',
-    desc: 'An editorial book cover design blending typography and visual narrative for a polished, market-ready publishing asset.',
+    title: 'Microsoft 365 & Defender Deployment',
+    category: 'Microsoft Enablement',
+    desc: 'A secure Microsoft 365 environment with Defender XDR and Conditional Access, reducing incident response from hours to minutes.',
     image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm3-img03.webp',
-    link: '#',
+    tags: ['M365', 'Defender', 'Identity'],
+    year: '2024',
+    icon: Landmark,
+    accent: '#214f9e',
   },
   {
-    title: 'Pack – Coffee Mug Design',
-    category: 'DEVELOPMENT',
-    desc: 'A branded coffee mug packaging concept developed to extend a creative agency’s identity into physical merchandise.',
+    title: 'Process Automation Transformation',
+    category: 'Digital Transformation',
+    desc: 'Procurement and HR workflows automated with Power Platform, cutting processing time by 70% and removing paper bottlenecks.',
     image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm3-img04.webp',
-    link: '#',
+    tags: ['Automation', 'Power Platform', 'Process'],
+    year: '2024',
+    icon: Settings,
+    accent: '#0b7189',
+  },
+  {
+    title: 'Identity & Access Modernization',
+    category: 'Cybersecurity',
+    desc: 'A practical identity program that simplified access, strengthened authentication, and gave leadership a clearer view of risk.',
+    tags: ['Identity', 'Zero Trust', 'Access'],
+    year: '2024',
+    icon: Code2,
+    accent: '#153b7d',
+    visual: true,
   },
 ];
 
-export default function PortfolioSection() {
+function ProjectMeta({ project }) {
+  const Icon = project.icon;
   return (
-    <section className="relative py-28 px-6 overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      <div className="relative max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-xs uppercase tracking-[0.28em] font-medium" style={{ color: '#B1B6CE' }}>
-            Projects
-          </p>
-          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4" style={{ color: '#061153', fontFamily: 'var(--font-family-heading)' }}>
-            We've successfully completed
-            <br />
-            <span className="font-medium">creative projects</span>
-          </h2>
+    <div className="flex items-center justify-between gap-4 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: project.accent }}>
+      <span className="flex items-center gap-2"><Icon className="h-3.5 w-3.5" /> {project.category}</span>
+      <span className="text-slate-400">{project.year}</span>
+    </div>
+  );
+}
+
+function ProjectTags({ project }) {
+  return <div className="flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-medium text-slate-500">{tag}</span>)}</div>;
+}
+
+function ProjectVisual({ project, className }) {
+  const Icon = project.icon;
+  return project.image ? (
+    <div className={className}><img src={project.image} alt={project.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /></div>
+  ) : (
+    <div className={`${className} flex items-center justify-center bg-[#102b63]`}>
+      <div className="w-full max-w-[210px] rounded-xl border border-white/20 bg-white/10 p-5 text-white backdrop-blur-sm">
+        <div className="flex items-center justify-between"><Icon className="h-5 w-5 text-[#8bd3ff]" /><span className="text-[10px] uppercase tracking-[0.16em] text-white/55">Impact</span></div>
+        <div className="mt-8 text-4xl font-light">3x</div>
+        <p className="mt-1 text-xs text-white/65">clearer access visibility</p>
+        <div className="mt-5 h-1.5 rounded-full bg-white/15"><div className="h-full w-[78%] rounded-full bg-[#68c5ff]" /></div>
+      </div>
+    </div>
+  );
+}
+
+export default function PortfolioSection({ sectionRef, onViewMore }) {
+  const [featured] = projects;
+
+  return (
+    <section ref={sectionRef} className="relative bg-[#f4f6f8] px-5 py-24 sm:px-6 sm:py-28" style={{ scrollMarginTop: '120px' }}>
+      <div className="mx-auto max-w-7xl">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }} className="mb-14 flex flex-col gap-7 border-b border-slate-200 pb-10 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#007dc1]">Case studies</p>
+            <h2 className="mt-4 text-4xl font-light leading-[1.08] text-[#061153] sm:text-5xl">Work that makes the difference visible.</h2>
+          </div>
+          <p className="max-w-sm text-sm leading-relaxed text-slate-600">A selection of security, governance, Microsoft, and transformation programs delivered for organizations ready to operate with more confidence.</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
-          {projects.map((project, i) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              whileHover={{ y: -8 }}
-              className="group cursor-pointer"
-            >
-              <div className="relative rounded-2xl overflow-hidden mb-5" style={{ boxShadow: '0 8px 32px rgba(6,17,83,0.08)' }}>
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500"
-                  draggable={false}
-                />
-                {/* Overlay */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
-                  style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(6,17,83,0.85))' }}
-                >
-                  <span className="text-white text-xs font-semibold uppercase tracking-[0.15em] flex items-center gap-1.5">
-                    View Case Study
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
+        <div className="grid gap-6">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.65 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(6,17,83,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(6,17,83,0.12)]">
+            <div className="relative h-72 overflow-hidden sm:h-96"><img src={featured.image} alt={featured.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /><div className="absolute bottom-5 left-5 rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#061153]">Featured project</div></div>
+            <div className="p-7 sm:p-9"><ProjectMeta project={featured} /><h3 className="mt-5 text-3xl font-light leading-tight text-[#061153]">{featured.title}</h3><p className="mt-4 max-w-xl leading-relaxed text-slate-600">{featured.desc}</p><div className="mt-6"><ProjectTags project={featured} /></div></div>
+          </motion.div>
 
-              <div className="text-xs uppercase tracking-[0.15em] mb-2 font-medium" style={{ color: '#007dc1' }}>
-                {project.category}
-              </div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: '#061153' }}>
-                {project.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                {project.desc}
-              </p>
-              <a
-                href={project.link}
-                onClick={(e) => e.preventDefault()}
-                className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
-                style={{ color: '#B1B6CE' }}
-              >
-                Read more
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 duration-200" />
-              </a>
-            </motion.div>
-          ))}
+          <div className="flex justify-center border-t border-slate-200 pt-10">
+            <button onClick={onViewMore} className="relative flex min-h-[52px] items-center gap-3 rounded-xl px-8 py-4 text-sm font-semibold shadow-xl transition-all duration-200 hover:bg-[#9ca3b8] hover:shadow-2xl" style={{ backgroundColor: '#B1B6CE', color: '#061153' }}>
+              View more <ArrowUpRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-center mt-16"
-        >
-          <button
-            className="flex items-center gap-2 bg-white rounded-xl px-8 py-4 font-semibold text-sm transition-all duration-200 min-h-[52px] shadow-xl hover:shadow-2xl"
-            style={{ color: '#061153', backgroundColor: '#B1B6CE' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#9ca3b8')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B1B6CE')}
-          >
-            View All Projects
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </motion.div>
       </div>
     </section>
   );

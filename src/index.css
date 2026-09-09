@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+:root {
   --color-edri-navy: #061153;
   --color-edri-dark: #061153;
   --color-edri-light-gray: #B1B6CE;
@@ -8,6 +8,7 @@
 
   --font-family-sans: "Inter", system-ui, sans-serif;
   --font-family-heading: "Poppins", system-ui, sans-serif;
+  --edri-nav-blue: #153b7d;
 }
 
 *,
@@ -37,15 +38,10 @@ body {
   width: 100%;
 }
 
-/* Fixed top UI stays pinned to the viewport even if a horizontal scroll
-   ever appears, preventing the announcement bar / navbar / dropdown from
-   shifting or overlapping content. */
-.announcement-fixed,
-.nav-fixed,
-.dropdown-fixed {
-  position: sticky !important;
-  top: var(--bar-top, 0);
-}
+/* The announcement bar and navbar are pinned to the viewport (position:
+   fixed set in JSX), so they stay visible while the page scrolls. This file
+   must NOT override that with sticky, or they would scroll away. Any offset
+   (top spacing) is handled inline in the components, not here. */
 
 /* Custom scrollbar for webkit */
 ::-webkit-scrollbar {
@@ -91,7 +87,7 @@ a {
   animation: gridPan 6s linear infinite;
 }
 
-/* CTA attention pulse — draws the eye to primary buttons */
+/* CTA attention pulse, drawing the eye to primary buttons */
 @keyframes ctaPulse {
   0% { transform: scale(1); opacity: 0.5; }
   70% { transform: scale(1.12); opacity: 0; }
@@ -101,39 +97,47 @@ a {
   animation: ctaPulse 2s ease-out infinite;
 }
 
-/* Services section — mobile: stack image on top, text below (desktop untouched) */
-@media (max-width: 768px) {
-  .service-hero {
-    padding: 100px 20px 36px !important;
-  }
-  .service-section-inner {
-    padding: 0 20px 80px !important;
-  }
-  .service-card-wrap {
-    position: static !important;
-    top: auto !important;
-    z-index: auto !important;
-    margin-bottom: 20px !important;
-  }
-  .service-card-inner {
-    flex-direction: column !important;
-    min-height: auto !important;
-  }
-  .service-card-img {
-    width: 100% !important;
-    height: 220px !important;
-  }
-  .service-card-img img {
-    height: 100% !important;
-  }
-  .service-card-content {
-    width: 100% !important;
-    padding: 28px !important;
-  }
-}
-
 /* Image drag prevention */
 img {
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* Keep service cards aligned while removing decorative step labels. */
+.service-experience article > div:first-child > span:first-child {
+  visibility: hidden;
+}
+
+.service-experience article > span:first-child {
+  display: none;
+}
+
+.learn-more-arrow {
+  display: inline-block;
+  animation: learnMoreArrow 1.6s ease-in-out infinite;
+  transition: transform 220ms ease;
+}
+
+.testimonial-progress {
+  animation: testimonialProgress 6s linear forwards;
+}
+
+@keyframes testimonialProgress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes learnMoreArrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+.service-card:hover .learn-more-arrow,
+.service-card:focus-visible .learn-more-arrow,
+.service-card:focus-within .learn-more-arrow {
+  transform: translateX(8px);
+}
+
+.service-experience article > div:first-child > span:first-child + svg {
+  margin-left: auto;
 }

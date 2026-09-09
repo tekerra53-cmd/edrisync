@@ -1,6 +1,5 @@
-import { lazy, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import AnnouncementBar from './components/AnnouncementBar';
 import Preloader from './components/Preloader';
 import PillNavbar from './components/PillNavbar';
 import HeroSection from './components/HeroSection';
@@ -14,12 +13,17 @@ import Footer from './components/Footer';
 import VisionSection from './components/VisionSection';
 import ApproachSection from './components/ApproachSection';
 import AboutSection from './components/AboutSection';
+import IndustriesSection from './components/IndustriesSection';
 import PortfolioSection from './components/PortfolioSection';
-const BlogPage = lazy(() => import('./components/BlogPage'));
 const AboutPage = lazy(() => import('./components/AboutPage'));
+const ServicesPage = lazy(() => import('./components/ServicesPage'));
+const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
+const InsightsPage = lazy(() => import('./components/InsightsPage'));
+const CaseStudiesPage = lazy(() => import('./components/CaseStudiesPage'));
 
 export default function App() {
-  const [view, setView] = useState<'home' | 'blog' | 'about'>('home');
+  const [view, setView] = useState<'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies'>('home');
+  const [selectedService, setSelectedService] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const pendingScroll = useRef<any>(null);
 
@@ -32,6 +36,7 @@ export default function App() {
   const aboutRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLElement>(null);
   const whyRef = useRef<HTMLElement>(null);
+  const industriesRef = useRef<HTMLElement>(null);
   const testimonialsRef = useRef<HTMLElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
   const portfolioRef = useRef<HTMLElement>(null);
@@ -50,7 +55,29 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Scroll to a home section. If we're on the blog view, switch back to
+  const goServices = () => {
+    setSelectedService(null);
+    setView('services');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goServiceDetail = (service?: string) => {
+    setSelectedService(service || null);
+    setView('serviceDetail');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goInsights = () => {
+    setView('insights');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goCaseStudies = () => {
+    setView('caseStudies');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Scroll to a home section. If we're on a page view, switch back to
   // home first, then scroll once the home sections have mounted.
   const goSection = (ref?: any) => {
     if (view === 'home') {
@@ -61,8 +88,6 @@ export default function App() {
     }
   };
 
-  const goBlog = () => setView('blog');
-
   useEffect(() => {
     if (view === 'home' && pendingScroll.current) {
       const ref = pendingScroll.current;
@@ -71,18 +96,22 @@ export default function App() {
     }
   }, [view]);
 
-  const refs = {
+     const refs = {
     home: homeRef,
     about: aboutRef,
     services: servicesRef,
+    industries: industriesRef,
     why: whyRef,
     testimonials: testimonialsRef,
     cta: ctaRef,
     portfolio: portfolioRef,
     goHome,
     goSection,
-    goBlog,
+    goInsights,
+    goCaseStudies,
     goAbout,
+    goServices,
+    goServiceDetail,
     view,
   };
 
@@ -91,8 +120,6 @@ export default function App() {
       {/* Initial loading screen */}
       <AnimatePresence>{loading && <Preloader />}</AnimatePresence>
 
-      {/* Fixed top UI */}
-      <AnnouncementBar />
       <PillNavbar refs={refs} />
 
       {/* Page sections */}
@@ -104,21 +131,28 @@ export default function App() {
             <VisionSection />
             <ApproachSection />
             <AboutSection sectionRef={aboutRef} onAbout={goAbout} />
-            <ServicesSection sectionRef={servicesRef} />
-            <PortfolioSection sectionRef={portfolioRef} />
-            <WhyEdrisync sectionRef={whyRef} />
+            <ServicesSection sectionRef={servicesRef} onServices={goServices} onServiceDetail={goServiceDetail} />
+            <IndustriesSection sectionRef={industriesRef} />
+            <PortfolioSection sectionRef={portfolioRef} onViewMore={goCaseStudies} />
+            <WhyEdrisync sectionRef={whyRef} refs={refs} />
             <StatsBar />
             <Testimonials sectionRef={testimonialsRef} />
             <CTASection sectionRef={ctaRef} />
           </>
-        ) : view === 'blog' ? (
-          <Suspense fallback={null}><BlogPage onHome={goHome} /></Suspense>
-        ) : (
+        ) : view === 'services' ? (
+          <Suspense fallback={null}><ServicesPage onHome={goHome} /></Suspense>
+        ) : view === 'serviceDetail' ? (
+          <Suspense fallback={null}><ServiceDetailPage serviceKey={selectedService} onHome={goHome} onServices={goServices} /></Suspense>
+        ) : view === 'insights' ? (
+          <Suspense fallback={null}><InsightsPage onHome={goHome} /></Suspense>
+         ) : view === 'about' ? (
           <Suspense fallback={null}><AboutPage onHome={goHome} /></Suspense>
-        )}
+        ) : view === 'caseStudies' ? (
+          <Suspense fallback={null}><CaseStudiesPage onHome={goHome} /></Suspense>
+        ) : null}
       </main>
 
-      <Footer />
+      <Footer refs={refs} />
     </div>
   );
 }
