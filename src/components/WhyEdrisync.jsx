@@ -40,7 +40,7 @@ export default function WhyEdrisync({ sectionRef, refs }) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(40% 40% at 90% 10%, rgba(0,125,193,0.06) 0, transparent 70%), radial-gradient(40% 40% at 0% 90%, rgba(16,83,243,0.05) 0, transparent 70%)',
+            'radial-gradient(40% 40% at 90% 10%, rgba(49,93,209,0.07) 0, transparent 70%), radial-gradient(40% 40% at 0% 90%, rgba(95,153,255,0.05) 0, transparent 70%)',
         }}
       />
 
@@ -68,7 +68,7 @@ export default function WhyEdrisync({ sectionRef, refs }) {
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(180deg, transparent 55%, rgba(6,17,83,0.35) 100%)',
+                'linear-gradient(180deg, transparent 55%, rgba(4,7,32,0.35) 100%)',
             }}
           />
 
@@ -84,13 +84,13 @@ export default function WhyEdrisync({ sectionRef, refs }) {
             <div className="flex items-center gap-3">
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center"
-                style={{ background: 'linear-gradient(140deg, #007dc1, #1053F3)' }}
+                style={{ background: 'linear-gradient(140deg, #10245f, #2857b8)' }}
               >
                 <ShieldCheck className="w-5 h-5 text-white" />
               </div>
               <div>
                 <p className="text-xs text-gray-400 font-medium">System uptime</p>
-                <p className="text-xl font-bold" style={{ color: '#0a1628' }}>99.97%</p>
+                <p className="text-xl font-bold" style={{ color: '#040720' }}>99.97%</p>
               </div>
               <div className="ml-2 flex items-center gap-1.5">
                 <span className="relative flex h-2.5 w-2.5">
@@ -118,18 +118,18 @@ export default function WhyEdrisync({ sectionRef, refs }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="h-[2px] w-10 rounded-full origin-left"
-              style={{ background: 'linear-gradient(90deg, #007dc1, #1053F3)' }}
+              style={{ background: 'linear-gradient(90deg, #10245f, #2857b8)' }}
             />
-            <p className="text-xs uppercase tracking-[0.3em] font-semibold" style={{ color: '#007dc1' }}>
+            <p className="text-xs uppercase tracking-[0.3em] font-semibold" style={{ color: '#087fd1' }}>
               Why EdriSync
             </p>
           </div>
 
-          <h2 className="text-4xl lg:text-[2.7rem] font-light mt-5 leading-[1.12]" style={{ color: '#0a1628' }}>
+          <h2 className="text-4xl lg:text-[2.7rem] font-light mt-5 leading-[1.12]" style={{ color: '#040720' }}>
             Cybersecurity, compliance, and digital
             <span
               style={{
-                backgroundImage: 'linear-gradient(100deg, #007dc1, #1053F3)',
+                backgroundImage: 'linear-gradient(100deg, #315db9, #90a0c9)',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -154,38 +154,38 @@ export default function WhyEdrisync({ sectionRef, refs }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.55, delay: 0.15 + i * 0.12, ease: [0.25, 0.1, 0.25, 1] }}
-                  whileHover={{ y: -4 }}
-                  className="group relative flex gap-5 rounded-2xl p-5 transition-all duration-300 cursor-default"
+                  whileHover={{ y: -5 }}
+                  className="group relative flex gap-5 overflow-hidden rounded-2xl p-5 transition-all duration-300 cursor-default"
                   style={{
                     background: '#ffffff',
-                    border: '1px solid rgba(10,22,40,0.07)',
-                    boxShadow: '0 1px 2px rgba(10,22,40,0.04)',
+                    border: '1px solid rgba(18,39,92,0.09)',
+                    boxShadow: '0 6px 20px rgba(18,39,92,0.05)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 18px 40px rgba(16,83,243,0.14)';
-                    e.currentTarget.style.borderColor = 'rgba(16,83,243,0.25)';
+                    e.currentTarget.style.background = 'linear-gradient(120deg, #ffffff 0%, #f0f5ff 100%)';
+                    e.currentTarget.style.boxShadow = '0 18px 38px rgba(18,39,92,0.12)';
+                    e.currentTarget.style.borderColor = 'rgba(40,87,184,0.24)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 1px 2px rgba(10,22,40,0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(10,22,40,0.07)';
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(18,39,92,0.05)';
+                    e.currentTarget.style.borderColor = 'rgba(18,39,92,0.09)';
                   }}
                 >
-                  {/* Animated top accent on hover */}
                   <span
-                    className="absolute top-0 left-5 right-5 h-[2px] rounded-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"
-                    style={{ background: 'linear-gradient(90deg, #007dc1, #1053F3)' }}
+                    className="absolute bottom-5 left-0 top-5 w-1 origin-bottom scale-y-0 rounded-r-full transition-transform duration-300 ease-out group-hover:scale-y-100"
+                    style={{ background: 'linear-gradient(180deg, #2857b8, #79a7ff)' }}
                   />
                   <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-colors duration-300 group-hover:text-white"
-                    style={{ background: 'rgba(0,125,193,0.10)', color: '#007dc1' }}
+                    className="relative z-10 mt-0.5 flex w-11 shrink-0 items-center justify-center rounded-xl border border-[#2857b8]/10 bg-[#edf3ff] text-[#2857b8] transition-all duration-300 group-hover:scale-105 group-hover:border-[#2857b8]/20 group-hover:bg-[#10245f] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#2857b8]/20"
                   >
                     <Icon className="w-5 h-5" />
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-base" style={{ color: '#0a1628' }}>
+                  <div className="relative z-10">
+                    <h4 className="text-base font-semibold text-[#040720] transition-colors duration-300 group-hover:text-[#0a1a68]">
                       {feature.title}
                     </h4>
-                    <p className="text-gray-600 text-sm mt-1.5 leading-relaxed">{feature.desc}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-[#42536f]">{feature.desc}</p>
                   </div>
                 </motion.div>
               );

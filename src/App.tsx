@@ -7,7 +7,6 @@ import ClientLogos from './components/ClientLogos';
 import ServicesSection from './components/ServicesSection';
 import WhyEdrisync from './components/WhyEdrisync';
 import Testimonials from './components/Testimonials';
-import StatsBar from './components/StatsBar';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import VisionSection from './components/VisionSection';
@@ -113,6 +112,7 @@ export default function App() {
     goServices,
     goServiceDetail,
     view,
+    selectedService,
   };
 
   return (
@@ -135,7 +135,6 @@ export default function App() {
             <IndustriesSection sectionRef={industriesRef} />
             <PortfolioSection sectionRef={portfolioRef} onViewMore={goCaseStudies} />
             <WhyEdrisync sectionRef={whyRef} refs={refs} />
-            <StatsBar />
             <Testimonials sectionRef={testimonialsRef} />
             <CTASection sectionRef={ctaRef} />
           </>

@@ -8,12 +8,12 @@ export default function Preloader() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: 'easeInOut' }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #061153 0%, #0a1640 55%, #061153 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #040720 0%, #040720 55%, #040720 100%)' }}
     >
       {/* Pulsing glow behind the logo */}
       <motion.div
         className="absolute w-72 h-72 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(16,83,243,0.30), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(177,182,206,0.30), transparent 70%)' }}
         animate={{ scale: [1, 1.25, 1], opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -49,7 +49,7 @@ export default function Preloader() {
         >
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, #007dc1, #1053F3)' }}
+            style={{ background: 'linear-gradient(90deg, #B1B6CE, #B1B6CE)' }}
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
             transition={{ duration: 1.6, ease: 'easeInOut' }}

@@ -7,7 +7,6 @@ import ServicesSection from '../components/ServicesSection';
 import IndustriesSection from '../components/IndustriesSection';
 import PortfolioSection from '../components/PortfolioSection';
 import WhyEdrisync from '../components/WhyEdrisync';
-import StatsBar from '../components/StatsBar';
 import Testimonials from '../components/Testimonials';
 import CTASection from '../components/CTASection';
 
@@ -27,7 +26,6 @@ export default function HomePage({ refs }: HomePageProps) {
       <IndustriesSection sectionRef={refs.industries} />
       <PortfolioSection sectionRef={refs.portfolio} onViewMore={refs.goCaseStudies} />
       <WhyEdrisync sectionRef={refs.why} refs={refs} />
-      <StatsBar />
       <Testimonials sectionRef={refs.testimonials} />
       <CTASection sectionRef={refs.cta} />
     </>

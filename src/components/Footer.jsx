@@ -41,7 +41,7 @@ export default function Footer({ refs }) {
 
   return (
     <footer className="relative overflow-hidden bg-[var(--edri-nav-blue)] px-6 pb-8 pt-16 text-slate-300">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7fd0ff] to-transparent opacity-80" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#B1B6CE] to-transparent opacity-80" />
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -54,17 +54,17 @@ export default function Footer({ refs }) {
             <img src={LOGO_URL} alt="Edrisync" className="h-10 w-auto" style={{ filter: 'brightness(0) invert(1)' }} draggable={false} />
             <p className="mt-6 max-w-sm text-[15px] leading-7 text-slate-300">Cybersecurity, governance, Microsoft enablement, and digital transformation for organizations ready to move with confidence.</p>
             <div className="mt-8 space-y-4 text-sm">
-              <a href="mailto:info@edrisync.com" className="group flex items-center gap-3 transition-colors hover:text-white"><Mail className="h-4 w-4 text-[#7fd0ff] transition-transform group-hover:-translate-y-0.5" /> info@edrisync.com</a>
-              <a href="tel:+980396980" className="group flex items-center gap-3 transition-colors hover:text-white"><Phone className="h-4 w-4 text-[#7fd0ff] transition-transform group-hover:-translate-y-0.5" /> +980 (396) 980</a>
-              <span className="flex items-center gap-3"><MapPin className="h-4 w-4 text-[#7fd0ff]" /> Lagos, Nigeria</span>
+              <a href="mailto:info@edrisync.com" className="group flex items-center gap-3 transition-colors hover:text-white"><Mail className="h-4 w-4 text-[#B1B6CE] transition-transform group-hover:-translate-y-0.5" /> info@edrisync.com</a>
+              <a href="tel:+980396980" className="group flex items-center gap-3 transition-colors hover:text-white"><Phone className="h-4 w-4 text-[#B1B6CE] transition-transform group-hover:-translate-y-0.5" /> +980 (396) 980</a>
+              <span className="flex items-center gap-3"><MapPin className="h-4 w-4 text-[#B1B6CE]" /> Lagos, Nigeria</span>
             </div>
             <div className="mt-9 flex items-center gap-2">
-              {socials.map(({ Icon, label, href }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-slate-300 transition-all hover:border-[#7fd0ff] hover:bg-[#7fd0ff] hover:text-[#061153]"><Icon className="h-4 w-4" /></a>)}
+              {socials.map(({ Icon, label, href }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-slate-300 transition-all hover:border-[#B1B6CE] hover:bg-[#B1B6CE] hover:text-[#040720]"><Icon className="h-4 w-4" /></a>)}
             </div>
           </div>
           {columns.map((column) => (
             <div key={column.title}>
-              <h3 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#7fd0ff]">{column.title}</h3>
+              <h3 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#B1B6CE]">{column.title}</h3>
               <ul className="mt-7 space-y-4">
                 {column.links.map((link) => <li key={link}><button type="button" onClick={() => navigate(link)} className="group flex items-center gap-2 text-left text-sm text-slate-300 transition-colors hover:text-white"><span>{link}</span><ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" /></button></li>)}
               </ul>
@@ -85,8 +85,8 @@ export default function Footer({ refs }) {
           </div>
           <form className="flex w-full max-w-xl gap-2" onSubmit={(event) => event.preventDefault()}>
             <label className="sr-only" htmlFor="footer-email">Email address</label>
-            <input id="footer-email" type="email" placeholder="your@company.com" className="min-w-0 flex-1 rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-[#7fd0ff] focus:ring-2 focus:ring-[#7fd0ff]/20" />
-            <button type="submit" className="flex items-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0069a8]" style={{ backgroundColor: '#007dc1' }}>Subscribe <ArrowUpRight className="h-4 w-4" /></button>
+            <input id="footer-email" type="email" placeholder="your@company.com" className="min-w-0 flex-1 rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-[#B1B6CE] focus:ring-2 focus:ring-[#B1B6CE]/20" />
+            <button type="submit" className="flex items-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#B1B6CE]" style={{ backgroundColor: '#B1B6CE' }}>Subscribe <ArrowUpRight className="h-4 w-4" /></button>
           </form>
         </motion.div>
 

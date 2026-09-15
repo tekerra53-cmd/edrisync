@@ -9,7 +9,7 @@ export default function AnnouncementBar({ onDismiss }) {
       exit={{ y: -40, opacity: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="announcement-fixed fixed top-0 left-0 right-0 z-[60] flex items-center justify-center text-center px-10 sm:px-12 py-2"
-      style={{ backgroundColor: '#061153' }}
+      style={{ backgroundColor: '#040720' }}
     >
       {/* Center content, wrapping cleanly on small screens */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-3 text-[11px] sm:text-sm text-white">

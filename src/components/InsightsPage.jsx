@@ -11,7 +11,7 @@ const posts = [
     excerpt:
       'Distributed workforces demand more than perimeter security. We break down how to design a zero-trust architecture that actually works for your Microsoft environment.',
     image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
-    accent: '#1053F3',
+    accent: '#B1B6CE',
   },
   {
     category: 'GRC',
@@ -21,7 +21,7 @@ const posts = [
     excerpt:
       'Audits don\'t have to be crisis events. A proactive GRC framework turns compliance into continuous practice.',
     image: 'https://images.unsplash.com/photo-1512758117926-5019c9d0b9b5?auto=format&fit=crop&w=800&q=80',
-    accent: '#6b2cf5',
+    accent: '#A8D5BA',
   },
   {
     category: 'Microsoft',
@@ -31,7 +31,7 @@ const posts = [
     excerpt:
       'Microsoft 365 delivers productivity, but only if you secure it properly. Practical hardening steps every tenant should ship by default.',
     image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80',
-    accent: '#007dc1',
+    accent: '#B1B6CE',
   },
   {
     category: 'Digital Transformation',
@@ -41,7 +41,7 @@ const posts = [
     excerpt:
       'Moving processes online is step one. True transformation means getting to automated, integrated, and measurable operations.',
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80',
-    accent: '#1053F3',
+    accent: '#B1B6CE',
   },
   {
     category: 'Cybersecurity',
@@ -51,7 +51,7 @@ const posts = [
     excerpt:
       'When seconds count, preparation matters. A tested incident response plan can reduce breach costs by over 60%.',
     image: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80',
-    accent: '#6b2cf5',
+    accent: '#A8D5BA',
   },
   {
     category: 'GRC',
@@ -61,7 +61,7 @@ const posts = [
     excerpt:
       'Data lives everywhere now, across cloud, on-prem, and endpoints. Here\'s a practical framework for governing what you can\'t always see.',
     image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80',
-    accent: '#007dc1',
+    accent: '#B1B6CE',
   },
 ];
 
@@ -82,9 +82,9 @@ function PostCard({ post, index }) {
       transition={{ duration: 0.55, delay: (index % 3) * 0.08 }}
       whileHover={{ y: -6 }}
       className="group relative bg-white rounded-2xl overflow-hidden cursor-pointer transition-shadow duration-300"
-      style={{ border: '1px solid rgba(6,17,83,0.07)', boxShadow: '0 8px 30px rgba(6,17,83,0.06)' }}
+      style={{ border: '1px solid rgba(4,7,32,0.07)', boxShadow: '0 8px 30px rgba(4,7,32,0.06)' }}
     >
-      <div className="relative h-48 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(16,83,243,0.12), rgba(0,125,193,0.12))' }}>
+      <div className="relative h-48 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(177,182,206,0.12), rgba(168,213,186,0.12))' }}>
         <img
           src={post.image}
           alt={post.title}
@@ -108,11 +108,11 @@ function PostCard({ post, index }) {
             <Clock className="w-3.5 h-3.5" /> {post.readTime}
           </span>
         </div>
-        <h3 className="text-lg font-bold leading-snug mb-2 group-hover:text-[#1053F3] transition-colors" style={{ color: '#0a1628' }}>
+        <h3 className="text-lg font-bold leading-snug mb-2 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#040720' }}>
           {post.title}
         </h3>
         <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
-        <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1053F3]">
+        <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#B1B6CE]">
           Read article
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
         </div>
@@ -125,12 +125,12 @@ export default function InsightsPage({ onHome }) {
   const [featured, ...rest] = posts;
 
   return (
-    <div style={{ backgroundColor: '#f8f9fa' }} className="min-h-screen">
+    <div style={{ backgroundColor: '#ffffff' }} className="min-h-screen">
       {/* Header */}
-      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#061153' }}>
+      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#040720' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
-          style={{ background: 'radial-gradient(circle at 20% 20%, rgba(16,83,243,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(0,125,193,0.35), transparent 45%)' }}
+          style={{ background: 'radial-gradient(circle at 20% 20%, rgba(177,182,206,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(168,213,186,0.35), transparent 45%)' }}
         />
         <div className="relative max-w-6xl mx-auto">
           <button
@@ -139,7 +139,7 @@ export default function InsightsPage({ onHome }) {
           >
             <ArrowLeft className="w-4 h-4" /> Back to home
           </button>
-          <p className="text-xs uppercase tracking-[0.3em] font-medium mb-3" style={{ color: '#7fa8ff' }}>
+          <p className="text-xs uppercase tracking-[0.3em] font-medium mb-3" style={{ color: '#B1B6CE' }}>
             Insights
           </p>
           <h1 className="text-4xl lg:text-[2.8rem] font-light leading-tight text-white">
@@ -160,9 +160,9 @@ export default function InsightsPage({ onHome }) {
           transition={{ duration: 0.6 }}
           whileHover={{ y: -6 }}
           className="group relative bg-white rounded-3xl overflow-hidden cursor-pointer grid grid-cols-1 lg:grid-cols-2 transition-shadow duration-300"
-          style={{ border: '1px solid rgba(6,17,83,0.07)', boxShadow: '0 12px 40px rgba(6,17,83,0.08)' }}
+          style={{ border: '1px solid rgba(4,7,32,0.07)', boxShadow: '0 12px 40px rgba(4,7,32,0.08)' }}
         >
-          <div className="relative h-64 lg:h-auto overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(16,83,243,0.12), rgba(0,125,193,0.12))' }}>
+          <div className="relative h-64 lg:h-auto overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(177,182,206,0.12), rgba(168,213,186,0.12))' }}>
             <img
               src={featured.image}
               alt={featured.title}
@@ -184,11 +184,11 @@ export default function InsightsPage({ onHome }) {
                 <Clock className="w-3.5 h-3.5" /> {featured.readTime}
               </span>
             </div>
-            <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#1053F3] transition-colors" style={{ color: '#0a1628' }}>
+            <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#040720' }}>
               {featured.title}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">{featured.excerpt}</p>
-            <div className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-[#1053F3]">
+            <div className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-[#B1B6CE]">
               Read article
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </div>

@@ -57,28 +57,28 @@ export default function Testimonials({ sectionRef }) {
   }, [isPaused]);
 
   return (
-    <section ref={sectionRef} className="bg-[#f5f7f9] px-6 py-24 sm:py-28" style={{ scrollMarginTop: '120px' }}>
+    <section ref={sectionRef} className="bg-[#ffffff] px-6 py-24 sm:py-28" style={{ scrollMarginTop: '120px' }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-20">
           <motion.div initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.65 }}>
-            <div className="flex items-center gap-3"><span className="h-px w-10 bg-[#00a6df]" /><p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#007dc1]">Client outcomes</p></div>
-            <h2 className="mt-5 max-w-md text-4xl font-light leading-[1.08] text-[#061153] sm:text-5xl">Client success stories that prove the impact.</h2>
+            <div className="flex items-center gap-3"><span className="h-px w-10 bg-[#087fd1]" /><p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#087fd1]">Client outcomes</p></div>
+            <h2 className="mt-5 max-w-md text-4xl font-light leading-[1.08] text-[#040720] sm:text-5xl">Client success stories that prove the impact.</h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-slate-600">Hear from organizations that trust EDRISYNC to deliver reliable, secure, and measurable technology outcomes.</p>
             <div className="mt-10 flex items-center gap-3">
-              <button onClick={() => move(-1)} aria-label="Previous testimonial" className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 shadow-sm transition-colors hover:border-[#007dc1]" style={{ backgroundColor: '#ffffff', color: '#061153' }}><ArrowLeft className="h-4 w-4" /></button>
-              <button onClick={() => move(1)} aria-label="Next testimonial" className="flex h-11 w-11 items-center justify-center rounded-full shadow-sm transition-colors hover:bg-[#214f9e]" style={{ backgroundColor: '#153b7d', color: '#ffffff' }}><ArrowRight className="h-4 w-4" /></button>
+              <button onClick={() => move(-1)} aria-label="Previous testimonial" className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 shadow-sm transition-colors hover:border-[#B1B6CE]" style={{ backgroundColor: '#ffffff', color: '#040720' }}><ArrowLeft className="h-4 w-4" /></button>
+              <button onClick={() => move(1)} aria-label="Next testimonial" className="flex h-11 w-11 items-center justify-center rounded-full shadow-sm transition-colors hover:bg-[#040720]" style={{ backgroundColor: '#040720', color: '#ffffff' }}><ArrowRight className="h-4 w-4" /></button>
               <span className="ml-2 text-xs font-semibold tracking-[0.18em] text-slate-400">0{activeIndex + 1} / 0{testimonials.length}</span>
             </div>
           </motion.div>
 
-          <div className="min-w-0 rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_18px_45px_rgba(6,17,83,0.07)] sm:p-10" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}>
-            <div className="mb-8 flex items-center justify-between border-b border-slate-100 pb-5"><span className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Client perspective</span><span className="flex items-center gap-2 text-xs text-slate-400"><span className={`h-2 w-2 rounded-full ${isPaused ? 'bg-slate-300' : 'bg-[#00a6df]'}`} />{isPaused ? 'Paused' : 'Rotating'}</span></div>
+          <div className="min-w-0 rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_18px_45px_rgba(4,7,32,0.07)] sm:p-10" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}>
+            <div className="mb-8 flex items-center justify-between border-b border-slate-100 pb-5"><span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#087fd1]">Client perspective</span><span className={`flex items-center gap-2 text-xs ${isPaused ? 'text-[#087fd1]' : 'text-slate-400'}`}><span className={`h-2 w-2 rounded-full ${isPaused ? 'bg-[#087fd1]' : 'bg-[#A8D5BA]'}`} />{isPaused ? 'Paused' : 'Rotating'}</span></div>
             <AnimatePresence mode="wait">
               <motion.figure key={active.author} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
-                <Quote className="mb-7 h-8 w-8 text-[#007dc1]" strokeWidth={1.5} />
-                <blockquote className="max-w-4xl text-xl font-light leading-relaxed text-[#061153] sm:text-2xl">“{active.quote}”</blockquote>
+                <Quote className="mb-7 h-8 w-8 text-[#B1B6CE]" strokeWidth={1.5} />
+                <blockquote className="max-w-4xl text-xl font-light leading-relaxed text-[#040720] sm:text-2xl">“{active.quote}”</blockquote>
                 <figcaption className="mt-9">
-                  <p className="text-base font-semibold text-[#153b7d]">{active.author}</p>
+                  <p className="text-base font-semibold text-[#040720]">{active.author}</p>
                   <p className="mt-1 text-sm text-slate-500">{active.role}</p>
                   <p className="text-sm text-slate-400">{active.company}</p>
                 </figcaption>
@@ -87,10 +87,10 @@ export default function Testimonials({ sectionRef }) {
             <div className="mt-12 flex items-center justify-between gap-5" role="tablist" aria-label="Testimonials">
               <div className="flex items-center gap-2">
               {testimonials.map((testimonial, index) => (
-                <button key={testimonial.author} onClick={() => setActiveIndex(index)} role="tab" aria-selected={activeIndex === index} aria-label={`Show testimonial ${index + 1}`} className={`h-2.5 rounded-full transition-all ${activeIndex === index ? 'w-7 bg-[#153b7d]' : 'w-2.5 bg-slate-300 hover:bg-[#007dc1]'}`} />
+                <button key={testimonial.author} onClick={() => setActiveIndex(index)} role="tab" aria-selected={activeIndex === index} aria-label={`Show testimonial ${index + 1}`} className={`h-2.5 rounded-full transition-all ${activeIndex === index ? 'w-7 bg-[#040720]' : 'w-2.5 bg-slate-300 hover:bg-[#B1B6CE]'}`} />
               ))}
               </div>
-              <div className="h-1.5 w-24 overflow-hidden rounded-full bg-slate-100"><div key={activeIndex} className="testimonial-progress h-full rounded-full bg-[#00a6df]" /></div>
+              <div className="h-1.5 w-24 overflow-hidden rounded-full bg-slate-100"><div key={activeIndex} className="testimonial-progress h-full rounded-full bg-[#A8D5BA]" /></div>
             </div>
           </div>
         </div>
