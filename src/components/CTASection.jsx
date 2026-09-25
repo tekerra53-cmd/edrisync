@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Calendar, Phone, ArrowRight, Send, Mail, User, MessageSquare, Building, ShieldCheck } from 'lucide-react';
+import { CheckCircle, Phone, ArrowRight, Send, Mail, User, MessageSquare, Building, ShieldCheck } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { isBusinessEmail, sanitizePhone, sanitizeText } from '../utils/security';
 
@@ -105,7 +105,7 @@ export default function CTASection({ sectionRef }) {
               <br />
               about your challenge.
             </h2>
-            <p className="text-[#B1B6CE] mt-5 text-base leading-relaxed max-w-md">
+            <p className="text-[#53647B] mt-5 text-base leading-relaxed max-w-md">
               Share your business problem and we'll put together a no-obligation conversation, connecting cybersecurity, GRC, Microsoft enablement, and digital transformation into one coordinated plan.
             </p>
           </motion.div>
@@ -117,15 +117,6 @@ export default function CTASection({ sectionRef }) {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="flex flex-col sm:flex-row gap-4 mt-9"
           >
-              <button
-                className="flex items-center justify-center gap-2 text-white rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-200 min-h-[52px]"
-                style={{ background: 'linear-gradient(135deg, #B1B6CE, #B1B6CE)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-              >
-                <Calendar className="w-4 h-4" />
-                Schedule assessment
-              </button>
               <a
                 href="tel:+15551234567"
                 className="flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-200 min-h-[52px]"
@@ -144,7 +135,7 @@ export default function CTASection({ sectionRef }) {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.25 }}
             className="flex flex-col gap-3 mt-9 text-sm"
-            style={{ color: '#B1B6CE' }}
+            style={{ color: '#53647B' }}
           >
             {[
               'No sales pitch, just an honest conversation',
@@ -152,7 +143,7 @@ export default function CTASection({ sectionRef }) {
               'Response within 2 business hours',
             ].map((text) => (
               <div key={text} className="flex items-center gap-2.5">
-                <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#B1B6CE' }} />
+                <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#087fd1' }} />
                 <span>{text}</span>
               </div>
             ))}
@@ -182,7 +173,7 @@ export default function CTASection({ sectionRef }) {
               <button
                 onClick={() => { setSent(false); setForm({ name: '', organisation: '', email: '', phone: '', serviceArea: '', challenge: '', contactMethod: 'email' }); }}
                 className="mt-6 text-sm font-semibold"
-                style={{ color: '#B1B6CE' }}
+                style={{ color: '#087fd1' }}
               >
                 Send another →
               </button>
@@ -192,7 +183,7 @@ export default function CTASection({ sectionRef }) {
               <div className="flex items-center gap-3 mb-6">
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #B1B6CE, #B1B6CE)' }}
+                  style={{ background: '#087fd1' }}
                 >
                   <Send className="w-5 h-5 text-white" />
                 </div>
@@ -209,7 +200,7 @@ export default function CTASection({ sectionRef }) {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="relative">
-                    <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#B1B6CE' }} />
+                    <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#64748B' }} />
                     <input
                       type="text"
                       required
@@ -217,11 +208,11 @@ export default function CTASection({ sectionRef }) {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Full name"
-                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder-gray-400 focus:border-[#B1B6CE]"
+                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder:text-slate-500 focus:border-[#087fd1]"
                     />
                   </div>
                   <div className="relative">
-                    <Building className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#B1B6CE' }} />
+                    <Building className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#64748B' }} />
                     <input
                       type="text"
                       required
@@ -229,43 +220,43 @@ export default function CTASection({ sectionRef }) {
                       value={form.organisation}
                       onChange={(e) => setForm({ ...form, organisation: e.target.value })}
                       placeholder="Organisation"
-                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder-gray-400 focus:border-[#B1B6CE]"
+                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder:text-slate-500 focus:border-[#087fd1]"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="relative">
-                    <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#B1B6CE' }} />
+                    <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#64748B' }} />
                     <input
                       type="email"
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="Business email"
-                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder-gray-400 focus:border-[#B1B6CE]"
+                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder:text-slate-500 focus:border-[#087fd1]"
                     />
                   </div>
                   <div className="relative">
-                    <Phone className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#B1B6CE' }} />
+                    <Phone className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#64748B' }} />
                     <input
                       type="tel"
                       maxLength={40}
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="Phone number"
-                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder-gray-400 focus:border-[#B1B6CE]"
+                      className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors placeholder:text-slate-500 focus:border-[#087fd1]"
                     />
                   </div>
                 </div>
 
                 <div className="relative">
-                  <ShieldCheck className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#B1B6CE' }} />
+                  <ShieldCheck className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#64748B' }} />
                   <select
                     required
                     value={form.serviceArea}
                     onChange={(e) => setForm({ ...form, serviceArea: e.target.value })}
-                    className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors appearance-none placeholder-gray-400 focus:border-[#B1B6CE]"
+                    className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors appearance-none focus:border-[#087fd1]"
                   >
                     <option value="">Select a service area</option>
                     <option value="cybersecurity">Cybersecurity</option>
@@ -277,7 +268,7 @@ export default function CTASection({ sectionRef }) {
                 </div>
 
                 <div className="relative">
-                  <MessageSquare className="w-4 h-4 absolute left-3.5 top-4" style={{ color: '#B1B6CE' }} />
+                  <MessageSquare className="w-4 h-4 absolute left-3.5 top-4" style={{ color: '#64748B' }} />
                   <textarea
                     rows={4}
                     required
@@ -285,7 +276,7 @@ export default function CTASection({ sectionRef }) {
                     value={form.challenge}
                     onChange={(e) => setForm({ ...form, challenge: e.target.value })}
                     placeholder="What business challenge are you trying to solve?"
-                    className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors resize-none placeholder-gray-400 focus:border-[#B1B6CE]"
+                    className="w-full border border-gray-200 text-[#000741] text-sm pl-11 pr-4 py-3 rounded-xl outline-none transition-colors resize-none placeholder:text-slate-500 focus:border-[#087fd1]"
                   />
                 </div>
 
@@ -299,7 +290,7 @@ export default function CTASection({ sectionRef }) {
                       checked={form.contactMethod === 'email'}
                       onChange={(e) => setForm({ ...form, contactMethod: e.target.value })}
                       className="w-4 h-4"
-                      style={{ accentColor: '#B1B6CE' }}
+                      style={{ accentColor: '#087fd1' }}
                     />
                     Email
                   </label>
@@ -311,7 +302,7 @@ export default function CTASection({ sectionRef }) {
                       checked={form.contactMethod === 'phone'}
                       onChange={(e) => setForm({ ...form, contactMethod: e.target.value })}
                       className="w-4 h-4"
-                      style={{ accentColor: '#B1B6CE' }}
+                      style={{ accentColor: '#087fd1' }}
                     />
                     Phone
                   </label>
@@ -323,7 +314,7 @@ export default function CTASection({ sectionRef }) {
                   type="submit"
                   disabled={submitting}
                   className="flex items-center justify-center gap-2 w-full text-white rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-200"
-                  style={{ background: 'linear-gradient(135deg, #B1B6CE, #B1B6CE)' }}
+                  style={{ background: '#087fd1' }}
                   onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
                   onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                 >
