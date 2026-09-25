@@ -99,7 +99,7 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
         {/* Logo mark */}
         <button
           onClick={() => refs?.goHome?.()}
-          className="relative z-10 flex shrink-0 items-center gap-2.5 text-left"
+          className="brand-lockup relative z-10 flex shrink-0 items-center gap-2.5 text-left"
         >
           <img
             src={edrisyncLogo}
@@ -107,14 +107,14 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
             className="h-11 w-12 object-contain"
             draggable={false}
           />
-          <span className="hidden leading-none sm:block">
+          <span className="brand-copy hidden leading-none sm:block">
             <span className="edrisync-deconstructed block text-[18px] font-extrabold tracking-[-0.04em]" aria-label="EdriSync">
               <span aria-hidden="true">EdriSync</span>
               <span aria-hidden="true">EdriSync</span>
               <span aria-hidden="true">EdriSync</span>
               <span aria-hidden="true">EdriSync</span>
             </span>
-            <span className="mt-1 block text-[8px] font-medium tracking-[0.01em] text-[#B1B6CE]">we Build. Create. & Innovate.</span>
+            <span className="brand-tagline mt-1 block text-[8px] font-medium tracking-[0.01em] text-[#B1B6CE]">we Build. Create. & Innovate.</span>
           </span>
         </button>
 
