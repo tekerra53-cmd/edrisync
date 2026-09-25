@@ -95,7 +95,7 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
           closeServices();
         }}
       >
-        <div aria-hidden="true" className="pointer-events-none absolute -left-8 -top-12 z-0 hidden h-36 w-[285px] -skew-x-[24deg] rounded-[46%] lg:block" style={{ background: '#040720', boxShadow: '28px 0 0 #040720, 0 0 26px rgba(177,182,206,0.48), inset 0 1px 0 rgba(255,255,255,0.28)', border: '1px solid rgba(255,255,255,0.18)' }} />
+        <div aria-hidden="true" className="pointer-events-none absolute -left-8 -top-12 z-0 hidden h-36 w-[285px] -skew-x-[24deg] rounded-[46%] lg:block" style={{ background: '#000741', boxShadow: '28px 0 0 #000741, 0 0 26px rgba(177,182,206,0.48), inset 0 1px 0 rgba(255,255,255,0.28)', border: '1px solid rgba(255,255,255,0.18)' }} />
         {/* Logo mark */}
         <button
           onClick={() => refs?.goHome?.()}
@@ -128,11 +128,11 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
                 setHoveredNavItem(item.label);
                 item.dropdown ? openServices() : closeServices();
               }}
-              className="flex items-center gap-1 rounded-full px-4 py-2 text-[11px] font-bold text-[#040720] transition-all duration-200 whitespace-nowrap"
+              className="flex items-center gap-1 rounded-full px-4 py-2 text-[11px] font-bold text-[#000741] transition-all duration-200 whitespace-nowrap"
               style={isActive(item)
                 ? { background: 'var(--edri-nav-blue)', color: '#ffffff', boxShadow: '0 6px 14px rgba(4,7,32,0.24)' }
                 : hoveredNavItem === item.label
-                  ? { background: '#B1B6CE', color: '#040720', boxShadow: '0 4px 10px rgba(4,7,32,0.1)' }
+                  ? { background: '#B1B6CE', color: '#000741', boxShadow: '0 4px 10px rgba(4,7,32,0.1)' }
                   : undefined}
             >
               {item.label}
@@ -156,7 +156,7 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
         <div className="relative z-10 ml-auto flex items-center gap-3 lg:hidden">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="text-[#040720] p-1.5 rounded-lg hover:bg-[#040720]/5 transition-colors"
+            className="text-[#000741] p-1.5 rounded-lg hover:bg-[#000741]/5 transition-colors"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -172,7 +172,7 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="fixed left-1/2 z-[70] hidden w-[280px] -translate-x-1/2 overflow-hidden rounded-2xl border border-[#040720]/10 bg-white/98 p-2 shadow-[0_16px_48px_rgba(4,7,32,0.18)] backdrop-blur-xl lg:block"
+            className="fixed left-1/2 z-[70] hidden w-[280px] -translate-x-1/2 overflow-hidden rounded-2xl border border-[#000741]/10 bg-white/98 p-2 shadow-[0_16px_48px_rgba(4,7,32,0.18)] backdrop-blur-xl lg:block"
             style={{ top: dropdownTop }}
             onMouseEnter={openServices}
             onMouseLeave={closeServices}
@@ -185,10 +185,10 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
                   onMouseLeave={() => setHoveredService(null)}
                   className="flex min-h-[42px] w-full items-center rounded-xl px-4 py-2 text-left text-[12px] font-medium transition-all duration-200"
                   style={isActiveService(service)
-                    ? { backgroundColor: '#040720', color: '#ffffff', boxShadow: '0 6px 14px rgba(4,7,32,0.18)' }
+                    ? { backgroundColor: '#000741', color: '#ffffff', boxShadow: '0 6px 14px rgba(4,7,32,0.18)' }
                     : hoveredService === service
-                      ? { backgroundColor: '#B1B6CE', color: '#040720' }
-                      : { color: '#040720' }}
+                      ? { backgroundColor: '#B1B6CE', color: '#000741' }
+                      : { color: '#000741' }}
                 >
                 {service}
               </button>
@@ -224,19 +224,19 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
                 <div key={item.label}>
                    <button
                      onClick={() => handleNav(item)}
-                     className="flex min-h-[48px] w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm text-[#040720] transition-all duration-300 hover:bg-[#ffffff] hover:text-[#040720]"
+                     className="flex min-h-[48px] w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm text-[#000741] transition-all duration-300 hover:bg-[#ffffff] hover:text-[#000741]"
                      style={isActive(item) ? { background: 'var(--edri-nav-blue)', color: '#ffffff', fontWeight: 600, boxShadow: '0 6px 14px rgba(4,7,32,0.2)' } : undefined}
                    >
                     {item.label}
                     {item.dropdown && <ChevronDown className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />}
                   </button>
                   {item.dropdown && servicesOpen && (
-                    <div className="ml-3 border-l border-[#040720]/15 pl-2">
+                    <div className="ml-3 border-l border-[#000741]/15 pl-2">
                       {serviceItems.map((service) => (
                          <button
                            key={service}
                            onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(service) })}
-                           className="flex min-h-[42px] w-full items-center rounded-lg px-3 py-2 text-left text-xs text-[#B1B6CE] transition-all duration-300 hover:bg-[#ffffff] hover:text-[#040720]"
+                           className="flex min-h-[42px] w-full items-center rounded-lg px-3 py-2 text-left text-xs text-[#B1B6CE] transition-all duration-300 hover:bg-[#ffffff] hover:text-[#000741]"
                          >
                           {service}
                         </button>
@@ -249,9 +249,9 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
                 <button
                   onClick={() => refs?.goSection?.(refs?.cta)}
                   className="text-white text-sm w-full px-4 py-3 rounded-xl font-medium mt-1 min-h-[48px] transition-all duration-200"
-                  style={{ backgroundColor: '#040720' }}
+                  style={{ backgroundColor: '#000741' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#B1B6CE')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#040720')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#000741')}
                 >
                   Request a Consultation
                 </button>

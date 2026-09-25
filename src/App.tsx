@@ -14,21 +14,47 @@ import ApproachSection from './components/ApproachSection';
 import AboutSection from './components/AboutSection';
 import IndustriesSection from './components/IndustriesSection';
 import PortfolioSection from './components/PortfolioSection';
+import AdminDashboard from './components/AdminDashboard';
+import LegalPage from './components/LegalPage';
+import NotFoundPage from './components/NotFoundPage';
 const AboutPage = lazy(() => import('./components/AboutPage'));
 const ServicesPage = lazy(() => import('./components/ServicesPage'));
 const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
 const InsightsPage = lazy(() => import('./components/InsightsPage'));
 const CaseStudiesPage = lazy(() => import('./components/CaseStudiesPage'));
 
-export default function App() {
-  const [view, setView] = useState<'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies'>('home');
-  const [selectedService, setSelectedService] = useState<string | null>(null);
+type PublicView = 'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies';
+
+function getPublicView(pathname: string): PublicView {
+  if (pathname === '/about') return 'about';
+  if (pathname === '/services') return 'services';
+  if (pathname.startsWith('/services/')) return 'serviceDetail';
+  if (pathname === '/insights') return 'insights';
+  if (pathname === '/case-studies') return 'caseStudies';
+  return 'home';
+}
+
+function PublicApp() {
+  const [view, setView] = useState<PublicView>(() => getPublicView(window.location.pathname));
+  const [selectedService, setSelectedService] = useState<string | null>(() => window.location.pathname.startsWith('/services/') ? decodeURIComponent(window.location.pathname.slice('/services/'.length)) : null);
   const [loading, setLoading] = useState(true);
+  const [path, setPath] = useState(window.location.pathname);
   const pendingScroll = useRef<any>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 1900);
     return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const nextPath = window.location.pathname;
+      setPath(nextPath);
+      setView(getPublicView(nextPath));
+      setSelectedService(nextPath.startsWith('/services/') ? decodeURIComponent(nextPath.slice('/services/'.length)) : null);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
   const homeRef = useRef<HTMLElement>(null);
@@ -45,35 +71,45 @@ export default function App() {
   };
 
   const goHome = () => {
+    if (window.location.pathname !== '/') window.history.pushState({}, '', '/');
+    setPath('/');
     setView('home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const goAbout = () => {
-    setView('about');
+  const goPage = (nextPath: string, nextView: PublicView, service: string | null = null) => {
+    if (window.location.pathname !== nextPath) window.history.pushState({}, '', nextPath);
+    setPath(nextPath);
+    setSelectedService(service);
+    setView(nextView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goLegal = (legalPath: '/privacy-policy' | '/terms-and-conditions' | '/cookie-policy') => {
+    window.history.pushState({}, '', legalPath);
+    setPath(legalPath);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goAbout = () => {
+    goPage('/about', 'about');
   };
 
   const goServices = () => {
-    setSelectedService(null);
-    setView('services');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    goPage('/services', 'services');
   };
 
   const goServiceDetail = (service?: string) => {
-    setSelectedService(service || null);
-    setView('serviceDetail');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const selected = service || null;
+    goPage(selected ? `/services/${encodeURIComponent(selected)}` : '/services', selected ? 'serviceDetail' : 'services', selected);
   };
 
   const goInsights = () => {
-    setView('insights');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    goPage('/insights', 'insights');
   };
 
   const goCaseStudies = () => {
-    setView('caseStudies');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    goPage('/case-studies', 'caseStudies');
   };
 
   // Scroll to a home section. If we're on a page view, switch back to
@@ -83,6 +119,8 @@ export default function App() {
       scrollToRef(ref);
     } else {
       pendingScroll.current = ref;
+      if (window.location.pathname !== '/') window.history.pushState({}, '', '/');
+      setPath('/');
       setView('home');
     }
   };
@@ -113,6 +151,7 @@ export default function App() {
     goServiceDetail,
     view,
     selectedService,
+    goLegal,
   };
 
   return (
@@ -122,6 +161,7 @@ export default function App() {
 
       <PillNavbar refs={refs} />
 
+      {path === '/privacy-policy' ? <LegalPage type="privacy" onHome={goHome} /> : path === '/terms-and-conditions' ? <LegalPage type="terms" onHome={goHome} /> : path === '/cookie-policy' ? <LegalPage type="cookies" onHome={goHome} /> : path !== '/' && getPublicView(path) === 'home' ? <NotFoundPage onHome={goHome} /> : <>
       {/* Page sections */}
       <main>
         {view === 'home' ? (
@@ -131,7 +171,7 @@ export default function App() {
             <VisionSection />
             <ApproachSection />
             <AboutSection sectionRef={aboutRef} onAbout={goAbout} />
-            <ServicesSection sectionRef={servicesRef} onServices={goServices} onServiceDetail={goServiceDetail} />
+            <ServicesSection sectionRef={servicesRef} onServiceDetail={goServiceDetail} />
             <IndustriesSection sectionRef={industriesRef} />
             <PortfolioSection sectionRef={portfolioRef} onViewMore={goCaseStudies} />
             <WhyEdrisync sectionRef={whyRef} refs={refs} />
@@ -150,8 +190,13 @@ export default function App() {
           <Suspense fallback={null}><CaseStudiesPage onHome={goHome} /></Suspense>
         ) : null}
       </main>
-
+      </>}
       <Footer refs={refs} />
     </div>
   );
+}
+
+export default function App() {
+  if (window.location.pathname.startsWith('/admin')) return <AdminDashboard />;
+  return <PublicApp />;
 }

@@ -1,51 +1,46 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import AnimatedText from './AnimatedText';
-
-const HERO_IMAGE = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=85';
+import { defaultHeroSettings, getHeroSettings } from '../services/siteContent';
 
 export default function HeroSection({ sectionRef, refs }) {
+  const [settings, setSettings] = useState(defaultHeroSettings);
+
+  useEffect(() => {
+    getHeroSettings().then(setSettings);
+  }, []);
+
   return (
     <section
       ref={sectionRef}
       className="relative overflow-hidden flex items-center"
       style={{ minHeight: '100vh', paddingTop: '84px' }}
     >
-      {/* Background Image with subtle scale animation */}
+      {/* Palette-led background: no third-party photo is needed for contrast. */}
       <motion.div
         initial={{ scale: 1.06 }}
         animate={{ scale: 1 }}
         transition={{ duration: 10, ease: 'linear' }}
         className="absolute inset-0"
-      >
-        <img
-          src={HERO_IMAGE}
-          alt="Enterprise data center infrastructure"
-          className="w-full h-full object-cover"
-          style={{ objectPosition: '60% center', opacity: 0.28 }}
-          draggable={false}
-        />
-      </motion.div>
-
-      {/* Multi-layer gradient overlay, left-biased like the original */}
-      <div
-        className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(105deg, rgba(4,7,32,0.98) 0%, rgba(4,7,32,0.94) 30%, rgba(4,7,32,0.86) 58%, rgba(4,7,32,0.78) 82%, rgba(4,7,32,0.70) 100%)',
+            'radial-gradient(circle at 83% 24%, rgba(79, 166, 255, 0.42), transparent 25%), radial-gradient(circle at 72% 80%, rgba(40, 87, 184, 0.5), transparent 38%), linear-gradient(118deg, #000741 0%, #000741 45%, #2857B8 155%)',
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(60% 120% at 0% 50%, rgba(4,7,32,0.32) 0%, transparent 60%), radial-gradient(50% 90% at 100% 30%, rgba(4,7,32,0.20) 0%, transparent 55%)',
+            'linear-gradient(rgba(79, 166, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(79, 166, 255, 0.08) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage: 'linear-gradient(90deg, transparent, black 45%, transparent)',
         }}
       />
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to top, rgba(4,7,32,0.96) 0%, rgba(4,7,32,0.62) 34%, rgba(4,7,32,0.18) 70%)',
+          background: 'linear-gradient(90deg, rgba(0, 7, 65, 0.28), transparent 72%), linear-gradient(to top, rgba(0, 7, 65, 0.46), transparent 52%)',
         }}
       />
 
@@ -55,17 +50,17 @@ export default function HeroSection({ sectionRef, refs }) {
         className="pointer-events-none absolute inset-0"
       >
         <motion.span
-          className="absolute left-[62%] top-[28%] h-2 w-2 rounded-full bg-[#B1B6CE] shadow-[0_0_18px_5px_rgba(100,190,255,0.7)]"
+          className="absolute left-[62%] top-[28%] h-2 w-2 rounded-full bg-[#4FA6FF] shadow-[0_0_18px_5px_rgba(79,166,255,0.7)]"
           animate={{ scale: [1, 1.8, 1], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.span
-          className="absolute left-[78%] top-[54%] h-1.5 w-1.5 rounded-full bg-[#B1B6CE] shadow-[0_0_16px_4px_rgba(100,190,255,0.65)]"
+          className="absolute left-[78%] top-[54%] h-1.5 w-1.5 rounded-full bg-[#4FA6FF] shadow-[0_0_16px_4px_rgba(79,166,255,0.65)]"
           animate={{ scale: [1, 1.7, 1], opacity: [0.4, 0.95, 0.4] }}
           transition={{ duration: 3, repeat: Infinity, delay: 0.7, ease: 'easeInOut' }}
         />
         <motion.span
-          className="absolute left-[88%] top-[30%] h-1.5 w-1.5 rounded-full bg-[#B1B6CE] shadow-[0_0_16px_4px_rgba(100,190,255,0.65)]"
+          className="absolute left-[88%] top-[30%] h-1.5 w-1.5 rounded-full bg-[#4FA6FF] shadow-[0_0_16px_4px_rgba(79,166,255,0.65)]"
           animate={{ scale: [1, 1.7, 1], opacity: [0.4, 0.95, 0.4] }}
           transition={{ duration: 2.7, repeat: Infinity, delay: 1.2, ease: 'easeInOut' }}
         />
@@ -85,9 +80,9 @@ export default function HeroSection({ sectionRef, refs }) {
             className="flex items-center gap-3 mb-7"
           >
             <div className="flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-4 py-1.5 backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse" />
               <span className="text-white text-xs font-medium tracking-wide">
-                Innovative Solutions
+                {settings.eyebrow}
               </span>
             </div>
           </motion.div>
@@ -100,7 +95,7 @@ export default function HeroSection({ sectionRef, refs }) {
             className="text-white font-light leading-[1.06] tracking-tight"
             style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.25rem)', fontFamily: 'var(--font-family-heading)' }}
           >
-             EdriSync
+             {settings.title}
             <br />
             <AnimatedText className="font-medium" />
           </motion.h1>
@@ -113,7 +108,7 @@ export default function HeroSection({ sectionRef, refs }) {
             className="text-white mt-6 leading-relaxed"
             style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)', maxWidth: '650px' }}
           >
-            We are a Cybersecurity, GRC, Microsoft Enablement, and Digital Transformation advisory and implementation firm, helping organizations position technology as a strategic business enabler rather than a point-solution vendor.
+            {settings.description}
           </motion.p>
 
           {/* CTA buttons */}
@@ -126,15 +121,15 @@ export default function HeroSection({ sectionRef, refs }) {
             <div className="relative inline-block">
               <span
                 className="absolute inset-0 rounded-xl animate-cta-pulse"
-                style={{ backgroundColor: '#B1B6CE' }}
+                style={{ backgroundColor: '#087FD1' }}
                 aria-hidden="true"
               />
               <button
                  onClick={() => refs?.goSection?.(refs?.cta)}
                 className="relative flex items-center gap-2 bg-white rounded-xl px-8 py-4 font-semibold text-sm transition-all duration-200 min-h-[52px] shadow-xl hover:shadow-2xl cursor-pointer"
-                style={{ color: '#040720', backgroundColor: '#B1B6CE' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#B1B6CE')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B1B6CE')}
+                style={{ color: '#FFFFFF', backgroundColor: '#087FD1' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#2857B8')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#087FD1')}
               >
                 Request a Consultation
                 <motion.span

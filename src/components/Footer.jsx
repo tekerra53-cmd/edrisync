@@ -59,7 +59,7 @@ export default function Footer({ refs }) {
               <span className="flex items-center gap-3"><MapPin className="h-4 w-4 text-[#B1B6CE]" /> Lagos, Nigeria</span>
             </div>
             <div className="mt-9 flex items-center gap-2">
-              {socials.map(({ Icon, label, href }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-slate-300 transition-all hover:border-[#B1B6CE] hover:bg-[#B1B6CE] hover:text-[#040720]"><Icon className="h-4 w-4" /></a>)}
+              {socials.map(({ Icon, label, href }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-slate-300 transition-all hover:border-[#B1B6CE] hover:bg-[#B1B6CE] hover:text-[#000741]"><Icon className="h-4 w-4" /></a>)}
             </div>
           </div>
           {columns.map((column) => (
@@ -92,7 +92,7 @@ export default function Footer({ refs }) {
 
         <div className="flex flex-col gap-3 pt-7 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <span>© 2026 Edrisync Limited. All Rights Reserved.</span>
-          <span className="text-slate-600">Built for confident growth.</span>
+          <span className="flex flex-wrap gap-4 text-slate-400"><button type="button" onClick={() => refs?.goLegal?.('/privacy-policy')} className="hover:text-white">Privacy Policy</button><button type="button" onClick={() => refs?.goLegal?.('/cookie-policy')} className="hover:text-white">Cookie Policy</button><button type="button" onClick={() => refs?.goLegal?.('/terms-and-conditions')} className="hover:text-white">Terms &amp; Conditions</button></span>
         </div>
       </div>
     </footer>

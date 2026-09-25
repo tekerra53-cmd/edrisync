@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Code2, FileCheck, Landmark, Settings } from 'lucide-react';
+import { getManagedContent } from '../services/managedContent';
 
 export const projects = [
   {
@@ -30,7 +32,7 @@ export const projects = [
     tags: ['M365', 'Defender', 'Identity'],
     year: '2024',
     icon: Landmark,
-    accent: '#040720',
+    accent: '#000741',
   },
   {
     title: 'Process Automation Transformation',
@@ -40,7 +42,7 @@ export const projects = [
     tags: ['Automation', 'Power Platform', 'Process'],
     year: '2024',
     icon: Settings,
-    accent: '#A8D5BA',
+    accent: '#4ADE80',
   },
   {
     title: 'Identity & Access Modernization',
@@ -49,13 +51,27 @@ export const projects = [
     tags: ['Identity', 'Zero Trust', 'Access'],
     year: '2024',
     icon: Code2,
-    accent: '#040720',
+    accent: '#000741',
     visual: true,
   },
 ];
 
+// Icons are React components and must never be read back from persisted JSON.
+// A previously saved case study can contain a serialized icon object, which
+// React cannot render. Derive the display icon from the plain-text category.
+const categoryIcons = {
+  Cybersecurity: Code2,
+  'GRC & Compliance': FileCheck,
+  'Microsoft Enablement': Landmark,
+  'Digital Transformation': Settings,
+};
+
+function getProjectIcon(project) {
+  return categoryIcons[project?.category] || Code2;
+}
+
 function ProjectMeta({ project }) {
-  const Icon = project.icon;
+  const Icon = getProjectIcon(project);
   return (
     <div className="flex items-center justify-between gap-4 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: project.accent }}>
       <span className="flex items-center gap-2"><Icon className="h-3.5 w-3.5" /> {project.category}</span>
@@ -65,15 +81,16 @@ function ProjectMeta({ project }) {
 }
 
 function ProjectTags({ project }) {
-  return <div className="flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-medium text-slate-500">{tag}</span>)}</div>;
+  const tags = Array.isArray(project.tags) ? project.tags : [];
+  return <div className="flex flex-wrap gap-2">{tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-medium text-slate-500">{tag}</span>)}</div>;
 }
 
 function ProjectVisual({ project, className }) {
-  const Icon = project.icon;
+  const Icon = getProjectIcon(project);
   return project.image ? (
     <div className={className}><img src={project.image} alt={project.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /></div>
   ) : (
-    <div className={`${className} flex items-center justify-center bg-[#040720]`}>
+    <div className={`${className} flex items-center justify-center bg-[#000741]`}>
       <div className="w-full max-w-[210px] rounded-xl border border-white/20 bg-white/10 p-5 text-white backdrop-blur-sm">
         <div className="flex items-center justify-between"><Icon className="h-5 w-5 text-[#B1B6CE]" /><span className="text-[10px] uppercase tracking-[0.16em] text-white/55">Impact</span></div>
         <div className="mt-8 text-4xl font-light">3x</div>
@@ -85,7 +102,15 @@ function ProjectVisual({ project, className }) {
 }
 
 export default function PortfolioSection({ sectionRef, onViewMore }) {
-  const [featured] = projects;
+  const [managedProjects, setManagedProjects] = useState(projects);
+
+  useEffect(() => {
+    getManagedContent('case_studies', projects).then((items) => {
+      if (Array.isArray(items) && items.length) setManagedProjects(items);
+    });
+  }, []);
+
+  const [featured] = managedProjects;
 
   return (
     <section ref={sectionRef} className="relative bg-[#ffffff] px-5 py-24 sm:px-6 sm:py-28" style={{ scrollMarginTop: '120px' }}>
@@ -93,19 +118,19 @@ export default function PortfolioSection({ sectionRef, onViewMore }) {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }} className="mb-14 flex flex-col gap-7 border-b border-slate-200 pb-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#087fd1]">Case studies</p>
-            <h2 className="mt-4 text-4xl font-light leading-[1.08] text-[#040720] sm:text-5xl">Work that makes the difference visible.</h2>
+            <h2 className="mt-4 text-4xl font-light leading-[1.08] text-[#000741] sm:text-5xl">Work that makes the difference visible.</h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-slate-600">A selection of security, governance, Microsoft, and transformation programs delivered for organizations ready to operate with more confidence.</p>
         </motion.div>
 
         <div className="grid gap-6">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.65 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(4,7,32,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(4,7,32,0.12)]">
-            <div className="relative h-72 overflow-hidden sm:h-96"><img src={featured.image} alt={featured.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /><div className="absolute bottom-5 left-5 rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#040720]">Featured project</div></div>
-            <div className="p-7 sm:p-9"><ProjectMeta project={featured} /><h3 className="mt-5 text-3xl font-light leading-tight text-[#040720]">{featured.title}</h3><p className="mt-4 max-w-xl leading-relaxed text-slate-600">{featured.desc}</p><div className="mt-6"><ProjectTags project={featured} /></div></div>
+            <div className="relative h-72 overflow-hidden sm:h-96"><img src={featured.image} alt={featured.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /><div className="absolute bottom-5 left-5 rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#000741]">Featured project</div></div>
+            <div className="p-7 sm:p-9"><ProjectMeta project={featured} /><h3 className="mt-5 text-3xl font-light leading-tight text-[#000741]">{featured.title}</h3><p className="mt-4 max-w-xl leading-relaxed text-slate-600">{featured.desc}</p><div className="mt-6"><ProjectTags project={featured} /></div></div>
           </motion.div>
 
           <div className="flex justify-center border-t border-slate-200 pt-10">
-            <button onClick={onViewMore} className="relative flex min-h-[52px] items-center gap-3 rounded-xl px-8 py-4 text-sm font-semibold shadow-xl transition-all duration-200 hover:bg-[#B1B6CE] hover:shadow-2xl" style={{ backgroundColor: '#B1B6CE', color: '#040720' }}>
+            <button onClick={onViewMore} className="relative flex min-h-[52px] items-center gap-3 rounded-xl px-8 py-4 text-sm font-semibold shadow-xl transition-all duration-200 hover:bg-[#B1B6CE] hover:shadow-2xl" style={{ backgroundColor: '#B1B6CE', color: '#000741' }}>
               View more <ArrowUpRight className="h-4 w-4" />
             </button>
           </div>

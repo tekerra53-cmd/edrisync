@@ -7,28 +7,28 @@ const steps = [
     title: 'Consult & Understand',
     desc: 'We deeply analyze your business needs, goals, and constraints to build a clear, accurate roadmap for effective solutions.',
     tag: 'Discover',
-    accent: ['#10245f', '#2857b8'],
+    accent: ['#000741', '#2857b8'],
   },
   {
     icon: Users,
     title: 'Plan & Strategize',
     desc: 'We create a structured strategy with focused, prioritized actions that ensure strong and sustainable project outcomes.',
     tag: 'Design',
-    accent: ['#10245f', '#2857b8'],
+    accent: ['#000741', '#2857b8'],
   },
   {
     icon: BarChart,
     title: 'Implement & Execute',
     desc: 'We apply the planned solutions with precision, ensuring smooth execution, on-time delivery, and high-quality results.',
     tag: 'Build',
-    accent: ['#10245f', '#2857b8'],
+    accent: ['#000741', '#2857b8'],
   },
   {
     icon: Shield,
     title: 'Support & Optimize',
     desc: 'We continuously monitor and refine your systems to improve performance and maintain long-term, reliable growth.',
     tag: 'Grow',
-    accent: ['#10245f', '#2857b8'],
+    accent: ['#000741', '#2857b8'],
   },
 ];
 
@@ -57,7 +57,7 @@ export default function ApproachSection() {
           <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#087fd1' }}>
             Our Process
           </p>
-          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4 leading-tight" style={{ color: '#0a1a68', fontFamily: 'var(--font-family-heading)' }}>
+          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4 leading-tight" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
             How we deliver exceptional
             <br />
             <span className="font-medium">results for our clients</span>
@@ -107,7 +107,7 @@ export default function ApproachSection() {
                     <span className="text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: '#087fd1' }}>
                       {item.tag}
                     </span>
-                    <h3 className="text-xl font-semibold mb-2 mt-1" style={{ color: '#0a1a68' }}>
+                    <h3 className="text-xl font-semibold mb-2 mt-1" style={{ color: '#000741' }}>
                       {item.title}
                     </h3>
                     <p className="leading-relaxed text-[15px]" style={{ color: '#526076' }}>{item.desc}</p>

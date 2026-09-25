@@ -6,8 +6,8 @@ const IMG_SYSTEM = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?au
 const IMG_TEAM = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80';
 const IMG_DESK = 'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=900&q=80';
 const IMG_MEETING = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80';
-const INDUSTRY_ICON_GRADIENT = 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)';
-const INDUSTRY_ACCENT_LINE = 'linear-gradient(90deg, #10245f 0%, #2857b8 100%)';
+const INDUSTRY_ICON_GRADIENT = 'linear-gradient(135deg, #000741 0%, #2857b8 100%)';
+const INDUSTRY_ACCENT_LINE = 'linear-gradient(90deg, #000741 0%, #2857b8 100%)';
 
 const values = [
   {
@@ -54,7 +54,7 @@ const milestones = [
   { year: '2026', title: '500+ projects', desc: 'Crossed 500 delivered projects with a 98% client retention rate worldwide.' },
 ];
 
-const teamMembers = [
+export const defaultTeamMembers = [
   { name: 'Jobaer Khanom', role: 'UI/UX Designer', bio: 'Designs thoughtful interface systems that link brand identity to engaging user journeys across web and mobile platforms.', image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm1-img01-4.webp' },
   { name: 'Sayma D. Farna', role: 'App Developer', bio: 'Creates purposeful mobile solutions that connect core business goals with clearly defined market audiences.', image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm1-img02-3.webp' },
   { name: 'Jubin E. Nawtail', role: 'SEO Marketer', bio: 'Optimizes strategic online visibility, aligning brands with profitable search audiences and measurable business goals.', image: 'https://edrisync.com/myapp/wp-content/uploads/2025/11/hm1-img03-3.webp' },
@@ -64,14 +64,14 @@ const teamMembers = [
 
 const featuredMembers = [
   { name: 'Arman H. Siddik', role: 'Cloud Engineer', bio: 'Architects resilient cloud infrastructure and migration paths that keep distributed teams fast, secure, and always available.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80', accent: 'linear-gradient(135deg, #B1B6CE, #B1B6CE)' },
-  { name: 'Nusrat T. Rahman', role: 'Cybersecurity Lead', bio: 'Designs defense-in-depth strategies and runs 24/7 monitoring to keep client data protected against evolving threats.', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80', accent: 'linear-gradient(135deg, #040720, #B1B6CE)' },
+  { name: 'Nusrat T. Rahman', role: 'Cybersecurity Lead', bio: 'Designs defense-in-depth strategies and runs 24/7 monitoring to keep client data protected against evolving threats.', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80', accent: 'linear-gradient(135deg, #000741, #B1B6CE)' },
 ];
 
 export default function AboutPage({ onHome }) {
   return (
     <div style={{ backgroundColor: '#f7f9fd' }} className="min-h-screen">
       {/* HERO */}
-      <header className="relative overflow-hidden bg-[#040720] px-6 pb-24 pt-32 lg:pb-32">
+      <header className="relative overflow-hidden bg-[#000741] px-6 pb-24 pt-32 lg:pb-32">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(60% 70% at 70% 0%, rgba(177,182,206,0.20), transparent 58%), linear-gradient(105deg, rgba(4,7,32,0.98) 0%, rgba(4,7,32,0.90) 58%, rgba(4,7,32,0.76) 100%)' }} />
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="text-center lg:text-left">
@@ -113,7 +113,7 @@ export default function AboutPage({ onHome }) {
             <div className="absolute -bottom-8 -left-5 w-44 overflow-hidden rounded-2xl border-4 border-white/80 bg-white p-1 shadow-[0_16px_35px_rgba(0,0,0,0.28)] sm:-left-10 sm:w-52">
               <img src={IMG_TEAM} alt="Team collaborating" className="h-28 w-full rounded-xl object-cover sm:h-36" draggable={false} />
             </div>
-            <div className="absolute right-5 top-5 rounded-xl bg-[#040720] px-4 py-3 text-white shadow-lg">
+            <div className="absolute right-5 top-5 rounded-xl bg-[#000741] px-4 py-3 text-white shadow-lg">
               <p className="text-xl font-light">2011</p>
               <p className="mt-1 text-[9px] uppercase tracking-[0.18em] text-[#B1B6CE]">Established</p>
             </div>
@@ -134,16 +134,16 @@ export default function AboutPage({ onHome }) {
           >
             <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#087fd1' }}>Our story</p>
             <div className="w-12 h-1 rounded-full mt-3 mb-6" style={{ background: INDUSTRY_ACCENT_LINE }} />
-            <blockquote className="text-2xl lg:text-[2.35rem] font-light leading-[1.15]" style={{ color: '#040720' }}>
+            <blockquote className="text-2xl lg:text-[2.35rem] font-light leading-[1.15]" style={{ color: '#000741' }}>
               “We started EdriSync with a simple belief: every business deserves enterprise-grade technology without the enterprise-grade complexity.”
             </blockquote>
             <p className="text-gray-600 text-[15px] sm:text-base mt-6 leading-relaxed">
               Over the past 15+ years, we’ve helped hundreds of organizations adopt the right tools, streamline operations, and build digital environments that scale. We operate at the intersection of business strategy and technology, guiding companies through efficient, secure, and fully digital work environments built for long-term growth.
             </p>
             <div className="flex items-center gap-5 mt-8">
-              <div className="text-4xl font-light" style={{ color: '#040720' }}>15<span className="text-[#B1B6CE]">+</span></div>
+              <div className="text-4xl font-light" style={{ color: '#000741' }}>15<span className="text-[#B1B6CE]">+</span></div>
               <div>
-                <p className="text-sm font-medium text-[#040720]">Years building</p>
+                <p className="text-sm font-medium text-[#000741]">Years building</p>
                 <p className="text-sm text-gray-500 leading-snug">digital-first teams</p>
               </div>
             </div>
@@ -172,7 +172,7 @@ export default function AboutPage({ onHome }) {
         <div className="relative max-w-6xl mx-auto">
           <div className="mb-14 max-w-xl">
             <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#087fd1' }}>The EdriSync way</p>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-light leading-tight" style={{ color: '#040720' }}>Clear thinking. Practical delivery. Lasting confidence.</h2>
+            <h2 className="mt-3 text-3xl lg:text-4xl font-light leading-tight" style={{ color: '#000741' }}>Clear thinking. Practical delivery. Lasting confidence.</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {purposes.map((p, i) => {
@@ -194,7 +194,7 @@ export default function AboutPage({ onHome }) {
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: INDUSTRY_ICON_GRADIENT }}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3" style={{ color: '#040720' }}>{p.title}</h3>
+                <h3 className="text-xl font-semibold mb-3" style={{ color: '#000741' }}>{p.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{p.text}</p>
               </motion.div>
             );
@@ -204,7 +204,7 @@ export default function AboutPage({ onHome }) {
       </section>
 
       {/* VALUES: kept identical to previous about values section */}
-      <section className="bg-[#040720] px-6 py-24">
+      <section className="bg-[#000741] px-6 py-24">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -257,7 +257,7 @@ export default function AboutPage({ onHome }) {
           >
             <div className="max-w-2xl">
               <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: '#087fd1' }}>What we do</p>
-              <h2 className="mt-3 text-3xl font-light text-[#040720] lg:text-4xl">
+              <h2 className="mt-3 text-3xl font-light text-[#000741] lg:text-4xl">
                 End-to-end technology, <span className="font-medium">delivered.</span>
               </h2>
             </div>
@@ -294,7 +294,7 @@ export default function AboutPage({ onHome }) {
                       <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: isFeatured ? 'rgba(255,255,255,0.14)' : INDUSTRY_ICON_GRADIENT }}>
                         <Icon className="h-6 w-6 text-white" />
                       </div>
-                      <h4 className={`mb-2 text-xl font-semibold ${isFeatured ? 'text-white' : 'text-[#040720]'}`}>{cap.title}</h4>
+                      <h4 className={`mb-2 text-xl font-semibold ${isFeatured ? 'text-white' : 'text-[#000741]'}`}>{cap.title}</h4>
                       <p className={`max-w-xl text-sm leading-6 ${isFeatured ? 'text-blue-100' : 'text-slate-600'}`}>{cap.desc}</p>
                     </div>
                     {isFeatured && <span className="mt-8 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#B1B6CE]">Core capability</span>}
@@ -318,7 +318,7 @@ export default function AboutPage({ onHome }) {
             className="text-center mb-14"
           >
             <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#B1B6CE' }}>Our journey</p>
-            <h2 className="text-3xl lg:text-4xl font-light mt-3" style={{ color: '#040720' }}>Milestones along the way</h2>
+            <h2 className="text-3xl lg:text-4xl font-light mt-3" style={{ color: '#000741' }}>Milestones along the way</h2>
           </motion.div>
 
           <div className="flex gap-5 overflow-x-auto pb-4 snap-x" style={{ scrollbarWidth: 'thin' }}>
@@ -335,7 +335,7 @@ export default function AboutPage({ onHome }) {
                 onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 14px 34px rgba(4,7,32,0.06)'; e.currentTarget.style.borderColor = 'rgba(4,7,32,0.07)'; }}
               >
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-5" style={{ background: 'rgba(168,213,186,0.12)', color: '#B1B6CE' }}>{m.year}</div>
-                <h4 className="text-lg font-semibold mb-2" style={{ color: '#040720' }}>{m.title}</h4>
+                <h4 className="text-lg font-semibold mb-2" style={{ color: '#000741' }}>{m.title}</h4>
                 <p className="text-gray-600 text-sm leading-relaxed">{m.desc}</p>
               </motion.div>
             ))}
@@ -355,7 +355,7 @@ export default function AboutPage({ onHome }) {
             className="text-center mb-14"
           >
             <p className="text-xs uppercase tracking-[0.3em] font-medium" style={{ color: '#087fd1' }}>Our Team</p>
-            <h2 className="text-3xl lg:text-4xl font-light mt-3" style={{ color: '#040720' }}>
+            <h2 className="text-3xl lg:text-4xl font-light mt-3" style={{ color: '#000741' }}>
               The experts behind <span className="font-medium">your success</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-500">
@@ -397,7 +397,7 @@ export default function AboutPage({ onHome }) {
                   </div>
                   <div className="p-7 sm:p-8 flex flex-col justify-center">
                     <div className="hidden sm:block">
-                      <h3 className="text-xl font-semibold" style={{ color: '#040720' }}>{member.name}</h3>
+                      <h3 className="text-xl font-semibold" style={{ color: '#000741' }}>{member.name}</h3>
                       <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em]" style={{ color: '#B1B6CE' }}>{member.role}</p>
                       <div className="mt-4 h-px w-10" style={{ background: INDUSTRY_ACCENT_LINE }} />
                     </div>
@@ -410,7 +410,7 @@ export default function AboutPage({ onHome }) {
 
           {/* Standard members - 3-up on desktop */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {teamMembers.slice(0, 3).map((member, i) => (
+            {defaultTeamMembers.slice(0, 3).map((member, i) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 24 }}
@@ -436,7 +436,7 @@ export default function AboutPage({ onHome }) {
                   />
                 </div>
                 <div className="p-7">
-                  <h3 className="text-base font-semibold" style={{ color: '#040720' }}>{member.name}</h3>
+                  <h3 className="text-base font-semibold" style={{ color: '#000741' }}>{member.name}</h3>
                   <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em]" style={{ color: '#B1B6CE' }}>{member.role}</p>
                   <div className="my-4 h-px w-8" style={{ background: INDUSTRY_ACCENT_LINE }} />
                   <p className="text-sm leading-6 text-slate-600">{member.bio}</p>

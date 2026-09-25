@@ -7,8 +7,8 @@ const industries = [
     title: 'Financial Services',
     desc: 'Banks, fintechs, and insurance firms that must balance innovation speed with strict regulatory oversight.',
     problems: ['PCI DSS compliance', 'Fraud detection', 'Microsoft security architecture'],
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
-    surface: 'linear-gradient(145deg, #040720 0%, #0a1b4c 52%, #164293 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    surface: 'linear-gradient(145deg, #000741 0%, #000741 52%, #2857B8 100%)',
     tint: 'rgba(95, 153, 255, 0.12)',
   },
   {
@@ -16,8 +16,8 @@ const industries = [
     title: 'Healthcare',
     desc: 'Private practices and clinics navigating HIPAA, patient data protection, and secure collaboration.',
     problems: ['HIPAA compliance', 'Patient data governance', 'Secure Teams deployment'],
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
-    surface: 'linear-gradient(145deg, #040720 0%, #0a1b4c 52%, #164293 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    surface: 'linear-gradient(145deg, #000741 0%, #000741 52%, #2857B8 100%)',
     tint: 'rgba(95, 153, 255, 0.12)',
   },
   {
@@ -25,8 +25,8 @@ const industries = [
     title: 'Construction & Real Estate',
     desc: 'Field-heavy organizations that need secure remote access, document control, and compliance.',
     problems: ['Site-to-cloud security', 'Document management', 'Mobile workforce compliance'],
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
-    surface: 'linear-gradient(145deg, #040720 0%, #0a1b4c 52%, #164293 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    surface: 'linear-gradient(145deg, #000741 0%, #000741 52%, #2857B8 100%)',
     tint: 'rgba(95, 153, 255, 0.12)',
   },
   {
@@ -34,8 +34,8 @@ const industries = [
     title: 'Professional Services',
     desc: 'Law firms, consulting, and advisory practices handling sensitive client data with fiduciary obligations.',
     problems: ['Client confidentiality', 'Data governance', 'Regulatory readiness'],
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
-    surface: 'linear-gradient(145deg, #040720 0%, #0a1b4c 52%, #164293 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    surface: 'linear-gradient(145deg, #000741 0%, #000741 52%, #2857B8 100%)',
     tint: 'rgba(95, 153, 255, 0.12)',
   },
   {
@@ -43,8 +43,8 @@ const industries = [
     title: 'Manufacturing',
     desc: 'Production-focused businesses seeking operational efficiency through digital workflows and OT security.',
     problems: ['OT/IoT security', 'Supply chain digitization', 'Process automation'],
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
-    surface: 'linear-gradient(145deg, #040720 0%, #0a1b4c 52%, #164293 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    surface: 'linear-gradient(145deg, #000741 0%, #000741 52%, #2857B8 100%)',
     tint: 'rgba(95, 153, 255, 0.12)',
   },
   {
@@ -52,8 +52,8 @@ const industries = [
     title: 'SMEs',
     desc: 'Growing businesses that lack in-house expertise but need enterprise-grade security and compliance.',
     problems: ['Resource constraints', 'Security basics', 'Scalable growth'],
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
-    surface: 'linear-gradient(145deg, #040720 0%, #0a1b4c 52%, #164293 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    surface: 'linear-gradient(145deg, #000741 0%, #000741 52%, #2857B8 100%)',
     tint: 'rgba(95, 153, 255, 0.12)',
   },
 ];
@@ -72,7 +72,7 @@ export default function IndustriesSection({ sectionRef }) {
         >
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em]" style={{ color: '#087fd1' }}>Industries</p>
-            <h2 className="mt-4 text-4xl font-light leading-tight lg:text-5xl" style={{ color: '#0a1a68', fontFamily: 'var(--font-family-heading)' }}>
+            <h2 className="mt-4 text-4xl font-light leading-tight lg:text-5xl" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
               Context matters.
               <br />
               <span className="font-medium">We understand yours.</span>
@@ -123,7 +123,7 @@ export default function IndustriesSection({ sectionRef }) {
                   >
                     <Icon className="w-6 h-6 text-white" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl font-semibold text-[#0a1a68] transition-colors duration-300 group-hover:text-white">
+                  <h3 className="text-xl font-semibold text-[#000741] transition-colors duration-300 group-hover:text-white">
                     {industry.title}
                   </h3>
                 </div>

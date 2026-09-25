@@ -84,13 +84,13 @@ export default function WhyEdrisync({ sectionRef, refs }) {
             <div className="flex items-center gap-3">
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center"
-                style={{ background: 'linear-gradient(140deg, #10245f, #2857b8)' }}
+                style={{ background: 'linear-gradient(140deg, #000741, #2857b8)' }}
               >
                 <ShieldCheck className="w-5 h-5 text-white" />
               </div>
               <div>
                 <p className="text-xs text-gray-400 font-medium">System uptime</p>
-                <p className="text-xl font-bold" style={{ color: '#040720' }}>99.97%</p>
+                <p className="text-xl font-bold" style={{ color: '#000741' }}>99.97%</p>
               </div>
               <div className="ml-2 flex items-center gap-1.5">
                 <span className="relative flex h-2.5 w-2.5">
@@ -118,14 +118,14 @@ export default function WhyEdrisync({ sectionRef, refs }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="h-[2px] w-10 rounded-full origin-left"
-              style={{ background: 'linear-gradient(90deg, #10245f, #2857b8)' }}
+              style={{ background: 'linear-gradient(90deg, #000741, #2857b8)' }}
             />
             <p className="text-xs uppercase tracking-[0.3em] font-semibold" style={{ color: '#087fd1' }}>
               Why EdriSync
             </p>
           </div>
 
-          <h2 className="text-4xl lg:text-[2.7rem] font-light mt-5 leading-[1.12]" style={{ color: '#040720' }}>
+          <h2 className="text-4xl lg:text-[2.7rem] font-light mt-5 leading-[1.12]" style={{ color: '#000741' }}>
             Cybersecurity, compliance, and digital
             <span
               style={{
@@ -177,12 +177,12 @@ export default function WhyEdrisync({ sectionRef, refs }) {
                     style={{ background: 'linear-gradient(180deg, #2857b8, #79a7ff)' }}
                   />
                   <div
-                    className="relative z-10 mt-0.5 flex w-11 shrink-0 items-center justify-center rounded-xl border border-[#2857b8]/10 bg-[#edf3ff] text-[#2857b8] transition-all duration-300 group-hover:scale-105 group-hover:border-[#2857b8]/20 group-hover:bg-[#10245f] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#2857b8]/20"
+                    className="relative z-10 mt-0.5 flex w-11 shrink-0 items-center justify-center rounded-xl border border-[#2857b8]/10 bg-[#edf3ff] text-[#2857b8] transition-all duration-300 group-hover:scale-105 group-hover:border-[#2857b8]/20 group-hover:bg-[#000741] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#2857b8]/20"
                   >
                     <Icon className="w-5 h-5" />
                   </div>
                   <div className="relative z-10">
-                    <h4 className="text-base font-semibold text-[#040720] transition-colors duration-300 group-hover:text-[#0a1a68]">
+                    <h4 className="text-base font-semibold text-[#000741] transition-colors duration-300 group-hover:text-[#000741]">
                       {feature.title}
                     </h4>
                     <p className="mt-1.5 text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-[#42536f]">{feature.desc}</p>

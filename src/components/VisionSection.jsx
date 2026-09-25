@@ -6,14 +6,14 @@ const items = [
     icon: Shield,
     title: 'Our Vision',
     desc: 'To be the trusted advisory partner that helps organizations build secure, compliant, and digitally enabled businesses through integrated technology strategy and execution.',
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
     glow: '#2857b8',
   },
   {
     icon: Settings,
     title: 'Our Approach',
     desc: 'We start with your business problem, then connect cybersecurity, GRC, Microsoft, and transformation into one integrated roadmap, from strategy through implementation and continuous improvement.',
-    accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
     glow: '#2857b8',
   },
 ];
@@ -32,7 +32,7 @@ export default function VisionSection() {
           <p className="text-xs uppercase tracking-[0.28em] font-medium" style={{ color: '#087fd1' }}>
             Our Vision &amp; Approach
           </p>
-          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4" style={{ color: '#0a1a68', fontFamily: 'var(--font-family-heading)' }}>
+          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
             Driving sustainable digital
             <br />
             <span className="font-medium">evolution across industries</span>
@@ -68,7 +68,7 @@ export default function VisionSection() {
                       <Icon className="w-8 h-8 text-white" strokeWidth={2} />
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold mb-3" style={{ color: '#0a1a68' }}>
+                    <h3 className="text-2xl font-bold mb-3" style={{ color: '#000741' }}>
                       {item.title}
                     </h3>
                     <p className="text-[15px] leading-relaxed mx-auto max-w-[34ch]" style={{ color: '#414b60' }}>

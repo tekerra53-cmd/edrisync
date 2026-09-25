@@ -4,10 +4,10 @@ import { Award, Users, Calendar, Globe, ShieldCheck, ArrowRight } from 'lucide-r
 const ABOUT_IMAGE = 'https://edrisync.com/myapp/wp-content/uploads/2026/05/edrisync-hm1-img01.png';
 
 const stats = [
-  { icon: Award, value: '500+', label: 'Projects Delivered', accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)' },
-  { icon: Users, value: '98%', label: 'Client Retention', accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)' },
-  { icon: Calendar, value: '15+', label: 'Years Experience', accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)' },
-  { icon: Globe, value: 'Global', label: 'Client Reach', accent: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)' },
+  { icon: Award, value: '500+', label: 'Projects Delivered', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
+  { icon: Users, value: '98%', label: 'Client Retention', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
+  { icon: Calendar, value: '15+', label: 'Years Experience', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
+  { icon: Globe, value: 'Global', label: 'Client Reach', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
 ];
 
 export default function AboutSection({ sectionRef, onAbout }) {
@@ -59,12 +59,12 @@ export default function AboutSection({ sectionRef, onAbout }) {
           >
             <div
               className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-              style={{ background: 'linear-gradient(135deg, #10245f 0%, #2857b8 100%)' }}
+              style={{ background: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' }}
             >
               <ShieldCheck className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold" style={{ color: '#0a1a68' }}>Trusted & certified</p>
+              <p className="text-sm font-semibold" style={{ color: '#000741' }}>Trusted & certified</p>
               <p className="text-xs" style={{ color: '#68758c' }}>Partnering with teams worldwide</p>
             </div>
           </motion.div>
@@ -81,7 +81,7 @@ export default function AboutSection({ sectionRef, onAbout }) {
             About EDRISYNC
           </p>
           <div className="w-12 h-1 rounded-full mt-3" style={{ background: 'linear-gradient(90deg, #6730ef, #0b82dc)' }} />
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-light mt-5 leading-[1.2] text-balance" style={{ color: '#0a1a68', fontFamily: 'var(--font-family-heading)' }}>
+          <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-light mt-5 leading-[1.2] text-balance" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
             Cybersecurity, compliance, and digital
             <span className="font-medium"> transformation</span>
             <span className="block">is a business outcome,</span>
@@ -108,7 +108,7 @@ export default function AboutSection({ sectionRef, onAbout }) {
                   >
                     <Icon className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-2xl font-bold" style={{ color: '#0a1a68' }}>{stat.value}</div>
+                  <div className="text-2xl font-bold" style={{ color: '#000741' }}>{stat.value}</div>
                   <div className="text-[11px] mt-1 uppercase tracking-wide leading-snug" style={{ color: '#68758c' }}>{stat.label}</div>
                 </div>
               );
@@ -128,8 +128,8 @@ export default function AboutSection({ sectionRef, onAbout }) {
                 e.preventDefault();
                 onAbout?.();
               }}
-              className="relative flex min-h-[52px] items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold shadow-xl transition-all duration-200 hover:shadow-2xl focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#040720]"
-              style={{ color: '#040720', backgroundColor: '#B1B6CE' }}
+              className="relative flex min-h-[52px] items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold shadow-xl transition-all duration-200 hover:shadow-2xl focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#000741]"
+              style={{ color: '#000741', backgroundColor: '#B1B6CE' }}
             >
               Learn more about us
               <motion.span

@@ -9,7 +9,7 @@ const servicePillars = [
     desc: 'We assess your current security posture, design zero-trust architectures, implement Microsoft Defender and endpoint protection, monitor for threats, and prepare you for any incident, all while connecting back to your governance and compliance requirements.',
     capabilities: ['Security assessments', 'Microsoft Defender XDR', 'Endpoint & network security', 'Threat monitoring', 'Incident response'],
     accent: '#087fd1',
-    gradient: 'linear-gradient(135deg, #087fd1 0%, #4da8ef 100%)',
+    gradient: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)',
   },
   {
     icon: FileCheck,
@@ -18,7 +18,7 @@ const servicePillars = [
     desc: 'From IT governance and risk assessment to policy development, regulatory readiness, and audit preparation, we turn compliance from a burden into a competitive advantage.',
     capabilities: ['IT governance', 'Risk assessment', 'Policy & controls', 'Audit readiness', 'Data governance'],
     accent: '#087fd1',
-    gradient: 'linear-gradient(135deg, #087fd1 0%, #4da8ef 100%)',
+    gradient: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)',
   },
   {
     icon: Landmark,
@@ -27,7 +27,7 @@ const servicePillars = [
     desc: 'We architect and implement secure Microsoft 365, Azure, and identity solutions, including Defender, Conditional Access, SharePoint, and Teams, that empower your workforce while meeting your security and compliance standards.',
     capabilities: ['Microsoft 365', 'Azure', 'Identity & Access', 'Defender XDR', 'SharePoint & Teams'],
     accent: '#087fd1',
-    gradient: 'linear-gradient(135deg, #087fd1 0%, #4da8ef 100%)',
+    gradient: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)',
   },
   {
     icon: Settings,
@@ -36,7 +36,7 @@ const servicePillars = [
     desc: 'We discover inefficiencies, digitize paper workflows, automate repetitive tasks, and integrate your systems into a cohesive, measurable digital operating model.',
     capabilities: ['Process discovery', 'Paper-to-digital', 'Workflow automation', 'Business systems integration', 'Digital workplace'],
     accent: '#087fd1',
-    gradient: 'linear-gradient(135deg, #087fd1 0%, #4da8ef 100%)',
+    gradient: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)',
   },
 ];
 
@@ -59,7 +59,7 @@ function ServiceCard({ service, index }) {
           <service.icon className="w-7 h-7 text-white" strokeWidth={1.5} />
         </div>
         <div className="flex-1">
-          <h3 className="text-2xl font-bold mb-2" style={{ color: '#040720' }}>
+          <h3 className="text-2xl font-bold mb-2" style={{ color: '#000741' }}>
             {service.title}
           </h3>
           <p className="text-gray-600 text-[14px] leading-relaxed mb-4">{service.desc}</p>
@@ -84,7 +84,7 @@ export default function ServicesPage({ onHome }) {
   return (
     <div style={{ backgroundColor: '#f7f9fd', minHeight: '100vh' }} className="min-h-screen">
       {/* Header */}
-      <header className="relative overflow-hidden px-6 pb-14 pt-32" style={{ background: 'linear-gradient(135deg, #087fd1 0%, #4da8ef 100%)' }}>
+      <header className="relative overflow-hidden px-6 pb-14 pt-32" style={{ background: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
           style={{ background: 'radial-gradient(circle at 20% 20%, rgba(8,127,209,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(40,87,184,0.35), transparent 45%)' }}
@@ -140,7 +140,7 @@ export default function ServicesPage({ onHome }) {
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); onHome(); }}
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#040720] transition-all duration-200 hover:gap-3"
+            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#000741] transition-all duration-200 hover:gap-3"
           >
             Request a consultation
             <ArrowRight className="h-4 w-4 text-[#087fd1] transition-colors group-hover:text-[#2857b8]" />

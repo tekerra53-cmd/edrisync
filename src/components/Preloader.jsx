@@ -8,7 +8,7 @@ export default function Preloader() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: 'easeInOut' }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #040720 0%, #040720 55%, #040720 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #000741 0%, #000741 55%, #000741 100%)' }}
     >
       {/* Pulsing glow behind the logo */}
       <motion.div

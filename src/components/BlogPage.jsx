@@ -21,7 +21,7 @@ const posts = [
     excerpt:
       'Repetitive work quietly drains your team. Learn how to spot the right processes to automate and roll them out without disrupting delivery.',
     image: 'https://images.unsplash.com/photo-1512758117926-5019c9d0b9b5?auto=format&fit=crop&w=800&q=80',
-    accent: '#A8D5BA',
+    accent: '#4ADE80',
   },
   {
     category: 'Design',
@@ -51,7 +51,7 @@ const posts = [
     excerpt:
       'Your workspace is only as safe as its weakest setting. Practical hardening steps every business should ship by default.',
     image: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80',
-    accent: '#A8D5BA',
+    accent: '#4ADE80',
   },
   {
     category: 'Web',
@@ -99,7 +99,7 @@ function PostCard({ post, index }) {
             <Clock className="w-3.5 h-3.5" /> {post.readTime}
           </span>
         </div>
-        <h3 className="text-lg font-bold leading-snug mb-2 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#040720' }}>
+        <h3 className="text-lg font-bold leading-snug mb-2 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#000741' }}>
           {post.title}
         </h3>
         <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
@@ -118,7 +118,7 @@ export default function BlogPage({ onHome }) {
   return (
     <div style={{ backgroundColor: '#ffffff' }} className="min-h-screen">
       {/* Header */}
-      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#040720' }}>
+      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#000741' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
           style={{ background: 'radial-gradient(circle at 20% 20%, rgba(177,182,206,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(168,213,186,0.35), transparent 45%)' }}
@@ -175,7 +175,7 @@ export default function BlogPage({ onHome }) {
                 <Clock className="w-3.5 h-3.5" /> {featured.readTime}
               </span>
             </div>
-            <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#040720' }}>
+            <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#000741' }}>
               {featured.title}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">{featured.excerpt}</p>

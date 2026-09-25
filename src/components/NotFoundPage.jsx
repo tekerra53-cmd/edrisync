@@ -1,0 +1,3 @@
+export default function NotFoundPage({ onHome }) {
+  return <main className="flex min-h-[70vh] items-center justify-center px-6 pt-20 text-center"><div><p className="text-sm font-bold uppercase tracking-[0.3em] text-[#087fd1]">Error 404</p><h1 className="mt-4 text-5xl font-light tracking-tight text-[#000741] sm:text-7xl">Page not found</h1><p className="mx-auto mt-5 max-w-md text-slate-600">The page you requested does not exist or may have moved.</p><button type="button" onClick={onHome} className="mt-8 rounded-full bg-[#000741] px-6 py-3 text-sm font-semibold text-white">Back to Edrisync</button></div></main>;
+}

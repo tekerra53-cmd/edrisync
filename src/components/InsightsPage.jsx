@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Clock, Shield, FileCheck, Landmark, Settings, TrendingUp } from 'lucide-react';
+import { getManagedContent } from '../services/managedContent';
 
-const posts = [
+export const defaultPosts = [
   {
     featured: true,
     category: 'Cybersecurity',
@@ -21,7 +23,7 @@ const posts = [
     excerpt:
       'Audits don\'t have to be crisis events. A proactive GRC framework turns compliance into continuous practice.',
     image: 'https://images.unsplash.com/photo-1512758117926-5019c9d0b9b5?auto=format&fit=crop&w=800&q=80',
-    accent: '#A8D5BA',
+    accent: '#4ADE80',
   },
   {
     category: 'Microsoft',
@@ -51,7 +53,7 @@ const posts = [
     excerpt:
       'When seconds count, preparation matters. A tested incident response plan can reduce breach costs by over 60%.',
     image: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80',
-    accent: '#A8D5BA',
+    accent: '#4ADE80',
   },
   {
     category: 'GRC',
@@ -108,7 +110,7 @@ function PostCard({ post, index }) {
             <Clock className="w-3.5 h-3.5" /> {post.readTime}
           </span>
         </div>
-        <h3 className="text-lg font-bold leading-snug mb-2 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#040720' }}>
+        <h3 className="text-lg font-bold leading-snug mb-2 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#000741' }}>
           {post.title}
         </h3>
         <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
@@ -122,12 +124,18 @@ function PostCard({ post, index }) {
 }
 
 export default function InsightsPage({ onHome }) {
-  const [featured, ...rest] = posts;
+  const [managedPosts, setManagedPosts] = useState(defaultPosts);
+
+  useEffect(() => {
+    getManagedContent('insights', defaultPosts).then(setManagedPosts);
+  }, []);
+
+  const [featured, ...rest] = managedPosts;
 
   return (
     <div style={{ backgroundColor: '#ffffff' }} className="min-h-screen">
       {/* Header */}
-      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#040720' }}>
+      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#000741' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
           style={{ background: 'radial-gradient(circle at 20% 20%, rgba(177,182,206,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(168,213,186,0.35), transparent 45%)' }}
@@ -184,7 +192,7 @@ export default function InsightsPage({ onHome }) {
                 <Clock className="w-3.5 h-3.5" /> {featured.readTime}
               </span>
             </div>
-            <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#040720' }}>
+            <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#000741' }}>
               {featured.title}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">{featured.excerpt}</p>

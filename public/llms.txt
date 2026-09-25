@@ -1,0 +1,18 @@
+# Edrisync
+
+> Edrisync is a cybersecurity, GRC, Microsoft enablement, and digital transformation advisory and implementation firm based in Lagos, Nigeria.
+
+## Services
+- Cybersecurity
+- GRC and compliance
+- Microsoft and digital workplace
+- Digital transformation
+
+## Contact
+- Website: https://edrisync.com/
+- Email: info@edrisync.com
+
+## Policies
+- Privacy: https://edrisync.com/privacy-policy
+- Cookies: https://edrisync.com/cookie-policy
+- Terms: https://edrisync.com/terms-and-conditions
