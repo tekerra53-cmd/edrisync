@@ -381,10 +381,6 @@ img {
 @media (min-width: 640px) and (max-width: 1023px) {
   .nav-fixed .brand-lockup {
     padding: 8px 12px 8px 8px;
-    border: 1px solid rgba(0, 7, 65, 0.12);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.42);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
   }
 
   .nav-fixed .edrisync-deconstructed > span {
