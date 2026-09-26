@@ -21,6 +21,10 @@ In Supabase SQL Editor, run:
 supabase/migrations/001_initial_schema.sql
 supabase/migrations/002_managed_content.sql
 supabase/migrations/003_site_media_storage.sql
+supabase/migrations/004_security_hardening.sql
+supabase/migrations/005_require_mfa_for_admin.sql
+supabase/migrations/006_admin_accounts_and_activity_log.sql
+supabase/migrations/007_newsletter_subscribers.sql
 ```
 
 This creates:
@@ -30,6 +34,7 @@ This creates:
 - `site-media`: a public Storage bucket for images uploaded from the admin dashboard
 - `consultation_requests`: public consultation form submissions and admin statuses
 - RLS policies for public reads/submissions and admin-only management
+- the admin account directory, activity history, and newsletter subscriber list
 
 ## 3. Configure Google sign-in and MFA
 
@@ -62,6 +67,9 @@ TOTP authenticator (Google Authenticator, Authy, or 1Password). Run migration
 - `/admin/case-studies`: add, edit, delete, and publish case studies
 - `/admin/insights`: add, edit, delete, and publish insight articles
 - `/admin/contacts`: review consultation requests and update their status
+- `/admin/subscribers`: view people who subscribed through the website
+- `/admin/users`: review approved dashboard accounts and MFA status
+- `/admin/activity`: review sign-ins, sign-outs, and recorded changes
 
 The public site reads saved hero, case-study, and insight content on load. Until a collection is published from the dashboard, the current built-in content remains as a fallback. The consultation form inserts into the same database, so requests are visible in the dashboard from any device.
 

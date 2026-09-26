@@ -1,8 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, ArrowUpRight, Bell, Briefcase, Check, CheckCircle2, ChevronLeft, ChevronRight, Clock, Edit, FileEdit, FileText, Globe2, HelpCircle, Home, Image, Inbox, LayoutDashboard, Lightbulb, LogOut, Palette, Plus, Quote, Save, Search, Settings, Sparkles, TrendingUp, Trash2, Upload, Users, Zap } from 'lucide-react';
+import { Activity, ArrowUpRight, Bell, Briefcase, Check, CheckCircle2, ChevronLeft, ChevronRight, Clock, Edit, FileEdit, FileText, Globe2, HelpCircle, Home, Image, Inbox, LayoutDashboard, Lightbulb, LogOut, Mail, Palette, Plus, Quote, Save, Search, Settings, Sparkles, TrendingUp, Trash2, Upload, Users, Zap } from 'lucide-react';
 import edrisyncLogo from '../assests/img/edrisync-logo.png';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { AdminAccount, AdminActivity, getAdminAccounts, getAdminActivity, recordSessionActivity } from '../services/adminActivity';
+import { getNewsletterSubscribers, NewsletterSubscriber } from '../services/newsletter';
 import { defaultHeroSettings, getHeroSettings, HeroSettings, saveHeroSettings } from '../services/siteContent';
 import { CaseStudy, InsightPost, getManagedContent, saveManagedContent } from '../services/managedContent';
 import { projects } from './PortfolioSection';
@@ -11,7 +13,7 @@ import { defaultPartners } from './ClientLogos';
 import { defaultClientPerspectives } from './Testimonials';
 
 type RequestRow = { id: string; name: string; organisation: string; email: string; service_area: string; challenge: string; contact_method: string; status: 'new' | 'in_progress' | 'closed'; created_at: string };
-const navItems = [{ href: '/admin', label: 'Overview', Icon: LayoutDashboard }, { href: '/admin/case-studies', label: 'Case studies', Icon: FileText }, { href: '/admin/insights', label: 'Insights', Icon: Sparkles }, { href: '/admin/partners', label: 'Partners', Icon: Users }, { href: '/admin/client-perspectives', label: 'Client perspectives', Icon: Quote }, { href: '/admin/media', label: 'Media library', Icon: Image }, { href: '/admin/contacts', label: 'Consultation inbox', Icon: Inbox }, { href: '/admin/users', label: 'Users & roles', Icon: Users }, { href: '/admin/activity', label: 'Activity log', Icon: Activity }];
+const navItems = [{ href: '/admin', label: 'Overview', Icon: LayoutDashboard }, { href: '/admin/case-studies', label: 'Case studies', Icon: FileText }, { href: '/admin/insights', label: 'Insights', Icon: Sparkles }, { href: '/admin/partners', label: 'Partners', Icon: Users }, { href: '/admin/client-perspectives', label: 'Client perspectives', Icon: Quote }, { href: '/admin/media', label: 'Media library', Icon: Image }, { href: '/admin/contacts', label: 'Consultation inbox', Icon: Inbox }, { href: '/admin/subscribers', label: 'Subscribers', Icon: Mail }, { href: '/admin/users', label: 'Users & roles', Icon: Users }, { href: '/admin/activity', label: 'Activity log', Icon: Activity }];
 
 function getTokenPayload(session: any) {
   try {
@@ -44,6 +46,7 @@ export default function AdminDashboard() {
   const isPartners = window.location.pathname === '/admin/partners';
   const isPerspectives = window.location.pathname === '/admin/client-perspectives';
   const isMedia = window.location.pathname === '/admin/media';
+  const isSubscribers = window.location.pathname === '/admin/subscribers';
   const isUsers = window.location.pathname === '/admin/users';
   const isActivity = window.location.pathname === '/admin/activity';
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>(projects);
@@ -93,6 +96,20 @@ export default function AdminDashboard() {
     setRequests((current) => current.map((item) => item.id === id ? { ...item, status } : item));
   }
 
+  async function signOut() {
+    try { await recordSessionActivity('sign_out'); } catch { /* Audit logging must not prevent a safe sign-out. */ }
+    await supabase?.auth.signOut();
+  }
+
+  useEffect(() => {
+    if (!session || !mfaReady) return;
+    const sessionKey = getTokenPayload(session)?.session_id || session.access_token;
+    const storageKey = `edrisync-admin-audit-${sessionKey}`;
+    if (sessionStorage.getItem(storageKey)) return;
+    sessionStorage.setItem(storageKey, 'recorded');
+    recordSessionActivity('sign_in').catch(() => sessionStorage.removeItem(storageKey));
+  }, [session, mfaReady]);
+
   if (!isSupabaseConfigured) return <SetupNotice />;
   if (authLoading) return <div className="admin-loading min-h-screen" />;
   if (!session) return <Login authError={authError} setAuthError={setAuthError} />;
@@ -113,13 +130,18 @@ export default function AdminDashboard() {
         </div>}</div>
         <a href="/admin/media" className={`admin-nav-link ${isMedia ? 'is-active' : ''}`} title="Media Library"><Image />{!sidebarCollapsed && <span>Media Library</span>}</a>
         <a href="/admin/contacts" className={`admin-nav-link ${isContacts ? 'is-active' : ''}`} title="Messages"><Inbox />{!sidebarCollapsed && <span>Messages</span>}{!sidebarCollapsed && newRequests > 0 && <b className="admin-count">{newRequests}</b>}</a>
+        <a href="/admin/subscribers" className={`admin-nav-link ${isSubscribers ? 'is-active' : ''}`} title="Subscribers"><Mail />{!sidebarCollapsed && <span>Subscribers</span>}</a>
         <a href="/admin/users" className={`admin-nav-link ${isUsers ? 'is-active' : ''}`} title="Users & Roles"><Users />{!sidebarCollapsed && <span>Users & Roles</span>}</a>
         <a href="/admin/activity" className={`admin-nav-link ${isActivity ? 'is-active' : ''}`} title="Activity Log"><Activity />{!sidebarCollapsed && <span>Activity Log</span>}</a>
       </nav>
-      <div className="admin-sidebar-bottom"><span className="admin-nav-link is-disabled" title="Help & Support"><HelpCircle />{!sidebarCollapsed && <span>Help & Support</span>}</span>{!sidebarCollapsed && <div className="admin-account"><span>AD</span><div><b>Admin</b><small>Administrator</small></div></div>}<button onClick={() => supabase?.auth.signOut()} className="admin-nav-link admin-logout" title="Log out"><LogOut />{!sidebarCollapsed && <span>Log out</span>}</button></div>
+      <div className="admin-sidebar-bottom"><span className="admin-nav-link is-disabled" title="Help & Support"><HelpCircle />{!sidebarCollapsed && <span>Help & Support</span>}</span>{!sidebarCollapsed && <div className="admin-account"><span>AD</span><div><b>Admin</b><small>Administrator</small></div></div>}<button onClick={signOut} className="admin-nav-link admin-logout" title="Log out"><LogOut />{!sidebarCollapsed && <span>Log out</span>}</button></div>
       <button onClick={() => setSidebarCollapsed((current) => !current)} aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} className="admin-sidebar-toggle">{sidebarCollapsed ? <ChevronRight /> : <ChevronLeft />}</button>
     </motion.aside>
-    <div className="min-w-0 flex-1"><header className="admin-header flex h-[78px] items-center justify-between px-5 sm:px-8"><div><p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300/80">Admin workspace</p><h1 className="mt-1 text-lg font-semibold tracking-tight">{isContacts ? 'Consultation inbox' : isCaseStudies ? 'Case studies' : isInsights ? 'Insights' : isPartners ? 'Partners' : isPerspectives ? 'Client perspectives' : isMedia ? 'Media library' : isUsers ? 'Users & roles' : isActivity ? 'Activity log' : 'Dashboard'}</h1></div><div className="flex items-center gap-2 sm:gap-3"><a href="/" className="admin-outline-action hidden items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold sm:flex"><Globe2 className="h-3.5 w-3.5" /> View site</a><button onClick={() => supabase?.auth.signOut()} className="admin-signout flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold"><LogOut className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Sign out</span></button></div></header><nav className="admin-mobile-nav flex gap-2 overflow-x-auto px-5 py-3 lg:hidden">{navItems.map(({ href, label, Icon }) => <a key={href} href={href} className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${window.location.pathname === href ? 'is-active' : ''}`}><Icon className="h-3.5 w-3.5" />{label}</a>)}</nav><motion.main initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }} className="relative mx-auto max-w-[1380px] px-5 py-7 sm:px-8 lg:px-10">{isContacts ? <RequestsPanel requests={requests} onStatusChange={updateStatus} /> : isCaseStudies ? <CaseStudiesPanel items={caseStudies} setItems={setCaseStudies} /> : isInsights ? <InsightsPanel items={insights} setItems={setInsights} /> : isPartners ? <PartnersPanel items={partners} setItems={setPartners} /> : isPerspectives ? <ClientPerspectivesPanel items={perspectives} setItems={setPerspectives} /> : isMedia ? <MediaLibraryPanel /> : isUsers ? <UsersPanel email={session.user.email || ''} /> : isActivity ? <ActivityPanel requests={requests} /> : <Overview hero={hero} setHero={setHero} saveSettings={saveSettings} saving={saving} message={message} requests={requests} caseStudies={caseStudies} insights={insights} />}</motion.main></div>
+    <div className="min-w-0 flex-1">
+      <header className="admin-header flex h-[78px] items-center justify-between px-5 sm:px-8"><div><p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300/80">Admin workspace</p><h1 className="mt-1 text-lg font-semibold tracking-tight">{isContacts ? 'Consultation inbox' : isCaseStudies ? 'Case studies' : isInsights ? 'Insights' : isPartners ? 'Partners' : isPerspectives ? 'Client perspectives' : isMedia ? 'Media library' : isSubscribers ? 'Subscribers' : isUsers ? 'Users & roles' : isActivity ? 'Activity log' : 'Dashboard'}</h1></div><div className="flex items-center gap-2 sm:gap-3"><a href="/" className="admin-outline-action hidden items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold sm:flex"><Globe2 className="h-3.5 w-3.5" /> View site</a><button onClick={signOut} className="admin-signout flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold"><LogOut className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Sign out</span></button></div></header>
+      <nav className="admin-mobile-nav flex gap-2 overflow-x-auto px-5 py-3 lg:hidden">{navItems.map(({ href, label, Icon }) => <a key={href} href={href} className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${window.location.pathname === href ? 'is-active' : ''}`}><Icon className="h-3.5 w-3.5" />{label}</a>)}</nav>
+      <motion.main initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }} className="relative mx-auto max-w-[1380px] px-5 py-7 sm:px-8 lg:px-10">{isContacts ? <RequestsPanel requests={requests} onStatusChange={updateStatus} /> : isCaseStudies ? <CaseStudiesPanel items={caseStudies} setItems={setCaseStudies} /> : isInsights ? <InsightsPanel items={insights} setItems={setInsights} /> : isPartners ? <PartnersPanel items={partners} setItems={setPartners} /> : isPerspectives ? <ClientPerspectivesPanel items={perspectives} setItems={setPerspectives} /> : isMedia ? <MediaLibraryPanel /> : isSubscribers ? <SubscribersPanel /> : isUsers ? <UsersPanel /> : isActivity ? <ActivityPanel /> : <Overview hero={hero} setHero={setHero} saveSettings={saveSettings} saving={saving} message={message} requests={requests} caseStudies={caseStudies} insights={insights} />}</motion.main>
+    </div>
   </div></motion.div>;
 }
 
@@ -318,6 +340,71 @@ function MediaLibraryPanel() {
   return <section><h2 className="text-3xl font-light tracking-tight">Media library</h2><p className="mt-2 text-sm text-slate-500">Images uploaded from the content editors.</p><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{files.map((file) => { const { data } = supabase!.storage.from('site-media').getPublicUrl(`uploads/${file.name}`); return <article key={file.id || file.name} className="overflow-hidden rounded-xl border border-slate-200 bg-white"><img src={data.publicUrl} alt={file.name} className="h-40 w-full object-cover" /><p className="truncate px-3 py-3 text-xs font-medium text-slate-600">{file.name}</p></article>; })}</div>{!files.length && <p className="mt-8 text-sm text-slate-500">No uploaded images yet.</p>}</section>;
 }
 
-function UsersPanel({ email }: { email: string }) { return <section><h2 className="text-3xl font-light tracking-tight">Users & roles</h2><article className="mt-8 flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6"><div><p className="font-semibold text-slate-800">{email}</p><p className="mt-1 text-sm text-slate-500">Current signed-in account</p></div><span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-[#087FD1]">Administrator</span></article><p className="mt-5 text-xs text-slate-500">Manage accounts in Supabase Authentication. Assign <code>app_metadata.role = 'admin'</code> to allow dashboard access.</p></section>; }
+function SubscribersPanel() {
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-function ActivityPanel({ requests }: { requests: RequestRow[] }) { return <section><h2 className="text-3xl font-light tracking-tight">Activity log</h2><p className="mt-2 text-sm text-slate-500">Recent consultation activity.</p><div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white">{requests.map((request) => <div key={request.id} className="flex gap-4 border-b border-slate-100 p-5 last:border-0"><Inbox className="h-5 w-5 text-[#087FD1]" /><div><p className="text-sm font-medium text-slate-800">New consultation request from {request.name}</p><p className="mt-1 text-xs text-slate-500">{new Date(request.created_at).toLocaleString()}</p></div></div>)}{!requests.length && <p className="p-10 text-center text-sm text-slate-500">No activity yet.</p>}</div></section>; }
+  useEffect(() => {
+    getNewsletterSubscribers().then(setSubscribers).catch((reason) => setError(reason.message || 'Could not load subscribers.')).finally(() => setLoading(false));
+  }, []);
+
+  const activeCount = subscribers.filter((subscriber) => subscriber.status === 'subscribed').length;
+  return <section>
+    <p className="text-sm text-slate-500">Email updates</p>
+    <div className="mt-1 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><h2 className="text-3xl font-light tracking-tight sm:text-4xl">Subscribers</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">People who opted in through the website. Email sending will be available once an email provider is connected.</p></div><span className="w-fit rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#087FD1]">{activeCount} active</span></div>
+    <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(7,21,47,0.03)]">
+      <div className="hidden grid-cols-[minmax(220px,1fr)_130px_180px] gap-4 border-b border-slate-100 bg-slate-50/70 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 sm:grid"><span>Email</span><span>Status</span><span>Subscribed</span></div>
+      {loading && <p className="p-10 text-center text-sm text-slate-500">Loading subscribers…</p>}
+      {!loading && error && <p role="alert" className="p-8 text-sm text-red-600">{error}<br /><span className="mt-2 block text-xs text-slate-500">Run migration <code>007_newsletter_subscribers.sql</code> in Supabase, then refresh this page.</span></p>}
+      {!loading && !error && subscribers.map((subscriber) => <article key={subscriber.id} className="grid gap-3 border-b border-slate-100 px-5 py-4 last:border-0 sm:grid-cols-[minmax(220px,1fr)_130px_180px] sm:items-center sm:gap-4"><p className="break-all text-sm font-medium text-slate-800">{subscriber.email}</p><span className={`w-fit rounded-full px-3 py-1 text-xs font-semibold capitalize ${subscriber.status === 'subscribed' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'}`}>{subscriber.status}</span><p className="text-xs text-slate-600">{new Date(subscriber.subscribed_at).toLocaleString()}</p></article>)}
+      {!loading && !error && !subscribers.length && <p className="p-10 text-center text-sm text-slate-500">No subscribers yet.</p>}
+    </div>
+  </section>;
+}
+
+function UsersPanel() {
+  const [accounts, setAccounts] = useState<AdminAccount[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    getAdminAccounts().then(setAccounts).catch((reason) => setError(reason.message || 'Could not load dashboard accounts.')).finally(() => setLoading(false));
+  }, []);
+
+  return <section>
+    <p className="text-sm text-slate-500">Dashboard access</p>
+    <h2 className="mt-1 text-3xl font-light tracking-tight sm:text-4xl">Users & roles</h2>
+    <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Only accounts approved as administrators appear here. Sensitive authentication data, such as passwords and tokens, is never shown.</p>
+    <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(7,21,47,0.03)]">
+      <div className="hidden grid-cols-[minmax(180px,1.3fr)_110px_120px_150px_160px] gap-4 border-b border-slate-100 bg-slate-50/70 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 lg:grid"><span>Account</span><span>Role</span><span>MFA</span><span>Last sign-in</span><span>Access since</span></div>
+      {loading && <p className="p-10 text-center text-sm text-slate-500">Loading approved accounts…</p>}
+      {!loading && error && <p role="alert" className="p-8 text-sm text-red-600">{error}<br /><span className="mt-2 block text-xs text-slate-500">Run migration <code>006_admin_accounts_and_activity_log.sql</code> in Supabase, then refresh this page.</span></p>}
+      {!loading && !error && accounts.map((account) => <article key={account.id} className="grid gap-3 border-b border-slate-100 px-5 py-5 last:border-0 lg:grid-cols-[minmax(180px,1.3fr)_110px_120px_150px_160px] lg:items-center lg:gap-4"><div><p className="font-semibold text-slate-800">{account.display_name || account.email}</p><p className="mt-1 text-xs text-slate-500">{account.email} · {account.provider || 'Email'} sign-in</p></div><span className="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold capitalize text-[#087FD1]">{account.role}</span><span className={`w-fit rounded-full px-3 py-1 text-xs font-semibold ${account.mfa_enrolled ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>{account.mfa_enrolled ? 'Verified' : 'Not enrolled'}</span><p className="text-xs text-slate-600">{account.last_sign_in_at ? new Date(account.last_sign_in_at).toLocaleString() : 'Not signed in yet'}</p><p className="text-xs text-slate-600">{new Date(account.created_at).toLocaleDateString()}</p></article>)}
+      {!loading && !error && !accounts.length && <p className="p-10 text-center text-sm text-slate-500">No administrator accounts have been approved yet.</p>}
+    </div>
+    <p className="mt-5 text-xs leading-5 text-slate-500">To grant access, create the account in Supabase Authentication and set <code>app_metadata.role = 'admin'</code>. Administrators must also enroll MFA before they can use the dashboard.</p>
+  </section>;
+}
+
+function ActivityPanel() {
+  const [activities, setActivities] = useState<AdminActivity[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    getAdminActivity().then(setActivities).catch((reason) => setError(reason.message || 'Could not load activity history.')).finally(() => setLoading(false));
+  }, []);
+
+  return <section>
+    <p className="text-sm text-slate-500">Security and change history</p>
+    <h2 className="mt-1 text-3xl font-light tracking-tight sm:text-4xl">Activity log</h2>
+    <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Records dashboard sign-ins and sign-outs, published content changes, homepage edits, and consultation status updates.</p>
+    <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(7,21,47,0.03)]">
+      {loading && <p className="p-10 text-center text-sm text-slate-500">Loading activity history…</p>}
+      {!loading && error && <p role="alert" className="p-8 text-sm text-red-600">{error}<br /><span className="mt-2 block text-xs text-slate-500">Run migration <code>006_admin_accounts_and_activity_log.sql</code> in Supabase, then refresh this page.</span></p>}
+      {!loading && !error && activities.map((activity) => <article key={activity.id} className="flex gap-4 border-b border-slate-100 p-5 last:border-0"><span className="admin-activity-icon"><Activity className="h-4 w-4" /></span><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-slate-800">{activity.summary}</p><p className="mt-1 text-xs text-slate-500">{activity.actor_email || 'System'} · {new Date(activity.occurred_at).toLocaleString()}</p>{activity.metadata?.previous_status !== undefined && <p className="mt-2 text-xs text-slate-600">Status: {String(activity.metadata.previous_status)} → {String(activity.metadata.new_status)}</p>}</div><span className="hidden rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500 sm:inline-flex">{activity.action}</span></article>)}
+      {!loading && !error && !activities.length && <p className="p-10 text-center text-sm text-slate-500">No dashboard activity has been recorded yet.</p>}
+    </div>
+  </section>;
+}

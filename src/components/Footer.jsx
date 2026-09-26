@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { LOGO_URL } from '../constants/site';
+import { subscribeToUpdates } from '../services/newsletter';
 
 const LinkedinIcon = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>;
 const TwitterIcon = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>;
@@ -25,6 +27,24 @@ const socials = [
 ];
 
 export default function Footer({ refs }) {
+  const [email, setEmail] = useState('');
+  const [subscriptionState, setSubscriptionState] = useState('idle');
+  const [subscriptionMessage, setSubscriptionMessage] = useState('');
+
+  const handleSubscribe = async (event) => {
+    event.preventDefault();
+    setSubscriptionMessage('');
+    setSubscriptionState('submitting');
+    try {
+      await subscribeToUpdates(email);
+      setEmail('');
+      setSubscriptionState('success');
+      setSubscriptionMessage('You’re subscribed. Watch your inbox for updates.');
+    } catch (error) {
+      setSubscriptionState('error');
+      setSubscriptionMessage(error.message || 'We could not subscribe you. Please try again.');
+    }
+  };
   const navigate = (link) => {
     if (serviceKeys[link]) {
       refs?.goServiceDetail?.(serviceKeys[link]);
@@ -83,10 +103,11 @@ export default function Footer({ refs }) {
             <p className="text-lg font-medium tracking-tight text-white">Stay informed, stay ready.</p>
             <p className="mt-2 text-sm text-slate-400">Occasional cybersecurity and GRC insights for decision-makers.</p>
           </div>
-          <form className="flex w-full max-w-xl gap-2" onSubmit={(event) => event.preventDefault()}>
+          <form className="w-full max-w-xl" onSubmit={handleSubscribe}>
             <label className="sr-only" htmlFor="footer-email">Email address</label>
-            <input id="footer-email" type="email" placeholder="your@company.com" className="min-w-0 flex-1 rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-[#B1B6CE] focus:ring-2 focus:ring-[#B1B6CE]/20" />
-            <button type="submit" className="flex items-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#B1B6CE]" style={{ backgroundColor: '#B1B6CE' }}>Subscribe <ArrowUpRight className="h-4 w-4" /></button>
+            <div className="flex gap-2"><input id="footer-email" type="email" required value={email} onChange={(event) => { setEmail(event.target.value); if (subscriptionState !== 'idle') setSubscriptionState('idle'); }} placeholder="your@company.com" className="min-w-0 flex-1 rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-400 focus:border-[#4FA6FF] focus:ring-2 focus:ring-[#4FA6FF]/20" />
+            <button type="submit" disabled={subscriptionState === 'submitting'} className="flex items-center gap-2 rounded-xl bg-[#087FD1] px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#2857B8] disabled:cursor-not-allowed disabled:opacity-70">{subscriptionState === 'submitting' ? 'Subscribing…' : 'Subscribe'} <ArrowUpRight className="h-4 w-4" /></button></div>
+            {subscriptionMessage && <p role={subscriptionState === 'error' ? 'alert' : 'status'} className={`mt-3 text-xs ${subscriptionState === 'error' ? 'text-red-300' : 'text-emerald-300'}`}>{subscriptionMessage}</p>}
           </form>
         </motion.div>
 
