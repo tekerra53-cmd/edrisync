@@ -14,10 +14,10 @@ export default function HeroSection({ sectionRef, refs }) {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden flex items-center"
+      className="hero-section relative isolate overflow-hidden flex items-center"
       style={{ minHeight: '100vh', paddingTop: '84px' }}
     >
-      {/* Palette-led background: no third-party photo is needed for contrast. */}
+      {/* The scene is built from separate layers so its content stays responsive and editable. */}
       <motion.div
         initial={{ scale: 1.06 }}
         animate={{ scale: 1 }}
@@ -25,46 +25,15 @@ export default function HeroSection({ sectionRef, refs }) {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(circle at 83% 24%, rgba(79, 166, 255, 0.42), transparent 25%), radial-gradient(circle at 72% 80%, rgba(40, 87, 184, 0.5), transparent 38%), linear-gradient(118deg, #000741 0%, #000741 45%, #2857B8 155%)',
+            'radial-gradient(circle at 78% 32%, rgba(79, 166, 255, 0.16), transparent 28%), radial-gradient(circle at 74% 78%, rgba(40, 87, 184, 0.18), transparent 38%), linear-gradient(118deg, #000741 0%, #000741 50%, #10265f 140%)',
         }}
       />
       <div
         className="absolute inset-0"
         style={{
-          background:
-            'linear-gradient(rgba(79, 166, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(79, 166, 255, 0.08) 1px, transparent 1px)',
-          backgroundSize: '56px 56px',
-          maskImage: 'linear-gradient(90deg, transparent, black 45%, transparent)',
+          background: 'linear-gradient(90deg, rgba(0, 7, 65, 0.24), transparent 72%), linear-gradient(to top, rgba(0, 7, 65, 0.42), transparent 42%)',
         }}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(90deg, rgba(0, 7, 65, 0.28), transparent 72%), linear-gradient(to top, rgba(0, 7, 65, 0.46), transparent 52%)',
-        }}
-      />
-
-      {/* Subtle animated data points reinforce the technology theme. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-      >
-        <motion.span
-          className="absolute left-[62%] top-[28%] h-2 w-2 rounded-full bg-[#4FA6FF] shadow-[0_0_18px_5px_rgba(79,166,255,0.7)]"
-          animate={{ scale: [1, 1.8, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.span
-          className="absolute left-[78%] top-[54%] h-1.5 w-1.5 rounded-full bg-[#4FA6FF] shadow-[0_0_16px_4px_rgba(79,166,255,0.65)]"
-          animate={{ scale: [1, 1.7, 1], opacity: [0.4, 0.95, 0.4] }}
-          transition={{ duration: 3, repeat: Infinity, delay: 0.7, ease: 'easeInOut' }}
-        />
-        <motion.span
-          className="absolute left-[88%] top-[30%] h-1.5 w-1.5 rounded-full bg-[#4FA6FF] shadow-[0_0_16px_4px_rgba(79,166,255,0.65)]"
-          animate={{ scale: [1, 1.7, 1], opacity: [0.4, 0.95, 0.4] }}
-          transition={{ duration: 2.7, repeat: Infinity, delay: 1.2, ease: 'easeInOut' }}
-        />
-      </div>
 
       {/* Main content, left aligned */}
       <div

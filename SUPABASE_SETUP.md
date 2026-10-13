@@ -68,6 +68,7 @@ TOTP authenticator (Google Authenticator, Authy, or 1Password). Run migration
 - `/admin/insights`: add, edit, delete, and publish insight articles
 - `/admin/contacts`: review consultation requests and update their status
 - `/admin/subscribers`: view people who subscribed through the website
+- `/admin/updates`: compose a newsletter and send a test to your own inbox
 - `/admin/users`: review approved dashboard accounts and MFA status
 - `/admin/activity`: review sign-ins, sign-outs, and recorded changes
 
@@ -76,3 +77,11 @@ The public site reads saved hero, case-study, and insight content on load. Until
 ## Production notes
 
 The anon insert policy is intentionally limited to the consultation request table. Add CAPTCHA/rate limiting before a public launch, and consider moving high-volume form intake behind an Edge Function for abuse protection.
+
+## 6. Test newsletter emails before DNS is available
+
+The admin dashboard can send a test newsletter only to the currently signed-in administrator. In Supabase Dashboard, add an Edge Function named `send-newsletter-test` using `supabase/functions/send-newsletter-test/index.ts`, then set the `RESEND_API_KEY` secret there. Do not add the key to the frontend or GitHub.
+
+Without DNS verification, leave `RESEND_FROM_EMAIL` unset and Resend uses its test sender. After your domain is verified, set `RESEND_FROM_EMAIL` to a branded value such as `Edrisync <updates@edrisync.com>` and enable production sends.
+
+The **Send to all subscribers** action on `/admin/updates` is deliberately disabled and labelled "Verify sending domain to activate." To turn it on later, verify the domain's DNS records, set `RESEND_FROM_EMAIL`, then set `massSendingEnabled = true` in `src/components/AdminDashboard.tsx`. The `send-newsletter-test` edge function only ever sends to the signed-in administrator, so mass sending also needs a new audience-reading edge function before it is safe to enable.

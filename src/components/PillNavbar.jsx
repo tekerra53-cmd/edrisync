@@ -87,8 +87,8 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
           background: 'linear-gradient(135deg, rgba(255,255,255,0.84) 0%, rgba(213,230,249,0.56) 100%)',
           backdropFilter: 'blur(18px) saturate(165%)',
           WebkitBackdropFilter: 'blur(18px) saturate(165%)',
-          boxShadow: '0 0 0 1px rgba(255,255,255,0.82), 0 16px 36px rgba(4,7,32,0.24), inset 0 0 22px rgba(255,255,255,0.78), inset 0 -1px 8px rgba(4,7,32,0.10)',
-          border: '1px solid rgba(255,255,255,0.92)',
+          boxShadow: '0 0 0 0.5px rgba(255,255,255,0.6), 0 16px 36px rgba(4,7,32,0.24), inset 0 0 18px rgba(255,255,255,0.7), inset 0 -1px 8px rgba(4,7,32,0.08)',
+          border: '1px solid rgba(255,255,255,0.68)',
         }}
         onMouseLeave={() => {
           setHoveredNavItem(null);

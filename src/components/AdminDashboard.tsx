@@ -1,10 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, ArrowUpRight, Bell, Briefcase, Check, CheckCircle2, ChevronLeft, ChevronRight, Clock, Edit, FileEdit, FileText, Globe2, HelpCircle, Home, Image, Inbox, LayoutDashboard, Lightbulb, LogOut, Mail, Palette, Plus, Quote, Save, Search, Settings, Sparkles, TrendingUp, Trash2, Upload, Users, Zap } from 'lucide-react';
+import { Activity, ArrowUpRight, Bell, Briefcase, Check, CheckCircle2, ChevronLeft, ChevronRight, Clock, Edit, FileEdit, FileText, Globe2, HelpCircle, Home, Image, Inbox, LayoutDashboard, Lightbulb, Lock, LogOut, Mail, Palette, Plus, Quote, Save, Search, Send, Settings, Sparkles, TrendingUp, Trash2, Upload, Users, Zap } from 'lucide-react';
 import edrisyncLogo from '../assests/img/edrisync-logo.png';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { AdminAccount, AdminActivity, getAdminAccounts, getAdminActivity, recordSessionActivity } from '../services/adminActivity';
 import { getNewsletterSubscribers, NewsletterSubscriber } from '../services/newsletter';
+import { sendNewsletterTest } from '../services/newsletterCampaign';
 import { defaultHeroSettings, getHeroSettings, HeroSettings, saveHeroSettings } from '../services/siteContent';
 import { CaseStudy, InsightPost, getManagedContent, saveManagedContent } from '../services/managedContent';
 import { projects } from './PortfolioSection';
@@ -13,7 +14,7 @@ import { defaultPartners } from './ClientLogos';
 import { defaultClientPerspectives } from './Testimonials';
 
 type RequestRow = { id: string; name: string; organisation: string; email: string; service_area: string; challenge: string; contact_method: string; status: 'new' | 'in_progress' | 'closed'; created_at: string };
-const navItems = [{ href: '/admin', label: 'Overview', Icon: LayoutDashboard }, { href: '/admin/case-studies', label: 'Case studies', Icon: FileText }, { href: '/admin/insights', label: 'Insights', Icon: Sparkles }, { href: '/admin/partners', label: 'Partners', Icon: Users }, { href: '/admin/client-perspectives', label: 'Client perspectives', Icon: Quote }, { href: '/admin/media', label: 'Media library', Icon: Image }, { href: '/admin/contacts', label: 'Consultation inbox', Icon: Inbox }, { href: '/admin/subscribers', label: 'Subscribers', Icon: Mail }, { href: '/admin/users', label: 'Users & roles', Icon: Users }, { href: '/admin/activity', label: 'Activity log', Icon: Activity }];
+const navItems = [{ href: '/admin', label: 'Overview', Icon: LayoutDashboard }, { href: '/admin/case-studies', label: 'Case studies', Icon: FileText }, { href: '/admin/insights', label: 'Insights', Icon: Sparkles }, { href: '/admin/partners', label: 'Partners', Icon: Users }, { href: '/admin/client-perspectives', label: 'Client perspectives', Icon: Quote }, { href: '/admin/media', label: 'Media library', Icon: Image }, { href: '/admin/contacts', label: 'Consultation inbox', Icon: Inbox }, { href: '/admin/subscribers', label: 'Subscribers', Icon: Mail }, { href: '/admin/updates', label: 'Email updates', Icon: Send }, { href: '/admin/users', label: 'Users & roles', Icon: Users }, { href: '/admin/activity', label: 'Activity log', Icon: Activity }];
 
 function getTokenPayload(session: any) {
   try {
@@ -47,6 +48,7 @@ export default function AdminDashboard() {
   const isPerspectives = window.location.pathname === '/admin/client-perspectives';
   const isMedia = window.location.pathname === '/admin/media';
   const isSubscribers = window.location.pathname === '/admin/subscribers';
+  const isUpdates = window.location.pathname === '/admin/updates';
   const isUsers = window.location.pathname === '/admin/users';
   const isActivity = window.location.pathname === '/admin/activity';
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>(projects);
@@ -131,6 +133,7 @@ export default function AdminDashboard() {
         <a href="/admin/media" className={`admin-nav-link ${isMedia ? 'is-active' : ''}`} title="Media Library"><Image />{!sidebarCollapsed && <span>Media Library</span>}</a>
         <a href="/admin/contacts" className={`admin-nav-link ${isContacts ? 'is-active' : ''}`} title="Messages"><Inbox />{!sidebarCollapsed && <span>Messages</span>}{!sidebarCollapsed && newRequests > 0 && <b className="admin-count">{newRequests}</b>}</a>
         <a href="/admin/subscribers" className={`admin-nav-link ${isSubscribers ? 'is-active' : ''}`} title="Subscribers"><Mail />{!sidebarCollapsed && <span>Subscribers</span>}</a>
+        <a href="/admin/updates" className={`admin-nav-link ${isUpdates ? 'is-active' : ''}`} title="Email updates"><Send />{!sidebarCollapsed && <span>Email updates</span>}</a>
         <a href="/admin/users" className={`admin-nav-link ${isUsers ? 'is-active' : ''}`} title="Users & Roles"><Users />{!sidebarCollapsed && <span>Users & Roles</span>}</a>
         <a href="/admin/activity" className={`admin-nav-link ${isActivity ? 'is-active' : ''}`} title="Activity Log"><Activity />{!sidebarCollapsed && <span>Activity Log</span>}</a>
       </nav>
@@ -138,9 +141,9 @@ export default function AdminDashboard() {
       <button onClick={() => setSidebarCollapsed((current) => !current)} aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} className="admin-sidebar-toggle">{sidebarCollapsed ? <ChevronRight /> : <ChevronLeft />}</button>
     </motion.aside>
     <div className="min-w-0 flex-1">
-      <header className="admin-header flex h-[78px] items-center justify-between px-5 sm:px-8"><div><p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300/80">Admin workspace</p><h1 className="mt-1 text-lg font-semibold tracking-tight">{isContacts ? 'Consultation inbox' : isCaseStudies ? 'Case studies' : isInsights ? 'Insights' : isPartners ? 'Partners' : isPerspectives ? 'Client perspectives' : isMedia ? 'Media library' : isSubscribers ? 'Subscribers' : isUsers ? 'Users & roles' : isActivity ? 'Activity log' : 'Dashboard'}</h1></div><div className="flex items-center gap-2 sm:gap-3"><a href="/" className="admin-outline-action hidden items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold sm:flex"><Globe2 className="h-3.5 w-3.5" /> View site</a><button onClick={signOut} className="admin-signout flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold"><LogOut className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Sign out</span></button></div></header>
+      <header className="admin-header flex h-[78px] items-center justify-between px-5 sm:px-8"><div><p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300/80">Admin workspace</p><h1 className="mt-1 text-lg font-semibold tracking-tight">{isContacts ? 'Consultation inbox' : isCaseStudies ? 'Case studies' : isInsights ? 'Insights' : isPartners ? 'Partners' : isPerspectives ? 'Client perspectives' : isMedia ? 'Media library' : isSubscribers ? 'Subscribers' : isUpdates ? 'Email updates' : isUsers ? 'Users & roles' : isActivity ? 'Activity log' : 'Dashboard'}</h1></div><div className="flex items-center gap-2 sm:gap-3"><a href="/" className="admin-outline-action hidden items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold sm:flex"><Globe2 className="h-3.5 w-3.5" /> View site</a><button onClick={signOut} className="admin-signout flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold"><LogOut className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Sign out</span></button></div></header>
       <nav className="admin-mobile-nav flex gap-2 overflow-x-auto px-5 py-3 lg:hidden">{navItems.map(({ href, label, Icon }) => <a key={href} href={href} className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${window.location.pathname === href ? 'is-active' : ''}`}><Icon className="h-3.5 w-3.5" />{label}</a>)}</nav>
-      <motion.main initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }} className="relative mx-auto max-w-[1380px] px-5 py-7 sm:px-8 lg:px-10">{isContacts ? <RequestsPanel requests={requests} onStatusChange={updateStatus} /> : isCaseStudies ? <CaseStudiesPanel items={caseStudies} setItems={setCaseStudies} /> : isInsights ? <InsightsPanel items={insights} setItems={setInsights} /> : isPartners ? <PartnersPanel items={partners} setItems={setPartners} /> : isPerspectives ? <ClientPerspectivesPanel items={perspectives} setItems={setPerspectives} /> : isMedia ? <MediaLibraryPanel /> : isSubscribers ? <SubscribersPanel /> : isUsers ? <UsersPanel /> : isActivity ? <ActivityPanel /> : <Overview hero={hero} setHero={setHero} saveSettings={saveSettings} saving={saving} message={message} requests={requests} caseStudies={caseStudies} insights={insights} />}</motion.main>
+      <motion.main initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }} className="relative mx-auto max-w-[1380px] px-5 py-7 sm:px-8 lg:px-10">{isContacts ? <RequestsPanel requests={requests} onStatusChange={updateStatus} /> : isCaseStudies ? <CaseStudiesPanel items={caseStudies} setItems={setCaseStudies} /> : isInsights ? <InsightsPanel items={insights} setItems={setInsights} /> : isPartners ? <PartnersPanel items={partners} setItems={setPartners} /> : isPerspectives ? <ClientPerspectivesPanel items={perspectives} setItems={setPerspectives} /> : isMedia ? <MediaLibraryPanel /> : isSubscribers ? <SubscribersPanel /> : isUpdates ? <EmailUpdatesPanel /> : isUsers ? <UsersPanel /> : isActivity ? <ActivityPanel /> : <Overview hero={hero} setHero={setHero} saveSettings={saveSettings} saving={saving} message={message} requests={requests} caseStudies={caseStudies} insights={insights} />}</motion.main>
     </div>
   </div></motion.div>;
 }
@@ -359,6 +362,74 @@ function SubscribersPanel() {
       {!loading && error && <p role="alert" className="p-8 text-sm text-red-600">{error}<br /><span className="mt-2 block text-xs text-slate-500">Run migration <code>007_newsletter_subscribers.sql</code> in Supabase, then refresh this page.</span></p>}
       {!loading && !error && subscribers.map((subscriber) => <article key={subscriber.id} className="grid gap-3 border-b border-slate-100 px-5 py-4 last:border-0 sm:grid-cols-[minmax(220px,1fr)_130px_180px] sm:items-center sm:gap-4"><p className="break-all text-sm font-medium text-slate-800">{subscriber.email}</p><span className={`w-fit rounded-full px-3 py-1 text-xs font-semibold capitalize ${subscriber.status === 'subscribed' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'}`}>{subscriber.status}</span><p className="text-xs text-slate-600">{new Date(subscriber.subscribed_at).toLocaleString()}</p></article>)}
       {!loading && !error && !subscribers.length && <p className="p-10 text-center text-sm text-slate-500">No subscribers yet.</p>}
+    </div>
+  </section>;
+}
+
+const subjectLimit = 200;
+const contentLimit = 5000;
+// Flip to true only after the sending domain is verified over DNS and RESEND_FROM_EMAIL is set.
+const massSendingEnabled = false;
+
+function EmailUpdatesPanel() {
+  const [subject, setSubject] = useState('');
+  const [content, setContent] = useState('');
+  const [sending, setSending] = useState(false);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [adminEmail, setAdminEmail] = useState('');
+  const [activeCount, setActiveCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    supabase?.auth.getUser().then(({ data }) => setAdminEmail(data?.user?.email || '')).catch(() => setAdminEmail(''));
+    getNewsletterSubscribers().then((subscribers) => setActiveCount(subscribers.filter((subscriber) => subscriber.status === 'subscribed').length)).catch(() => setActiveCount(null));
+  }, []);
+
+  const cleanSubject = subject.trim();
+  const cleanContent = content.trim();
+  const subjectValid = Boolean(cleanSubject) && cleanSubject.length <= subjectLimit;
+  const contentValid = Boolean(cleanContent) && cleanContent.length <= contentLimit;
+  const canSend = subjectValid && contentValid && !sending;
+
+  async function sendTest(event: FormEvent) {
+    event.preventDefault();
+    if (!canSend) return;
+    setSending(true); setMessage(''); setError('');
+    try {
+      await sendNewsletterTest(cleanSubject, cleanContent);
+      setMessage(`Test email sent to ${adminEmail || 'your admin address'}. Check your inbox, then review the live preview.`);
+    } catch (reason: any) {
+      setError(reason.message || 'Could not send the test email.');
+    } finally { setSending(false); }
+  }
+
+  const inputClass = 'mt-2 w-full min-w-0 rounded-lg border border-slate-200 bg-slate-50/40 px-3.5 py-3 text-sm font-normal text-[#000741] outline-none transition-colors focus:border-[#087FD1] focus:bg-white';
+
+  return <section>
+    <p className="text-sm text-slate-500">Email updates</p>
+    <div className="mt-1 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><h2 className="text-3xl font-light tracking-tight sm:text-4xl">Compose an update</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Write the newsletter, preview it, and send a test to your own inbox. Sending to every subscriber stays locked until the sending domain is verified.</p></div><span className="w-fit rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#087FD1]">{activeCount === null ? 'Loading' : `${activeCount} active`}</span></div>
+
+    <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_360px]">
+      <form onSubmit={sendTest} className="admin-card overflow-hidden">
+        <div className="flex flex-col justify-between gap-4 border-b border-slate-100 px-6 py-5 sm:flex-row sm:items-center"><div className="flex items-center gap-3"><div className="admin-section-icon"><Send className="h-5 w-5" /></div><div><h3 className="font-semibold">Email content</h3><p className="mt-0.5 text-xs text-slate-500">Plain text. Line breaks are kept in the email.</p></div></div><button disabled={!canSend} className="admin-primary-action flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"><Send className="h-3.5 w-3.5" />{sending ? 'Sending…' : 'Send test to me'}</button></div>
+        <div className="grid gap-5 p-6">
+          <label className="block min-w-0 text-xs font-semibold text-slate-600">Subject<span className="mt-0.5 ml-2 font-normal text-slate-400">{subject.length}/{subjectLimit}</span><input value={subject} maxLength={subjectLimit} onChange={(event) => setSubject(event.target.value)} placeholder="What is this update about?" className={inputClass} /></label>
+          <label className="block min-w-0 text-xs font-semibold text-slate-600">Message<span className="mt-0.5 ml-2 font-normal text-slate-400">{content.length}/{contentLimit}</span><textarea rows={14} value={content} maxLength={contentLimit} onChange={(event) => setContent(event.target.value)} placeholder="Write the update your subscribers will receive." className={`${inputClass} resize-y leading-6`} /></label>
+          {!subjectValid && <p className="text-xs text-slate-500">Add a subject of {subjectLimit} characters or fewer.</p>}
+          {!contentValid && <p className="text-xs text-slate-500">Add a message of {contentLimit} characters or fewer.</p>}
+          {message && <p role="status" className="flex items-start gap-2 text-xs text-emerald-700"><Check className="mt-px h-3.5 w-3.5 shrink-0" />{message}</p>}
+          {error && <p role="alert" className="text-xs leading-5 text-red-600">{error}<br /><span className="mt-1 block text-slate-500">Check that the <code>send-newsletter-test</code> edge function is deployed and its <code>RESEND_API_KEY</code> secret is set.</span></p>}
+        </div>
+        <div className="flex flex-col gap-4 border-t border-slate-100 bg-slate-50/50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs leading-5 text-slate-500">Test sends go to <span className="font-semibold text-slate-700">{adminEmail || 'your signed-in admin address'}</span> only.</p>
+          <button type="button" disabled={!massSendingEnabled || !canSend} className="flex w-fit cursor-not-allowed items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-400" aria-disabled="true" title="Verify sending domain to activate.">{!massSendingEnabled && <Lock className="h-3.5 w-3.5" />} Send to all subscribers</button>
+        </div>
+      </form>
+
+      <aside className="space-y-4">
+        <div className="admin-preview"><div className="flex items-center justify-between"><p>Inbox preview</p><Mail className="h-4 w-4" /></div><div className="mt-9"><span>Subject</span><h3>{cleanSubject || 'Your subject appears here'}</h3><p className="whitespace-pre-line">{cleanContent || 'Your message appears here exactly as subscribers will read it.'}</p></div><div className="mt-8 border-t border-white/10 pt-4 text-xs text-blue-100/60">Test emails arrive with a “[Test]” prefix so they are never confused with live sends.</div></div>
+        <div className="admin-card p-5"><div className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-amber-600"><Lock className="h-4 w-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">Sending to all subscribers</h3><p className="text-xs text-slate-500">{massSendingEnabled ? 'Mass sending is active.' : 'Verify sending domain to activate.'}</p></div></div><p className="mt-4 text-sm leading-6 text-slate-500">{massSendingEnabled ? 'Mass sending is enabled. Review the audience and message carefully before each send.' : 'Verify your sending domain with DNS records, set the branded sender, then enable mass sending. Until then only your own inbox receives test emails.'}</p><ol className="mt-4 space-y-2 text-xs leading-5 text-slate-500"><li>1. Add the DNS records from your email provider for <code>edrisync.com</code>.</li><li>2. Set <code>RESEND_FROM_EMAIL</code> to the branded sender.</li><li>3. Enable the mass send action once delivery is confirmed.</li></ol></div>
+      </aside>
     </div>
   </section>;
 }
