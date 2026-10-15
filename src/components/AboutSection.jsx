@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion';
-import { Award, Users, Calendar, Globe, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
 
 const ABOUT_IMAGE = 'https://edrisync.com/myapp/wp-content/uploads/2026/05/edrisync-hm1-img01.png';
-
-const stats = [
-  { icon: Award, value: '500+', label: 'Projects Delivered', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
-  { icon: Users, value: '98%', label: 'Client Retention', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
-  { icon: Calendar, value: '15+', label: 'Years Experience', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
-  { icon: Globe, value: 'Global', label: 'Client Reach', accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)' },
-];
 
 export default function AboutSection({ sectionRef, onAbout }) {
   return (
@@ -95,25 +88,6 @@ export default function AboutSection({ sectionRef, onAbout }) {
           <p className="text-[15px] sm:text-base mt-4 leading-relaxed text-pretty" style={{ color: '#526076' }}>
             We operate as an extension of your team, starting with your business problem, then connecting cybersecurity, governance, Microsoft enablement, and digital transformation into one coordinated roadmap.
           </p>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-6 mt-9">
-            {stats.map((stat) => {
-              const Icon = stat.icon;
-              return (
-                <div key={stat.label} className="text-center sm:text-left">
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-3 mx-auto sm:mx-0"
-                    style={{ background: stat.accent, boxShadow: '0 8px 18px rgba(23,69,185,0.16)' }}
-                  >
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="text-2xl font-bold" style={{ color: '#000741' }}>{stat.value}</div>
-                  <div className="text-[11px] mt-1 uppercase tracking-wide leading-snug" style={{ color: '#68758c' }}>{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
 
           {/* CTA */}
           <div className="relative inline-block mt-9">

@@ -16,6 +16,7 @@ import {
   GRCLayoutPro,
   MicrosoftLayoutPro,
 } from './ServiceExperienceLayouts';
+import SubServiceDetailPage, { subServicePageKeys } from './SubServiceDetailPage';
 
 const serviceContent = {
   Cybersecurity: {
@@ -257,8 +258,19 @@ function DigitalTransformationLayout({ service, onServices, onHome }) {
   );
 }
 
-export default function ServiceDetailPage({ serviceKey, onHome, onServices }) {
+export default function ServiceDetailPage({ serviceKey, onHome, onServices, onServiceDetail, onContact }) {
   console.error('ServiceDetailPage render', serviceKey);
+  if (subServicePageKeys.has(serviceKey)) {
+    return (
+      <SubServiceDetailPage
+        serviceKey={serviceKey}
+        onParentService={onServiceDetail}
+        onServices={onServices}
+        onContact={onContact}
+      />
+    );
+  }
+
   const service = serviceContent[serviceKey] || serviceContent[fallbackKey];
 
   switch (serviceKey) {

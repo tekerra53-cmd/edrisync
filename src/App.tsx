@@ -181,7 +181,7 @@ function PublicApp() {
         ) : view === 'services' ? (
           <Suspense fallback={null}><ServicesPage onHome={goHome} /></Suspense>
         ) : view === 'serviceDetail' ? (
-          <Suspense fallback={null}><ServiceDetailPage serviceKey={selectedService} onHome={goHome} onServices={goServices} /></Suspense>
+          <Suspense fallback={null}><ServiceDetailPage serviceKey={selectedService} onHome={goHome} onServices={goServices} onServiceDetail={goServiceDetail} onContact={() => goSection(ctaRef)} /></Suspense>
         ) : view === 'insights' ? (
           <Suspense fallback={null}><InsightsPage onHome={goHome} /></Suspense>
          ) : view === 'about' ? (

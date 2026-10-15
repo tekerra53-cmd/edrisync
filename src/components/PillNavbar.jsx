@@ -7,6 +7,8 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [hoveredService, setHoveredService] = useState(null);
+  const [hoveredSubService, setHoveredSubService] = useState(null);
+  const [expandedMobileService, setExpandedMobileService] = useState(null);
   const [hoveredNavItem, setHoveredNavItem] = useState(null);
   const closeTimer = useRef(null);
 
@@ -19,7 +21,11 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
     window.clearTimeout(closeTimer.current);
     // The small delay lets the pointer travel naturally from the trigger to
     // the dropdown without making the menu disappear mid-move.
-    closeTimer.current = window.setTimeout(() => setServicesOpen(false), 140);
+    closeTimer.current = window.setTimeout(() => {
+      setServicesOpen(false);
+      setHoveredService(null);
+      setHoveredSubService(null);
+    }, 140);
   };
 
   useEffect(() => () => window.clearTimeout(closeTimer.current), []);
@@ -42,10 +48,35 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
   ];
 
   const serviceItems = [
-    'Cybersecurity',
-    'GRC & Compliance',
-    'Microsoft & Digital Workplace',
-    'Digital Transformation',
+    {
+      label: 'Cybersecurity',
+      subServices: [
+        'Security assessments',
+        'Penetration testing',
+      ],
+    },
+    {
+      label: 'GRC & Compliance',
+      subServices: [
+        'GRC program design',
+        'ISO 27001 readiness',
+      ],
+    },
+    {
+      label: 'Microsoft Enablement',
+      serviceKey: 'Microsoft & Digital Workplace',
+      subServices: [
+        'Microsoft 365 enablement',
+        'Azure cloud solutions',
+      ],
+    },
+    {
+      label: 'Digital Transformation',
+      subServices: [
+        'Workflow automation',
+        'Systems integration',
+      ],
+    },
   ];
 
   const handleNav = (item) => {
@@ -72,7 +103,8 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
     return false;
   };
 
-  const isActiveService = (service) => refs?.view === 'serviceDetail' && refs?.selectedService === service;
+  const isActiveService = (service) => refs?.view === 'serviceDetail' && refs?.selectedService === (service.serviceKey || service.label);
+  const hoveredServiceItem = serviceItems.find((service) => service.label === hoveredService);
 
   return (
     <>
@@ -172,27 +204,56 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="fixed left-1/2 z-[70] hidden w-[280px] -translate-x-1/2 overflow-hidden rounded-2xl border border-[#000741]/10 bg-white/98 p-2 shadow-[0_16px_48px_rgba(4,7,32,0.18)] backdrop-blur-xl lg:block"
-            style={{ top: dropdownTop }}
+            className="fixed left-1/2 z-[70] hidden w-[280px] -translate-x-1/2 rounded-2xl border border-[#000741]/10 bg-white/98 p-2 shadow-[0_16px_48px_rgba(4,7,32,0.18)] backdrop-blur-xl lg:block"
+            style={{ top: dropdownTop, maxHeight: 'calc(100vh - 88px)' }}
             onMouseEnter={openServices}
             onMouseLeave={closeServices}
           >
+            <div className="relative space-y-1">
               {serviceItems.map((service) => (
                 <button
-                  key={service}
-                  onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(service) })}
-                  onMouseEnter={() => setHoveredService(service)}
-                  onMouseLeave={() => setHoveredService(null)}
-                  className="flex min-h-[42px] w-full items-center rounded-xl px-4 py-2 text-left text-[12px] font-medium transition-all duration-200"
+                  key={service.label}
+                  onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(service.serviceKey || service.label) })}
+                  onMouseEnter={() => setHoveredService(service.label)}
+                  onFocus={() => setHoveredService(service.label)}
+                  className="flex min-h-[42px] w-full items-center justify-between rounded-xl px-3 text-left text-[12px] font-semibold transition-colors"
                   style={isActiveService(service)
-                    ? { backgroundColor: '#000741', color: '#ffffff', boxShadow: '0 6px 14px rgba(4,7,32,0.18)' }
-                    : hoveredService === service
+                    ? { backgroundColor: '#000741', color: '#ffffff' }
+                    : hoveredService === service.label
                       ? { backgroundColor: '#B1B6CE', color: '#000741' }
                       : { color: '#000741' }}
                 >
-                {service}
-              </button>
-            ))}
+                  {service.label}
+                  <ChevronDown className="-rotate-90 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                </button>
+              ))}
+              {hoveredServiceItem && (
+                <div
+                  className="absolute z-[71] w-[280px] rounded-2xl border border-[#000741]/10 bg-white/98 p-2 shadow-[0_16px_48px_rgba(4,7,32,0.18)] backdrop-blur-xl"
+                  style={{
+                    top: serviceItems.findIndex((service) => service.label === hoveredService) * 46,
+                    left: 'calc(100% + 8px)',
+                  }}
+                  onMouseEnter={openServices}
+                  onMouseLeave={closeServices}
+                >
+                  {hoveredServiceItem.subServices.map((subService) => (
+                    <button
+                      key={subService}
+                      onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(subService) })}
+                      onMouseEnter={() => setHoveredSubService(subService)}
+                      onMouseLeave={() => setHoveredSubService(null)}
+                      className="flex min-h-[42px] w-full items-center rounded-xl px-3 text-left text-[12px] font-semibold transition-colors"
+                      style={hoveredSubService === subService
+                        ? { backgroundColor: '#B1B6CE', color: '#000741' }
+                        : { color: '#000741' }}
+                    >
+                      {subService}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -233,13 +294,39 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
                   {item.dropdown && servicesOpen && (
                     <div className="ml-3 border-l border-[#000741]/15 pl-2">
                       {serviceItems.map((service) => (
-                         <button
-                           key={service}
-                           onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(service) })}
-                           className="flex min-h-[42px] w-full items-center rounded-lg px-3 py-2 text-left text-xs text-[#B1B6CE] transition-all duration-300 hover:bg-[#ffffff] hover:text-[#000741]"
-                         >
-                          {service}
-                        </button>
+                        <div key={service.label}>
+                          <div className="flex items-center">
+                            <button
+                              onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(subService) })}
+                              className="flex min-h-[42px] flex-1 items-center rounded-lg px-3 py-2 text-left text-xs font-medium text-[#000741] transition-all duration-300 hover:bg-[#ffffff]"
+                            >
+                              {service.label}
+                            </button>
+                            <button
+                              type="button"
+                              aria-label={`${expandedMobileService === service.label ? 'Hide' : 'Show'} ${service.label} sub-services`}
+                              aria-expanded={expandedMobileService === service.label}
+                              onClick={() => setExpandedMobileService((current) => current === service.label ? null : service.label)}
+                              className="flex h-10 w-10 items-center justify-center rounded-lg text-[#000741] hover:bg-[#000741]/5"
+                            >
+                              <ChevronDown className={`h-4 w-4 transition-transform ${expandedMobileService === service.label ? 'rotate-180' : ''}`} />
+                            </button>
+                          </div>
+                          {expandedMobileService === service.label && (
+                            <ul className="ml-3 mb-2 border-l border-[#000741]/10 pl-2">
+                              {service.subServices.map((subService) => (
+                                <li key={subService}>
+                                  <button
+                                    onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(service.serviceKey || service.label) })}
+                                    className="w-full rounded-lg px-3 py-2 text-left text-xs leading-snug text-[#526076] transition-colors hover:bg-[#ffffff] hover:text-[#000741]"
+                                  >
+                                    {subService}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
                       ))}
                     </div>
                   )}

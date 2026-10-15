@@ -18,6 +18,7 @@ export type InsightPost = {
   readTime: string;
   title: string;
   excerpt: string;
+  content?: string;
   image: string;
   accent: string;
 };

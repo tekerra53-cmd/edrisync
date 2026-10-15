@@ -112,42 +112,6 @@ export default function HeroSection({ sectionRef, refs }) {
             </div>
           </motion.div>
 
-          {/* Social proof */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex items-center gap-5 mt-10"
-          >
-            <div className="flex -space-x-2.5">
-              {[
-                'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80',
-                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80',
-                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80',
-                'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=80&q=80',
-              ].map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className="w-9 h-9 rounded-full object-cover"
-                  style={{ border: '2px solid rgba(255,255,255,0.25)' }}
-                />
-              ))}
-            </div>
-            <div>
-              <div className="flex gap-0.5 mb-1">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <svg key={s} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" viewBox="0 0 24 24">
-                    <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-white/55 text-xs">
-                Trusted by <strong className="text-white/80 font-medium">500+</strong> businesses
-              </p>
-            </div>
-          </motion.div>
         </div>
       </div>
 
