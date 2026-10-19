@@ -25,6 +25,7 @@ supabase/migrations/004_security_hardening.sql
 supabase/migrations/005_require_mfa_for_admin.sql
 supabase/migrations/006_admin_accounts_and_activity_log.sql
 supabase/migrations/007_newsletter_subscribers.sql
+supabase/migrations/008_jobs.sql
 ```
 
 This creates:
@@ -35,6 +36,7 @@ This creates:
 - `consultation_requests`: public consultation form submissions and admin statuses
 - RLS policies for public reads/submissions and admin-only management
 - the admin account directory, activity history, and newsletter subscriber list
+- `jobs`: persistent vacancies, requirements, application methods, and publishing status
 
 ## 3. Configure Google sign-in and MFA
 
@@ -66,6 +68,7 @@ TOTP authenticator (Google Authenticator, Authy, or 1Password). Run migration
 - `/admin`: edit the hero eyebrow, title, description, and overlay color
 - `/admin/case-studies`: add, edit, delete, and publish case studies
 - `/admin/insights`: add, edit, delete, and publish insight articles
+- `/admin/jobs`: create, edit, publish, close, and delete vacancies
 - `/admin/contacts`: review consultation requests and update their status
 - `/admin/subscribers`: view people who subscribed through the website
 - `/admin/updates`: compose a newsletter and send a test to your own inbox

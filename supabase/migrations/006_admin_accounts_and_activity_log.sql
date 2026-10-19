@@ -62,10 +62,10 @@ begin
   return query
   select
     u.id,
-    u.email,
+    u.email::text,
     coalesce(u.raw_user_meta_data ->> 'full_name', u.raw_user_meta_data ->> 'name', ''),
     coalesce(u.raw_app_meta_data ->> 'role', 'viewer'),
-    coalesce(u.raw_app_meta_data ->> 'provider', u.raw_app_meta_data ->> 'providers' ->> 0, 'email'),
+    coalesce(u.raw_app_meta_data ->> 'provider', (u.raw_app_meta_data -> 'providers') ->> 0, 'email'),
     u.created_at,
     u.last_sign_in_at,
     u.email_confirmed_at,

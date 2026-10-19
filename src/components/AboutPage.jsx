@@ -67,7 +67,7 @@ const featuredMembers = [
   { name: 'Nusrat T. Rahman', role: 'Cybersecurity Lead', bio: 'Designs defense-in-depth strategies and runs 24/7 monitoring to keep client data protected against evolving threats.', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80', accent: 'linear-gradient(135deg, #000741, #B1B6CE)' },
 ];
 
-export default function AboutPage({ onHome }) {
+export default function AboutPage({ onHome, onCareers }) {
   return (
     <div style={{ backgroundColor: '#f7f9fd' }} className="min-h-screen">
       {/* HERO */}
@@ -444,6 +444,27 @@ export default function AboutPage({ onHome }) {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-10 flex flex-col items-center justify-between gap-6 rounded-[1.5rem] bg-[#000741] px-7 py-8 text-center shadow-[0_18px_44px_rgba(4,7,32,0.16)] sm:px-10 lg:flex-row lg:text-left"
+          >
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#B1B6CE]">Build what matters</p>
+              <h3 className="mt-2 text-2xl font-light text-white">Want to help shape what comes next?</h3>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-white/65">We are always interested in hearing from thoughtful people who care about technology and meaningful client outcomes.</p>
+            </div>
+            <button
+              type="button"
+              onClick={onCareers}
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#087FD1] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#2857B8] hover:shadow-xl"
+            >
+              Join Our Team <ArrowRight className="h-4 w-4" />
+            </button>
+          </motion.div>
         </div>
       </section>
 

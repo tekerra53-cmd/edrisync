@@ -22,8 +22,9 @@ const ServicesPage = lazy(() => import('./components/ServicesPage'));
 const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
 const InsightsPage = lazy(() => import('./components/InsightsPage'));
 const CaseStudiesPage = lazy(() => import('./components/CaseStudiesPage'));
+const CareersPage = lazy(() => import('./components/CareersPage'));
 
-type PublicView = 'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies';
+type PublicView = 'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies' | 'careers';
 
 function getPublicView(pathname: string): PublicView {
   if (pathname === '/about') return 'about';
@@ -31,6 +32,7 @@ function getPublicView(pathname: string): PublicView {
   if (pathname.startsWith('/services/')) return 'serviceDetail';
   if (pathname === '/insights') return 'insights';
   if (pathname === '/case-studies') return 'caseStudies';
+  if (pathname === '/careers') return 'careers';
   return 'home';
 }
 
@@ -112,6 +114,10 @@ function PublicApp() {
     goPage('/case-studies', 'caseStudies');
   };
 
+  const goCareers = () => {
+    goPage('/careers', 'careers');
+  };
+
   // Scroll to a home section. If we're on a page view, switch back to
   // home first, then scroll once the home sections have mounted.
   const goSection = (ref?: any) => {
@@ -146,6 +152,7 @@ function PublicApp() {
     goSection,
     goInsights,
     goCaseStudies,
+    goCareers,
     goAbout,
     goServices,
     goServiceDetail,
@@ -184,10 +191,12 @@ function PublicApp() {
           <Suspense fallback={null}><ServiceDetailPage serviceKey={selectedService} onHome={goHome} onServices={goServices} onServiceDetail={goServiceDetail} onContact={() => goSection(ctaRef)} /></Suspense>
         ) : view === 'insights' ? (
           <Suspense fallback={null}><InsightsPage onHome={goHome} /></Suspense>
-         ) : view === 'about' ? (
-          <Suspense fallback={null}><AboutPage onHome={goHome} /></Suspense>
+        ) : view === 'about' ? (
+          <Suspense fallback={null}><AboutPage onHome={goHome} onCareers={goCareers} /></Suspense>
         ) : view === 'caseStudies' ? (
           <Suspense fallback={null}><CaseStudiesPage onHome={goHome} /></Suspense>
+        ) : view === 'careers' ? (
+          <Suspense fallback={null}><CareersPage onHome={goHome} /></Suspense>
         ) : null}
       </main>
       </>}
