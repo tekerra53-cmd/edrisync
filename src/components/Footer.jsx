@@ -75,7 +75,7 @@ export default function Footer({ refs }) {
             <p className="mt-6 max-w-sm text-[15px] leading-7 text-slate-300">Cybersecurity, governance, Microsoft enablement, and digital transformation for organizations ready to move with confidence.</p>
             <div className="mt-8 space-y-4 text-sm">
               <a href="mailto:info@edrisync.com" className="group flex items-center gap-3 transition-colors hover:text-white"><Mail className="h-4 w-4 text-[#B1B6CE] transition-transform group-hover:-translate-y-0.5" /> info@edrisync.com</a>
-              <a href="tel:+980396980" className="group flex items-center gap-3 transition-colors hover:text-white"><Phone className="h-4 w-4 text-[#B1B6CE] transition-transform group-hover:-translate-y-0.5" /> +980 (396) 980</a>
+              <a href="tel:+2348039438517" className="group flex items-center gap-3 transition-colors hover:text-white"><Phone className="h-4 w-4 text-[#B1B6CE] transition-transform group-hover:-translate-y-0.5" /> +234 803 943 8517</a>
               <span className="flex items-center gap-3"><MapPin className="h-4 w-4 text-[#B1B6CE]" /> Lagos, Nigeria</span>
             </div>
             <div className="mt-9 flex items-center gap-2">

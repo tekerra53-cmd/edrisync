@@ -125,7 +125,7 @@ export default function CTASection({ sectionRef }) {
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
                 <Phone className="w-4 h-4" />
-                Call us: (555) 123-4567
+                Call us: +234 803 943 8517
               </a>
             </motion.div>
 

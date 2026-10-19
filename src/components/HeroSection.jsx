@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import AnimatedText from './AnimatedText';
+import DigitalGlobe from './DigitalGlobe';
 import { defaultHeroSettings, getHeroSettings } from '../services/siteContent';
 
 export default function HeroSection({ sectionRef, refs }) {
@@ -37,8 +38,13 @@ export default function HeroSection({ sectionRef, refs }) {
 
       {/* Main content, left aligned */}
       <div
-        className="relative z-10 w-full px-6 lg:px-0"
-        style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingTop: 'clamp(7.5rem, 14vh, 9rem)', paddingBottom: '6rem' }}
+        className="hero-content relative z-10 grid w-full grid-cols-1 items-center gap-8 px-6 lg:px-0"
+        style={{
+          paddingLeft: 'clamp(1.5rem, 8%, 9rem)',
+          paddingRight: 'clamp(1.5rem, 5%, 5rem)',
+          paddingTop: 'clamp(7.5rem, 14vh, 9rem)',
+          paddingBottom: '6rem',
+        }}
       >
         <div style={{ maxWidth: 'min(680px, 100%)' }}>
           {/* Eyebrow label */}
@@ -46,7 +52,7 @@ export default function HeroSection({ sectionRef, refs }) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex items-center gap-3 mb-7"
+            className="hero-eyebrow flex items-center gap-3 mb-7"
           >
             <div className="flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-4 py-1.5 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse" />
@@ -85,7 +91,7 @@ export default function HeroSection({ sectionRef, refs }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-            className="flex flex-wrap gap-4 mt-10"
+            className="hero-cta flex flex-wrap gap-4 mt-10"
           >
             <div className="relative inline-block">
               <span
@@ -113,6 +119,7 @@ export default function HeroSection({ sectionRef, refs }) {
           </motion.div>
 
         </div>
+        <DigitalGlobe />
       </div>
 
     </section>

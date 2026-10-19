@@ -7,32 +7,32 @@ const perspectiveSeed = [
   {
     id: 'perspective-1', title: 'Security-first Microsoft environment', client: 'Enterprise technology organization',
     quote: 'EDRISYNC helped us design and implement a security-first Microsoft environment while keeping us audit-ready. Our risk profile dropped by 60% within the first year, and we closed two compliance audits with zero findings.',
-    author: 'Sarah Chen',
+    author: '',
     role: 'Head of Information Security', status: 'Published', image: '',
   },
   {
     quote: "From paper-based processes to a fully automated digital workflow, EDRISYNC transformed how we operate. They didn't just implement tools, they changed how our teams work.",
-    author: 'Marcus Okello',
+    author: '',
     role: 'Operations Director', client: 'Growing professional services firm', status: 'Published', image: '',
   },
   {
     quote: 'The integrated approach was exactly what we needed. EDRISYNC connected our Microsoft migration, security controls, and compliance framework into one seamless roadmap, all delivered on time and on budget.',
-    author: 'Aisha Patel',
+    author: '',
     role: 'Finance Director', client: 'Regulated financial services group', status: 'Published', image: '',
   },
   {
     quote: 'EDRISYNC gave our leadership team a clear view of risk and a practical plan for addressing it. The work was structured, transparent, and grounded in the realities of our business.',
-    author: 'David Mensah',
+    author: '',
     role: 'Chief Operating Officer', client: 'Regional logistics company', status: 'Published', image: '',
   },
   {
     quote: 'The new Microsoft workplace is easier to manage and far easier for our teams to use. Adoption improved quickly because the solution was designed around the way people work.',
-    author: 'Nadia Williams',
+    author: '',
     role: 'People and Technology Lead', client: 'Multi-site healthcare provider', status: 'Published', image: '',
   },
   {
     quote: 'We moved from disconnected manual steps to a process we can measure and improve. EDRISYNC stayed close to our team throughout delivery and made the change feel achievable.',
-    author: 'Emeka Okafor',
+    author: '',
     role: 'Transformation Manager', client: 'Professional services organization', status: 'Published', image: '',
   },
 ];

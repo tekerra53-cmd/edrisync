@@ -127,7 +127,24 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
           closeServices();
         }}
       >
-        <div aria-hidden="true" className="pointer-events-none absolute -left-8 -top-12 z-0 hidden h-36 w-[285px] -skew-x-[24deg] rounded-[46%] lg:block" style={{ background: '#000741', boxShadow: '28px 0 0 #000741, 0 0 26px rgba(177,182,206,0.48), inset 0 1px 0 rgba(255,255,255,0.28)', border: '1px solid rgba(255,255,255,0.18)' }} />
+        {/* Smooth navy transition behind the logo */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-0 z-0 hidden h-full w-[270px] lg:block"
+          viewBox="0 0 270 72"
+          preserveAspectRatio="none"
+        >
+          <path
+           d="M 0,0 H 230 C 210,18 210,54 230,72 H 0 Z"
+            fill="#000741"
+          />
+          <path
+            d="M 0.5,1 H 225"
+            fill="none"
+            stroke="rgba(255,255,255,0.28)"
+            strokeWidth="1"
+          />
+        </svg>
         {/* Logo mark */}
         <button
           onClick={() => refs?.goHome?.()}
@@ -137,14 +154,12 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
             src={edrisyncLogo}
             alt="EdriSync"
             className="h-11 w-12 object-contain"
+            style={{ transform: 'scale(1.18)' }}
             draggable={false}
           />
           <span className="brand-copy hidden leading-none sm:block">
-            <span className="edrisync-deconstructed block text-[18px] font-extrabold tracking-[-0.04em]" aria-label="EdriSync">
-              <span aria-hidden="true">EdriSync</span>
-              <span aria-hidden="true">EdriSync</span>
-              <span aria-hidden="true">EdriSync</span>
-              <span aria-hidden="true">EdriSync</span>
+            <span className="brand-wordmark block text-[18px] font-extrabold tracking-[-0.04em]">
+              EdriSync
             </span>
             <span className="brand-tagline mt-1 block text-[8px] font-medium tracking-[0.01em] text-[#B1B6CE]">we Build. Create. & Innovate.</span>
           </span>
