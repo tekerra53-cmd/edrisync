@@ -408,15 +408,15 @@ img {
 .service-explorer {
   position: relative;
   overflow: hidden;
-  padding: 76px 24px 96px;
+  padding: 76px clamp(1.5rem, 8%, 9rem) 96px;
   background: #f7f9fd;
 }
 .service-explorer::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .55; background-image: linear-gradient(rgba(49, 93, 209, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 93, 209, .04) 1px, transparent 1px); background-size: 54px 54px; mask-image: linear-gradient(to bottom, black, transparent 74%); }
-.service-explorer-heading { position: relative; z-index: 1; max-width: 1360px; display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 0 auto 28px; color: #000741; }
+.service-explorer-heading { position: relative; z-index: 1; width: 100%; margin: 0 0 28px; color: #000741; }
 .service-explorer-heading p { margin: 0 0 8px; color: #087fd1; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .service-explorer-heading h1 { margin: 0; font-size: clamp(30px, 3vw, 46px); font-weight: 400; letter-spacing: -.035em; }
-.service-explorer-heading > span { max-width: 280px; color: #526076; font-size: 13px; line-height: 1.5; text-align: right; }
-.service-explorer-shell { position: relative; z-index: 1; max-width: 1360px; margin: 0 auto; overflow: hidden; border: 1px solid #e3e8f2; border-radius: 24px; box-shadow: 0 24px 56px rgba(10, 26, 104, .12); }
+.service-explorer-heading span { display: block; max-width: 540px; margin-top: 13px; color: #526076; font-size: 15px; line-height: 1.65; }
+.service-explorer-shell { position: relative; z-index: 1; width: 100%; overflow: hidden; border: 1px solid #e3e8f2; border-radius: 24px; box-shadow: 0 24px 56px rgba(10, 26, 104, .12); }
 .service-explorer-tabs { display: grid; grid-template-columns: repeat(4, 1fr); background: #ffffff; }
 .service-explorer-tab { min-height: 72px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-right: 1px solid rgba(4, 7, 32, .12); color: #182036; font-size: 14px; font-weight: 700; transition: background .25s ease, color .25s ease, transform .25s ease; }
 .service-explorer-tab:last-child { border-right: 0; }
@@ -432,7 +432,7 @@ img {
 .service-explorer-kicker { display: flex; align-items: center; gap: 9px; color: #b1b6ce; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
 .service-explorer-kicker svg { width: 17px; height: 17px; }
 .service-explorer-copy h2 { max-width: 570px; margin: 18px 0; font-size: clamp(32px, 3vw, 50px); font-weight: 600; letter-spacing: -.045em; line-height: 1.07; }
-.service-explorer-copy > p { max-width: 630px; margin: 0; color: rgba(255,255,255,.9); font-size: 17px; line-height: 1.62; }
+.service-explorer-copy > p { max-width: 630px; margin: 0; color: rgba(255,255,255,.9); font-size: 17px; line-height: 1.62; text-align: justify; text-align-last: left; }
 .service-explorer-cta { display: inline-flex; align-items: center; gap: 13px; margin-top: 30px; padding: 14px 21px; border-radius: 999px; background: #ffffff; color: #000741; font-size: 14px; font-weight: 800; transition: transform .22s ease, box-shadow .22s ease; }
 .service-explorer-cta:hover, .service-explorer-cta:focus-visible { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,.2); }
 .service-explorer-cta svg { width: 19px; height: 19px; transition: transform .22s ease; }
@@ -466,7 +466,7 @@ img {
 @media (max-width: 640px) {
   .service-explorer { padding: 58px 16px 70px; }
   .service-explorer-heading { display: block; margin-bottom: 22px; }
-  .service-explorer-heading > span { display: block; max-width: none; margin-top: 10px; font-size: 12px; text-align: left; }
+  .service-explorer-heading span { max-width: none; margin-top: 10px; font-size: 12px; text-align: left; }
   .service-explorer-shell { border-radius: 18px; }
   /* Every service remains visible on phones—no hidden horizontal tab strip. */
   .service-explorer-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -493,6 +493,38 @@ img {
   .service-explorer-visual { border-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .service-explorer-visual > img, .service-explorer-security::before, .service-explorer-shield { animation: none; } }
+
+/* Shared wide-page grid for the public company and service detail routes. */
+.about-page > header,
+.about-page > section,
+.service-detail-page > header,
+.service-detail-page > main > section {
+  padding-left: clamp(1.5rem, 8%, 9rem);
+  padding-right: clamp(1.5rem, 5%, 5rem);
+}
+
+.about-page > header > .max-w-6xl,
+.about-page > section > .max-w-6xl,
+.service-detail-page > header > .max-w-7xl,
+.service-detail-page > main > section > .max-w-7xl {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* The Journey and Team compositions are intentionally compact editorial bands. */
+.about-page > section.about-contained {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.about-page > section.about-contained > .max-w-6xl {
+  width: auto;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .digital-globe {
   position: relative;

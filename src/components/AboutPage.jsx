@@ -69,7 +69,7 @@ const featuredMembers = [
 
 export default function AboutPage({ onHome, onCareers }) {
   return (
-    <div style={{ backgroundColor: '#f7f9fd' }} className="min-h-screen">
+    <div style={{ backgroundColor: '#f7f9fd' }} className="about-page min-h-screen">
       {/* HERO */}
       <header className="relative overflow-hidden bg-[#000741] px-6 pb-24 pt-32 lg:pb-32">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(60% 70% at 70% 0%, rgba(177,182,206,0.20), transparent 58%), linear-gradient(105deg, rgba(4,7,32,0.98) 0%, rgba(4,7,32,0.90) 58%, rgba(4,7,32,0.76) 100%)' }} />
@@ -307,7 +307,7 @@ export default function AboutPage({ onHome, onCareers }) {
       </section>
 
       {/* TIMELINE: horizontal scroll */}
-      <section className="relative overflow-hidden bg-white px-6 py-24">
+      <section className="about-contained relative overflow-hidden bg-white px-6 py-24">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(55% 45% at 50% 0%, rgba(177,182,206,0.1), transparent 55%)' }} />
         <div className="relative max-w-6xl mx-auto">
           <motion.div
@@ -344,7 +344,7 @@ export default function AboutPage({ onHome, onCareers }) {
       </section>
 
       {/* TEAM */}
-      <section className="relative overflow-hidden bg-[#f7f9fd] px-6 py-24">
+      <section className="about-contained relative overflow-hidden bg-[#f7f9fd] px-6 py-24">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(55% 45% at 50% -5%, rgba(177,182,206,0.12), transparent 60%)' }} />
         <div className="relative max-w-6xl mx-auto">
           <motion.div

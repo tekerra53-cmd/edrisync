@@ -202,12 +202,12 @@ export default function InsightsPage({ onHome }) {
   return (
     <div style={{ backgroundColor: '#ffffff' }} className="min-h-screen">
       {/* Header */}
-      <header className="relative pt-32 pb-14 px-6 overflow-hidden" style={{ backgroundColor: '#000741' }}>
+      <header className="relative overflow-hidden pb-14 pt-32" style={{ backgroundColor: '#000741' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
           style={{ background: 'radial-gradient(circle at 20% 20%, rgba(177,182,206,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(168,213,186,0.35), transparent 45%)' }}
         />
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
           <button
             onClick={onHome}
             className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-6"
@@ -220,13 +220,13 @@ export default function InsightsPage({ onHome }) {
           <h1 className="text-4xl lg:text-[2.8rem] font-light leading-tight text-white">
             Cybersecurity. Compliance. Microsoft. <span className="font-medium">Digital business.</span>
           </h1>
-          <p className="text-white/70 mt-4 max-w-xl leading-relaxed">
+          <p className="mt-4 max-w-2xl leading-7 [text-align:justify] [text-align-last:left] text-white/70">
             Practical perspectives on cybersecurity risk, GRC compliance, Microsoft enablement, and digital transformation, connecting technology decisions to business outcomes.
           </p>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-6 py-14">
+      <div className="w-full py-14" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
         {/* Featured post */}
         <motion.article
           initial={{ opacity: 0, y: 24 }}
@@ -234,7 +234,7 @@ export default function InsightsPage({ onHome }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           whileHover={{ y: -6 }}
-          className="group relative bg-white rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 transition-shadow duration-300"
+          className="group relative mx-auto grid max-w-6xl grid-cols-1 overflow-hidden rounded-3xl bg-white transition-shadow duration-300 lg:grid-cols-2"
           style={{ border: '1px solid rgba(4,7,32,0.07)', boxShadow: '0 12px 40px rgba(4,7,32,0.08)' }}
         >
           <div className="relative h-64 lg:h-auto overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(177,182,206,0.12), rgba(168,213,186,0.12))' }}>
@@ -262,7 +262,7 @@ export default function InsightsPage({ onHome }) {
             <h2 className="text-2xl lg:text-3xl font-bold leading-snug mb-3 group-hover:text-[#B1B6CE] transition-colors" style={{ color: '#000741' }}>
               {featured.title}
             </h2>
-            <p className="text-gray-600 leading-relaxed mb-6">{featured.excerpt}</p>
+            <p className="mb-6 text-gray-600 leading-7 [text-align:justify] [text-align-last:left]">{featured.excerpt}</p>
             <button
               type="button"
               onClick={() => setSelectedPost(featured)}
@@ -276,7 +276,7 @@ export default function InsightsPage({ onHome }) {
         </motion.article>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mt-10">
+        <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((post, i) => (
             <PostCard key={post.title} post={post} index={i} onOpen={setSelectedPost} />
           ))}

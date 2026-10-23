@@ -60,9 +60,9 @@ export default function Footer({ refs }) {
   };
 
   return (
-    <footer className="relative overflow-hidden bg-[var(--edri-nav-blue)] px-6 pb-8 pt-16 text-slate-300">
+    <footer className="relative overflow-hidden bg-[var(--edri-nav-blue)] pb-8 pt-16 text-slate-300">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#B1B6CE] to-transparent opacity-80" />
-      <div className="mx-auto max-w-7xl">
+      <div className="w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

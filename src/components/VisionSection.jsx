@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Settings } from 'lucide-react';
+import { Shield, Settings, Target } from 'lucide-react';
 
 const items = [
   {
@@ -16,30 +16,43 @@ const items = [
     accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
     glow: '#2857b8',
   },
+  {
+    icon: Target,
+    title: 'Our Commitment',
+    desc: 'We stay focused on outcomes that matter: resilient operations, confident teams, and technology investments that deliver measurable value for your organisation.',
+    accent: 'linear-gradient(135deg, #000741 0%, #2857b8 100%)',
+    glow: '#2857b8',
+  },
 ];
 
 export default function VisionSection() {
   return (
-    <section className="relative py-28 px-6 overflow-hidden" style={{ backgroundColor: '#f4f5f9' }}>
-      <div className="relative max-w-5xl mx-auto">
+    <section className="relative overflow-hidden bg-[#f4f5f9] py-20 sm:py-24 lg:py-28">
+      <div
+        className="relative w-full"
+        style={{
+          paddingLeft: 'clamp(1.5rem, 8%, 9rem)',
+          paddingRight: 'clamp(1.5rem, 5%, 5rem)',
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-12 max-w-3xl lg:mb-16"
         >
           <p className="text-xs uppercase tracking-[0.28em] font-medium" style={{ color: '#087fd1' }}>
             Our Vision &amp; Approach
           </p>
-          <h2 className="text-4xl lg:text-[2.75rem] font-light mt-4" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
+          <h2 className="mt-4 text-4xl font-light leading-tight lg:text-[2.75rem]" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
             Driving sustainable digital
             <br />
             <span className="font-medium">evolution across industries</span>
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-8">
           {items.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -55,27 +68,27 @@ export default function VisionSection() {
                 <div className="absolute -inset-0.5 rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" style={{ background: item.glow }} />
 
                 <div
-                  className="relative bg-[#ffffff] rounded-[28px] p-7 sm:p-10 h-full text-center cursor-default overflow-hidden"
+                  className="relative h-full cursor-default overflow-hidden rounded-[28px] bg-[#ffffff] p-8 sm:p-10 lg:p-12"
                   style={{ boxShadow: '0 14px 40px rgba(19,35,82,0.08)', border: '1px solid rgba(19,35,82,0.04)' }}
                 >
-                  <div className="relative z-10">
+                  <div className="relative z-10 flex h-full flex-col items-start">
                     <motion.div
                       animate={{ y: [0, -6, 0] }}
                       transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-7"
+                      className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl"
                       style={{ background: item.accent, boxShadow: '0 10px 24px rgba(15, 40, 139, 0.18)' }}
                     >
                       <Icon className="w-8 h-8 text-white" strokeWidth={2} />
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold mb-3" style={{ color: '#000741' }}>
+                    <h3 className="mb-4 text-2xl font-bold" style={{ color: '#000741' }}>
                       {item.title}
                     </h3>
-                    <p className="text-[15px] leading-relaxed mx-auto max-w-[34ch]" style={{ color: '#414b60' }}>
+                    <p className="max-w-none text-[15px] leading-7 [text-align:justify] [text-align-last:left]" style={{ color: '#414b60' }}>
                       {item.desc}
                     </p>
 
-                    <div className="mx-auto mt-6 h-0.5 w-10 rounded-full transition-all duration-500 group-hover:w-24"
+                    <div className="mt-8 h-0.5 w-10 rounded-full transition-all duration-500 group-hover:w-24"
                       style={{ backgroundColor: item.glow }}
                     />
                   </div>

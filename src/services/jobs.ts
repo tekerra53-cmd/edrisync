@@ -7,6 +7,7 @@ export type Job = {
   id: string;
   title: string;
   slug: string;
+  share_code: string | null;
   department: string;
   location: string;
   employment_type: EmploymentType;
@@ -16,6 +17,7 @@ export type Job = {
   application_email: string;
   application_url: string | null;
   application_instructions: string | null;
+  pre_application_question: string | null;
   status: JobStatus;
   posted_at: string;
   created_at: string;
@@ -23,6 +25,14 @@ export type Job = {
 };
 
 export type JobInput = Omit<Job, 'id' | 'created_at' | 'updated_at'> & { id?: string };
+
+export type JobApplicationInput = { job_id: string; applicant_name?: string; applicant_email?: string; applicant_phone?: string; screening_answer?: string };
+
+export async function submitJobApplication(application: JobApplicationInput) {
+  if (!supabase) throw new Error('Applications are not configured yet.');
+  const { error } = await supabase.from('job_applications').insert(application);
+  if (error) throw error;
+}
 
 export async function getPublishedJobs(): Promise<Job[]> {
   if (!supabase) return [];
@@ -33,6 +43,13 @@ export async function getPublishedJobs(): Promise<Job[]> {
     .order('posted_at', { ascending: false });
   if (error) throw error;
   return (data || []) as Job[];
+}
+
+export async function getPublishedJobBySlug(slug: string): Promise<Job | null> {
+  if (!supabase) return null;
+  const { data, error } = await supabase.from('jobs').select('*').eq('status', 'published').eq('slug', slug).maybeSingle();
+  if (error) throw error;
+  return data as Job | null;
 }
 
 export async function getAdminJobs(): Promise<Job[]> {

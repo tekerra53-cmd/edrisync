@@ -62,13 +62,13 @@ export default function Testimonials({ sectionRef }) {
   }, [isPaused]);
 
   return (
-    <section ref={sectionRef} className="bg-[#ffffff] px-6 py-24 sm:py-28" style={{ scrollMarginTop: '120px' }}>
-      <div className="mx-auto max-w-7xl">
+    <section ref={sectionRef} className="bg-[#ffffff] py-20 sm:py-24 lg:py-28" style={{ scrollMarginTop: '120px' }}>
+      <div className="w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
         <div className="grid gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-20">
           <motion.div initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.65 }}>
             <div className="flex items-center gap-3"><span className="h-px w-10 bg-[#087fd1]" /><p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#087fd1]">Client outcomes</p></div>
-            <h2 className="mt-5 max-w-md text-4xl font-light leading-[1.08] text-[#000741] sm:text-5xl">Client success stories that prove the impact.</h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-slate-600">Hear from organizations that trust EDRISYNC to deliver reliable, secure, and measurable technology outcomes.</p>
+            <h2 className="mt-5 max-w-xl text-4xl font-light leading-[1.08] text-[#000741] sm:text-5xl">Client success stories that prove the impact.</h2>
+            <p className="mt-6 max-w-xl text-base leading-7 [text-align:justify] [text-align-last:left] text-slate-600">Hear from organizations that trust EDRISYNC to deliver reliable, secure, and measurable technology outcomes.</p>
             <div className="mt-10 flex items-center gap-3">
               <button onClick={() => move(-1)} aria-label="Previous testimonial" className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 shadow-sm transition-colors hover:border-[#B1B6CE]" style={{ backgroundColor: '#ffffff', color: '#000741' }}><ArrowLeft className="h-4 w-4" /></button>
               <button onClick={() => move(1)} aria-label="Next testimonial" className="flex h-11 w-11 items-center justify-center rounded-full shadow-sm transition-colors hover:bg-[#000741]" style={{ backgroundColor: '#000741', color: '#ffffff' }}><ArrowRight className="h-4 w-4" /></button>
@@ -81,7 +81,7 @@ export default function Testimonials({ sectionRef }) {
             <AnimatePresence mode="wait">
               <motion.figure key={active.author} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
                 <Quote className="mb-7 h-8 w-8 text-[#B1B6CE]" strokeWidth={1.5} />
-                <blockquote className="max-w-4xl text-xl font-light leading-relaxed text-[#000741] sm:text-2xl">“{active.quote}”</blockquote>
+                <blockquote className="max-w-4xl text-xl font-light leading-8 [text-align:justify] [text-align-last:left] text-[#000741] sm:text-2xl">“{active.quote}”</blockquote>
                 <figcaption className="mt-9">
                   <p className="text-base font-semibold text-[#000741]">{active.author}</p>
                   <p className="mt-1 text-sm text-slate-500">{active.role}</p>

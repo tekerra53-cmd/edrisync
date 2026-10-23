@@ -34,7 +34,7 @@ export default function WhyEdrisync({ sectionRef, refs }) {
   const badgeScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
   return (
-    <section ref={sectionRef} className="relative bg-white py-28 px-6 overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28">
       {/* Soft accent blobs */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -46,7 +46,8 @@ export default function WhyEdrisync({ sectionRef, refs }) {
 
       <div
         ref={containerRef}
-        className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+        className="relative grid w-full grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20"
+        style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}
       >
         {/* Left: image with parallax */}
         <motion.div
@@ -139,7 +140,7 @@ export default function WhyEdrisync({ sectionRef, refs }) {
             </span>
           </h2>
 
-          <p className="text-gray-600 text-base mt-5 leading-relaxed max-w-md">
+          <p className="mt-5 max-w-2xl text-base leading-7 [text-align:justify] [text-align-last:left] text-gray-600">
             We embed ourselves in your business, learn your goals, and build systems that last.
             Our clients average a 3-year relationship, because results speak louder than contracts.
           </p>
@@ -185,7 +186,7 @@ export default function WhyEdrisync({ sectionRef, refs }) {
                     <h4 className="text-base font-semibold text-[#000741] transition-colors duration-300 group-hover:text-[#000741]">
                       {feature.title}
                     </h4>
-                    <p className="mt-1.5 text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-[#42536f]">{feature.desc}</p>
+                    <p className="mt-1.5 text-sm leading-6 [text-align:justify] [text-align-last:left] text-gray-600 transition-colors duration-300 group-hover:text-[#42536f]">{feature.desc}</p>
                   </div>
                 </motion.div>
               );

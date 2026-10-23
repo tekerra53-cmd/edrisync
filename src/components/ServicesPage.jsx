@@ -84,12 +84,12 @@ export default function ServicesPage({ onHome }) {
   return (
     <div style={{ backgroundColor: '#f7f9fd', minHeight: '100vh' }} className="min-h-screen">
       {/* Header */}
-      <header className="relative overflow-hidden px-6 pb-14 pt-32" style={{ background: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)' }}>
+      <header className="relative overflow-hidden pb-14 pt-32" style={{ background: 'linear-gradient(135deg, #087fd1 0%, #4FA6FF 100%)' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
           style={{ background: 'radial-gradient(circle at 20% 20%, rgba(8,127,209,0.45), transparent 45%), radial-gradient(circle at 85% 60%, rgba(40,87,184,0.35), transparent 45%)' }}
         />
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
           <button
             onClick={onHome}
             className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-6"
@@ -102,28 +102,28 @@ export default function ServicesPage({ onHome }) {
           <h1 className="text-4xl lg:text-[2.8rem] font-light leading-tight text-white">
             Cybersecurity. GRC. Microsoft. <span className="font-medium">Digital Transformation.</span>
           </h1>
-          <p className="text-white/70 mt-4 max-w-xl leading-relaxed">
+          <p className="mt-4 max-w-2xl leading-7 [text-align:justify] [text-align-last:left] text-white/70">
             We position technology as a strategic business enabler, connecting cybersecurity, governance, Microsoft enablement, and digital transformation into one coordinated offering.
           </p>
         </div>
       </header>
 
       {/* Introduction */}
-      <div className="mx-auto max-w-6xl px-6 py-14">
+      <div className="w-full py-14" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center text-gray-500 text-sm max-w-3xl mx-auto leading-relaxed"
+          className="max-w-2xl text-sm leading-7 [text-align:justify] [text-align-last:left] text-gray-500"
         >
           Rather than treating each service area in isolation, we connect them so your security strategy aligns with your compliance obligations, your Microsoft investment supports your transformation goals, and every recommendation ties back to measurable business outcomes.
         </motion.p>
       </div>
 
       {/* Service pillars grid */}
-      <div className="mx-auto max-w-6xl px-6 pb-28">
-        <div className="space-y-6">
+      <div className="w-full pb-28" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-2">
           {servicePillars.map((service, i) => (
             <ServiceCard key={service.title} service={service} index={i} />
           ))}
@@ -135,7 +135,7 @@ export default function ServicesPage({ onHome }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-20 text-center"
+          className="mt-20"
         >
           <a
             href="#"

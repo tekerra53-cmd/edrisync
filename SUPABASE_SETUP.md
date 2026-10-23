@@ -26,6 +26,12 @@ supabase/migrations/005_require_mfa_for_admin.sql
 supabase/migrations/006_admin_accounts_and_activity_log.sql
 supabase/migrations/007_newsletter_subscribers.sql
 supabase/migrations/008_jobs.sql
+supabase/migrations/009_job_pre_application_question.sql
+supabase/migrations/009_newsletter_campaigns.sql
+supabase/migrations/010_job_share_codes.sql
+supabase/migrations/011_job_applications.sql
+supabase/migrations/012_screening_responses_without_contact_details.sql
+supabase/migrations/013_newsletter_campaign_header_image.sql
 ```
 
 This creates:
@@ -37,6 +43,8 @@ This creates:
 - RLS policies for public reads/submissions and admin-only management
 - the admin account directory, activity history, and newsletter subscriber list
 - `jobs`: persistent vacancies, requirements, application methods, and publishing status
+- public pre-application screening responses, recorded without requiring contact details
+- newsletter campaign and delivery records, plus private unsubscribe tokens
 
 ## 3. Configure Google sign-in and MFA
 
@@ -72,6 +80,34 @@ TOTP authenticator (Google Authenticator, Authy, or 1Password). Run migration
 - `/admin/contacts`: review consultation requests and update their status
 - `/admin/subscribers`: view people who subscribed through the website
 - `/admin/updates`: compose a newsletter and send a test to your own inbox
+
+## 5. Enable newsletter campaigns
+
+1. In Resend, add and verify a sending domain that you own. A dedicated
+   subdomain such as `updates.edrisync.com` is recommended for newsletters.
+2. Create a Resend API key restricted to that domain and store it only in
+   Supabase Edge Function secrets. Never put this key in the website `.env`.
+3. In **Supabase Dashboard → Edge Functions → Secrets**, add:
+
+   ```text
+   RESEND_API_KEY=re_...
+   RESEND_FROM_EMAIL=Edrisync <updates@updates.edrisync.com>
+   ```
+
+   Use an address at the exact domain or subdomain you verified in Resend.
+4. Run migrations `009_newsletter_campaigns.sql` and `013_newsletter_campaign_header_image.sql` in the Supabase SQL Editor.
+5. Deploy the functions (replace the project ref with your Supabase project):
+
+   ```bash
+   supabase functions deploy send-newsletter-test --project-ref YOUR_PROJECT_REF
+   supabase functions deploy send-newsletter-campaign --project-ref YOUR_PROJECT_REF
+   supabase functions deploy newsletter-unsubscribe --no-verify-jwt --project-ref YOUR_PROJECT_REF
+   ```
+
+The campaign function accepts only a signed-in MFA administrator, sends to
+active subscribers only in batches of 100, records accepted/failed sends, and
+adds a per-subscriber unsubscribe link. The first version supports up to 1,000
+recipients in one campaign.
 - `/admin/users`: review approved dashboard accounts and MFA status
 - `/admin/activity`: review sign-ins, sign-outs, and recorded changes
 

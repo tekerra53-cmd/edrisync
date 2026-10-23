@@ -60,15 +60,15 @@ const industries = [
 
 export default function IndustriesSection({ sectionRef }) {
   return (
-    <section ref={sectionRef} className="relative overflow-hidden px-6 py-24 lg:py-32" style={{ backgroundColor: '#ffffff' }}>
-      <div className="relative mx-auto max-w-6xl">
+    <section ref={sectionRef} className="relative overflow-hidden py-20 sm:py-24 lg:py-28" style={{ backgroundColor: '#ffffff' }}>
+      <div className="relative w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-14 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end"
+          className="mb-14 max-w-3xl"
         >
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em]" style={{ color: '#087fd1' }}>Industries</p>
@@ -78,13 +78,13 @@ export default function IndustriesSection({ sectionRef }) {
               <span className="font-medium">We understand yours.</span>
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-relaxed lg:justify-self-end" style={{ color: '#526076' }}>
+          <p className="mt-5 max-w-2xl text-base leading-7 [text-align:justify] [text-align-last:left]" style={{ color: '#526076' }}>
             Your risks, systems, and operating pressures are specific to your industry. We bring the right mix of security, governance, and digital capability to the work.
           </p>
         </motion.div>
 
         {/* Industries grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mx-auto grid max-w-[1380px] grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
           {industries.map((industry, i) => {
             const Icon = industry.icon;
             return (
@@ -95,7 +95,7 @@ export default function IndustriesSection({ sectionRef }) {
                 viewport={{ once: true, margin: '0px 0px -10% 0px' }}
                 transition={{ duration: 0.55, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -8 }}
-                className="group relative overflow-hidden rounded-[22px] p-7 cursor-default transition-shadow duration-300"
+                className="group relative min-h-[238px] cursor-default overflow-hidden rounded-[22px] p-7 transition-shadow duration-300"
                 style={{
                   background: 'linear-gradient(145deg, rgba(255,255,255,0.96) 0%, rgba(239,246,255,0.82) 100%)',
                   border: '1px solid rgba(79,166,255,0.18)',
@@ -128,7 +128,7 @@ export default function IndustriesSection({ sectionRef }) {
                   </h3>
                 </div>
 
-                <p className="relative z-10 mt-4 text-[14px] leading-relaxed text-[#526076] transition-colors duration-300 group-hover:text-[#edf6ff]">{industry.desc}</p>
+                <p className="relative z-10 mt-4 text-[14px] leading-6 [text-align:justify] [text-align-last:left] text-[#526076] transition-colors duration-300 group-hover:text-[#edf6ff]">{industry.desc}</p>
 
                 <div className="relative z-10 mt-5 flex flex-wrap gap-2">
                   {industry.problems.map((problem) => (

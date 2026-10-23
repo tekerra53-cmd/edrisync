@@ -23,8 +23,9 @@ const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
 const InsightsPage = lazy(() => import('./components/InsightsPage'));
 const CaseStudiesPage = lazy(() => import('./components/CaseStudiesPage'));
 const CareersPage = lazy(() => import('./components/CareersPage'));
+const JobDetailPage = lazy(() => import('./components/JobDetailPage'));
 
-type PublicView = 'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies' | 'careers';
+type PublicView = 'home' | 'services' | 'serviceDetail' | 'insights' | 'about' | 'caseStudies' | 'careers' | 'job';
 
 function getPublicView(pathname: string): PublicView {
   if (pathname === '/about') return 'about';
@@ -33,6 +34,7 @@ function getPublicView(pathname: string): PublicView {
   if (pathname === '/insights') return 'insights';
   if (pathname === '/case-studies') return 'caseStudies';
   if (pathname === '/careers') return 'careers';
+  if (pathname.startsWith('/careers/')) return 'job';
   return 'home';
 }
 
@@ -197,6 +199,8 @@ function PublicApp() {
           <Suspense fallback={null}><CaseStudiesPage onHome={goHome} /></Suspense>
         ) : view === 'careers' ? (
           <Suspense fallback={null}><CareersPage onHome={goHome} /></Suspense>
+        ) : view === 'job' ? (
+          <Suspense fallback={null}><JobDetailPage slug={decodeURIComponent(path.split('/')[2] || '')} onCareers={goCareers} /></Suspense>
         ) : null}
       </main>
       </>}

@@ -5,14 +5,20 @@ const ABOUT_IMAGE = 'https://edrisync.com/myapp/wp-content/uploads/2026/05/edris
 
 export default function AboutSection({ sectionRef, onAbout }) {
   return (
-    <section ref={sectionRef} className="relative py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f7f9fd 0%, #ffffff 48%, #f3f7ff 100%)' }}>
+    <section ref={sectionRef} className="relative overflow-hidden py-20 sm:py-24 lg:py-28" style={{ background: 'linear-gradient(135deg, #f7f9fd 0%, #ffffff 48%, #f3f7ff 100%)' }}>
       {/* Decorative accents */}
       <div
         className="absolute -top-24 -left-24 w-80 h-80 rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(21,87,234,0.12), transparent 70%)' }}
       />
 
-      <div className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div
+        className="relative grid w-full grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20"
+        style={{
+          paddingLeft: 'clamp(1.5rem, 8%, 9rem)',
+          paddingRight: 'clamp(1.5rem, 5%, 5rem)',
+        }}
+      >
         {/* Image column */}
         <motion.div
           initial={{ opacity: 0, x: -24 }}
@@ -31,7 +37,7 @@ export default function AboutSection({ sectionRef, onAbout }) {
             <img
               src={ABOUT_IMAGE}
               alt="The EdriSync team"
-              className="w-full h-[340px] lg:h-[440px] object-cover"
+              className="h-[340px] w-full object-cover lg:h-[500px]"
               draggable={false}
             />
             {/* Gradient overlay at the bottom for depth */}
@@ -74,18 +80,18 @@ export default function AboutSection({ sectionRef, onAbout }) {
             About EDRISYNC
           </p>
           <div className="w-12 h-1 rounded-full mt-3" style={{ background: 'linear-gradient(90deg, #6730ef, #0b82dc)' }} />
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-light mt-5 leading-[1.2] text-balance" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
+          <h2 className="mt-5 text-3xl font-light leading-[1.2] sm:text-4xl lg:text-[2.6rem]" style={{ color: '#000741', fontFamily: 'var(--font-family-heading)' }}>
             Cybersecurity, compliance, and digital
             <span className="font-medium"> transformation</span>
             <span className="block">is a business outcome,</span>
             <span className="font-medium"> not an IT project.</span>
           </h2>
 
-          <p className="text-[15px] sm:text-base mt-5 leading-relaxed text-pretty" style={{ color: '#526076' }}>
+          <p className="mt-5 text-[15px] leading-7 [text-align:justify] [text-align-last:left] sm:text-base" style={{ color: '#526076' }}>
             At EDRISYNC, we bridge the gap between business needs and technology execution. We help organizations navigate cybersecurity risk, compliance obligations, and digital transformation as one interconnected challenge, from strategy through implementation and continuous improvement.
           </p>
 
-          <p className="text-[15px] sm:text-base mt-4 leading-relaxed text-pretty" style={{ color: '#526076' }}>
+          <p className="mt-4 text-[15px] leading-7 [text-align:justify] [text-align-last:left] sm:text-base" style={{ color: '#526076' }}>
             We operate as an extension of your team, starting with your business problem, then connecting cybersecurity, governance, Microsoft enablement, and digital transformation into one coordinated roadmap.
           </p>
 

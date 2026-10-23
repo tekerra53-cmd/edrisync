@@ -110,24 +110,36 @@ export default function PortfolioSection({ sectionRef, onViewMore }) {
     });
   }, []);
 
-  const [featured] = managedProjects;
+  const [featured, ...supportingProjects] = managedProjects;
+  const secondaryProjects = supportingProjects.slice(0, 2);
 
   return (
-    <section ref={sectionRef} className="relative bg-[#ffffff] px-5 py-24 sm:px-6 sm:py-28" style={{ scrollMarginTop: '120px' }}>
-      <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }} className="mb-14 flex flex-col gap-7 border-b border-slate-200 pb-10 lg:flex-row lg:items-end lg:justify-between">
+    <section ref={sectionRef} className="relative bg-[#ffffff] py-20 sm:py-24 lg:py-28" style={{ scrollMarginTop: '120px' }}>
+      <div className="w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }} className="mb-14 border-b border-slate-200 pb-10">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#087fd1]">Case studies</p>
             <h2 className="mt-4 text-4xl font-light leading-[1.08] text-[#000741] sm:text-5xl">Work that makes the difference visible.</h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-slate-600">A selection of security, governance, Microsoft, and transformation programs delivered for organizations ready to operate with more confidence.</p>
+          <p className="mt-5 max-w-2xl text-sm leading-6 [text-align:justify] [text-align-last:left] text-slate-600">A selection of security, governance, Microsoft, and transformation programs delivered for organizations ready to operate with more confidence.</p>
         </motion.div>
 
-        <div className="grid gap-6">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.65 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(4,7,32,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(4,7,32,0.12)]">
-            <div className="relative h-72 overflow-hidden sm:h-96"><img src={featured.image} alt={featured.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /><div className="absolute bottom-5 left-5 rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#000741]">Featured project</div></div>
-            <div className="p-7 sm:p-9"><ProjectMeta project={featured} /><h3 className="mt-5 text-3xl font-light leading-tight text-[#000741]">{featured.title}</h3><p className="mt-4 max-w-xl leading-relaxed text-slate-600">{featured.desc}</p><div className="mt-6"><ProjectTags project={featured} /></div></div>
-          </motion.div>
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.65 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(4,7,32,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(4,7,32,0.12)]">
+              <div className="relative h-64 overflow-hidden sm:h-72"><img src={featured.image} alt={featured.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" draggable={false} /><div className="absolute bottom-5 left-5 rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#000741]">Featured project</div></div>
+              <div className="p-7 sm:p-8"><ProjectMeta project={featured} /><h3 className="mt-5 text-3xl font-light leading-tight text-[#000741]">{featured.title}</h3><p className="mt-4 leading-7 [text-align:justify] [text-align-last:left] text-slate-600">{featured.desc}</p><div className="mt-6"><ProjectTags project={featured} /></div></div>
+            </motion.div>
+
+            <div className="grid gap-6">
+              {secondaryProjects.map((project, index) => (
+                <motion.div key={project.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.55, delay: 0.1 + index * 0.1 }} className="group grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(4,7,32,0.06)] transition-shadow duration-300 hover:shadow-[0_18px_42px_rgba(4,7,32,0.12)] sm:grid-cols-[150px_minmax(0,1fr)] xl:grid-cols-[130px_minmax(0,1fr)]">
+                  <ProjectVisual project={project} className="relative h-44 overflow-hidden sm:h-full sm:min-h-[190px]" />
+                  <div className="flex flex-col justify-center p-6"><ProjectMeta project={project} /><h3 className="mt-4 text-xl font-medium leading-tight text-[#000741]">{project.title}</h3><p className="mt-3 text-sm leading-6 [text-align:justify] [text-align-last:left] text-slate-600">{project.desc}</p><div className="mt-4"><ProjectTags project={project} /></div></div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
           <div className="flex justify-center border-t border-slate-200 pt-10">
             <button onClick={onViewMore} className="relative flex min-h-[52px] items-center gap-3 rounded-xl px-8 py-4 text-sm font-semibold shadow-xl transition-all duration-200 hover:bg-[#B1B6CE] hover:shadow-2xl" style={{ backgroundColor: '#B1B6CE', color: '#000741' }}>

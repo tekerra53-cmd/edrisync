@@ -23,16 +23,16 @@ export default function CaseStudiesPage({ onHome }) {
   const caseStudies = projects.slice(1);
 
   return (
-    <section className="min-h-screen bg-[#ffffff] px-5 pb-24 pt-32 sm:px-6 sm:pb-28">
-      <div className="mx-auto max-w-7xl">
+    <section className="min-h-screen bg-[#ffffff] pb-24 pt-32 sm:pb-28">
+      <div className="w-full" style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}>
         <button onClick={onHome} className="inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-[#000741]"><ArrowLeft className="h-4 w-4" /> Back to home</button>
         <div className="mt-16 max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#087fd1]">Case studies</p>
           <h1 className="mt-4 text-5xl font-light leading-[1.04] text-[#000741] sm:text-6xl">More work. More measurable outcomes.</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-slate-600">Explore the programs behind our approach to governance, secure workplaces, transformation, and identity.</p>
+          <p className="mt-7 max-w-2xl text-lg leading-8 [text-align:justify] [text-align-last:left] text-slate-600">Explore the programs behind our approach to governance, secure workplaces, transformation, and identity.</p>
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
+        <div className="mx-auto mt-16 grid max-w-6xl gap-6 md:grid-cols-2">
           {caseStudies.map((project, index) => {
             const Icon = project.icon;
             return (
@@ -41,7 +41,7 @@ export default function CaseStudiesPage({ onHome }) {
                 <div className="p-7">
                   <div className="flex items-center justify-between gap-4 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: project.accent }}><span className="flex items-center gap-2"><Icon className="h-3.5 w-3.5" /> {project.category}</span><span className="text-slate-400">{project.year}</span></div>
                   <h2 className="mt-5 text-2xl font-light text-[#000741]">{project.title}</h2>
-                  <p className="mt-4 leading-relaxed text-slate-600">{project.desc}</p>
+                  <p className="mt-4 leading-7 [text-align:justify] [text-align-last:left] text-slate-600">{project.desc}</p>
                   <div className="mt-6 flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-medium text-slate-500">{tag}</span>)}</div>
                 </div>
               </motion.article>

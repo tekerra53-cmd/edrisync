@@ -33,12 +33,14 @@ Deno.serve(async (request) => {
     return Response.json({ error: 'Administrator access with MFA is required.' }, { status: 403, headers: corsHeaders });
   }
 
-  const { subject, content } = await request.json().catch(() => ({}));
+  const { subject, content, headerImageUrl } = await request.json().catch(() => ({}));
   const cleanSubject = typeof subject === 'string' ? subject.trim() : '';
   const cleanContent = typeof content === 'string' ? content.trim() : '';
+  const cleanHeaderImageUrl = typeof headerImageUrl === 'string' ? headerImageUrl.trim() : '';
   if (!cleanSubject || !cleanContent || cleanSubject.length > 200 || cleanContent.length > 5000) {
     return Response.json({ error: 'Add a subject and message within the allowed length.' }, { status: 400, headers: corsHeaders });
   }
+  if (cleanHeaderImageUrl && !/^https:\/\//.test(cleanHeaderImageUrl)) return Response.json({ error: 'The newsletter image must use a secure URL.' }, { status: 400, headers: corsHeaders });
 
   const apiKey = Deno.env.get('RESEND_API_KEY');
   if (!apiKey) return Response.json({ error: 'Email sending is not configured yet.' }, { status: 503, headers: corsHeaders });
@@ -50,7 +52,7 @@ Deno.serve(async (request) => {
       from: Deno.env.get('RESEND_FROM_EMAIL') || 'Edrisync <onboarding@resend.dev>',
       to: [user.email],
       subject: `[Test] ${cleanSubject}`,
-      html: `<main style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;color:#000741"><p style="font-size:12px;color:#64748b">Edrisync email test</p><h1>${escapeHtml(cleanSubject)}</h1><div style="font-size:16px;line-height:1.65">${escapeHtml(cleanContent).replace(/\n/g, '<br>')}</div></main>`,
+      html: `<main style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;color:#000741">${cleanHeaderImageUrl ? `<img src="${escapeHtml(cleanHeaderImageUrl)}" alt="" style="display:block;width:100%;max-width:640px;height:auto;margin:0 0 24px;border-radius:12px">` : ''}<p style="font-size:12px;color:#64748b">Edrisync email test</p><h1>${escapeHtml(cleanSubject)}</h1><div style="font-size:16px;line-height:1.65">${escapeHtml(cleanContent).replace(/\n/g, '<br>')}</div></main>`,
     }),
   });
 

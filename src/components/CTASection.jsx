@@ -68,7 +68,7 @@ export default function CTASection({ sectionRef }) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-28 px-6 overflow-hidden"
+      className="relative overflow-hidden py-20 sm:py-24 lg:py-28"
       style={{ backgroundColor: '#ffffff', color: '#000741' }}
     >
       {/* Background gradient mesh + grid */}
@@ -88,7 +88,10 @@ export default function CTASection({ sectionRef }) {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div
+        className="relative z-10 grid w-full grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20"
+        style={{ paddingLeft: 'clamp(1.5rem, 8%, 9rem)', paddingRight: 'clamp(1.5rem, 5%, 5rem)' }}
+      >
         {/* Left: pitch */}
         <div>
           <motion.div
@@ -105,7 +108,7 @@ export default function CTASection({ sectionRef }) {
               <br />
               about your challenge.
             </h2>
-            <p className="text-[#53647B] mt-5 text-base leading-relaxed max-w-md">
+            <p className="mt-5 max-w-2xl text-base leading-7 [text-align:justify] [text-align-last:left] text-[#53647B]">
               Share your business problem and we'll put together a no-obligation conversation, connecting cybersecurity, GRC, Microsoft enablement, and digital transformation into one coordinated plan.
             </p>
           </motion.div>

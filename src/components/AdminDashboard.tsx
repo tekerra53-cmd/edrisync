@@ -5,7 +5,7 @@ import edrisyncLogo from '../assests/img/edrisync-logo.png';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { AdminAccount, AdminActivity, getAdminAccounts, getAdminActivity, recordSessionActivity } from '../services/adminActivity';
 import { getNewsletterSubscribers, NewsletterSubscriber } from '../services/newsletter';
-import { sendNewsletterTest } from '../services/newsletterCampaign';
+import { sendNewsletterCampaign, sendNewsletterTest } from '../services/newsletterCampaign';
 import { defaultHeroSettings, getHeroSettings, HeroSettings, saveHeroSettings } from '../services/siteContent';
 import { CaseStudy, InsightPost, getManagedContent, saveManagedContent } from '../services/managedContent';
 import { projects } from './PortfolioSection';
@@ -180,7 +180,7 @@ function Overview({ hero, setHero, saveSettings, saving, message, requests, case
 
 function Metric({ icon: Icon, label, value, detail, accent }: { icon: any; label: string; value: string | number; detail: string; accent: string }) { const styles: Record<string, string> = { blue: 'bg-blue-50 text-blue-600', yellow: 'bg-amber-50 text-amber-600', indigo: 'bg-indigo-50 text-indigo-600', mint: 'bg-emerald-50 text-emerald-600', purple: 'bg-violet-50 text-violet-600', red: 'bg-rose-50 text-rose-600' }; return <motion.div initial={{ y: 18, opacity: 0 }} animate={{ y: 0, opacity: 1 }} whileHover={{ y: -3 }} transition={{ duration: 0.32 }} className="admin-stat-card"><div className="flex items-start justify-between"><div className={`flex h-10 w-10 items-center justify-center rounded-lg ${styles[accent]}`}><Icon className="h-5 w-5" /></div><TrendingUp className="h-4 w-4 text-emerald-500" /></div><p className="mt-4 text-3xl font-bold tracking-tight text-slate-900">{value}</p><p className="mt-1 text-sm font-medium text-slate-700">{label}</p><p className="mt-1 text-[11px] text-slate-400">{detail}</p></motion.div>; }
 
-const emptyJob = (): JobInput => ({ title: '', slug: '', department: 'Technology', location: 'Remote', employment_type: 'Full-time', summary: '', responsibilities: [], requirements: [], application_email: 'info@edrisync.com', application_url: null, application_instructions: '', status: 'draft', posted_at: new Date().toISOString() });
+const emptyJob = (): JobInput => ({ title: '', slug: '', share_code: String(Math.floor(10000 + Math.random() * 90000)), department: 'Technology', location: 'Remote', employment_type: 'Full-time', summary: '', responsibilities: [], requirements: [], application_email: 'info@edrisync.com', application_url: null, application_instructions: '', pre_application_question: '', status: 'draft', posted_at: new Date().toISOString() });
 const makeSlug = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 function JobsPanel({ jobs, setJobs }: { jobs: Job[]; setJobs: (jobs: Job[]) => void }) {
@@ -197,7 +197,7 @@ function JobsPanel({ jobs, setJobs }: { jobs: Job[]; setJobs: (jobs: Job[]) => v
     if (!draft.title.trim() || !draft.summary.trim()) { setMessage('A job title and summary are required.'); return; }
     setSaving(true); setMessage('');
     try {
-      const saved = await saveJob({ ...draft, id: selectedId || undefined, slug: draft.slug || makeSlug(draft.title), title: draft.title.trim(), summary: draft.summary.trim(), application_email: draft.application_email.trim() || 'info@edrisync.com', application_url: draft.application_url?.trim() || null, application_instructions: draft.application_instructions?.trim() || null });
+      const saved = await saveJob({ ...draft, id: selectedId || undefined, slug: draft.slug || makeSlug(draft.title), title: draft.title.trim(), summary: draft.summary.trim(), application_email: draft.application_email.trim() || 'info@edrisync.com', application_url: draft.application_url?.trim() || null, application_instructions: draft.application_instructions?.trim() || null, pre_application_question: draft.pre_application_question?.trim() || null });
       setJobs([saved, ...jobs.filter((job) => job.id !== saved.id)]);
       setSelectedId(saved.id); setDraft({ ...saved }); setMessage('Job saved successfully.');
     } catch (error: any) { setMessage(error.message || 'Could not save this job.'); }
@@ -216,7 +216,36 @@ function JobsPanel({ jobs, setJobs }: { jobs: Job[]; setJobs: (jobs: Job[]) => v
 }
 
 function JobCount({ label, value, tone }: { label: string; value: number; tone: string }) { return <div className="rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-[0_6px_18px_rgba(7,21,47,.025)]"><p className="text-[10px] font-bold uppercase tracking-[.16em] text-slate-400">{label}</p><p className={`mt-1 text-2xl font-semibold ${tone}`}>{value}</p></div>; }
-function JobStatusControl({ value, onChange }: { value: JobInput['status']; onChange: (status: JobInput['status']) => void }) { const choices: Array<[JobInput['status'], string, string]> = [['draft', 'Draft', 'Only admins can see it.'], ['published', 'Publish', 'Visible on the careers page.'], ['closed', 'Closed', 'No longer accepting applications.']]; return <fieldset><legend className="text-xs font-semibold text-slate-600">Job status</legend><div className="mt-2 grid gap-2 sm:grid-cols-3">{choices.map(([status, label, description]) => <button key={status} type="button" onClick={() => onChange(status)} className={`rounded-xl border p-3 text-left transition-colors ${value === status ? status === 'published' ? 'border-emerald-400 bg-emerald-50' : status === 'draft' ? 'border-amber-400 bg-amber-50' : 'border-slate-400 bg-slate-100' : 'border-slate-200 bg-white hover:border-slate-300'}`}><span className="block text-xs font-bold text-slate-800">{label}</span><span className="mt-1 block text-[10px] leading-4 text-slate-500">{description}</span></button>)}</div></fieldset>; }
+function JobStatusControl({ value, onChange }: { value: JobInput['status']; onChange: (status: JobInput['status']) => void }) {
+  const choices: Array<[JobInput['status'], string, string]> = [
+    ['draft', 'Draft', 'Only admins can see it.'],
+    ['published', 'Publish', 'Visible on the careers page.'],
+    ['closed', 'Closed', 'No longer accepting applications.'],
+  ];
+  const selectedLabel = choices.find(([status]) => status === value)?.[1] ?? 'Draft';
+  const activeClasses = (status: JobInput['status']) => status === 'published'
+    ? 'border-emerald-500 bg-emerald-50 text-emerald-950 ring-2 ring-emerald-500/20'
+    : status === 'draft'
+      ? 'border-amber-500 bg-amber-50 text-amber-950 ring-2 ring-amber-500/20'
+      : 'border-slate-500 bg-slate-100 text-slate-950 ring-2 ring-slate-500/20';
+
+  return <fieldset>
+    <div className="flex flex-wrap items-center justify-between gap-2">
+      <legend className="text-xs font-semibold text-slate-700">Job status</legend>
+      <p className="text-[11px] font-medium text-slate-500">Currently selected: <span className="font-bold text-slate-800">{selectedLabel}</span></p>
+    </div>
+    <div className="mt-3 grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Job status">
+      {choices.map(([status, label, description]) => {
+        const isSelected = value === status;
+        return <button key={status} type="button" role="radio" aria-checked={isSelected} onClick={() => onChange(status)} className={`relative min-h-28 rounded-xl border-2 p-4 pr-11 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#087FD1] focus-visible:ring-offset-2 ${isSelected ? activeClasses(status) : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'}`}>
+          {isSelected && <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/80 px-2 py-1 text-[9px] font-bold uppercase tracking-wide shadow-sm"><CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" /> Selected</span>}
+          <span className="block text-sm font-bold">{label}</span>
+          <span className={`mt-2 block text-[11px] leading-5 ${isSelected ? 'text-current opacity-75' : 'text-slate-500'}`}>{description}</span>
+        </button>;
+      })}
+    </div>
+  </fieldset>;
+}
 
 function AdminField({ label, value, onChange, multiline = false, type = 'text' }: { label: string; value: string; onChange: (value: string) => void; multiline?: boolean; type?: string }) { return <label className="text-xs font-semibold text-slate-600">{label}{multiline ? <textarea rows={5} value={value} onChange={(event) => onChange(event.target.value)} className="admin-input mt-2 resize-y leading-6" /> : <input type={type} value={value} onChange={(event) => onChange(event.target.value)} className="admin-input mt-2" />}</label>; }
 function AdminSelect({ label, value, options, onChange }: { label: string; value: string; options: string[]; onChange: (value: string) => void }) { return <label className="text-xs font-semibold text-slate-600">{label}<select value={value} onChange={(event) => onChange(event.target.value)} className="admin-input mt-2">{options.map((option) => <option key={option} value={option}>{option}</option>)}</select></label>; }
@@ -446,12 +475,13 @@ function SubscribersPanel() {
 
 const subjectLimit = 200;
 const contentLimit = 5000;
-// Flip to true only after the sending domain is verified over DNS and RESEND_FROM_EMAIL is set.
-const massSendingEnabled = false;
+const massSendingEnabled = true;
 
 function EmailUpdatesPanel() {
   const [subject, setSubject] = useState('');
   const [content, setContent] = useState('');
+  const [headerImageUrl, setHeaderImageUrl] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -467,17 +497,50 @@ function EmailUpdatesPanel() {
   const cleanContent = content.trim();
   const subjectValid = Boolean(cleanSubject) && cleanSubject.length <= subjectLimit;
   const contentValid = Boolean(cleanContent) && cleanContent.length <= contentLimit;
-  const canSend = subjectValid && contentValid && !sending;
+  const canSend = subjectValid && contentValid && !sending && !uploadingImage;
+
+  async function uploadHeaderImage(file?: File) {
+    if (!file) return;
+    if (!file.type.startsWith('image/') || file.size > 5 * 1024 * 1024) {
+      setError('Choose an image file (PNG, JPEG, GIF, or WebP) smaller than 5 MB.');
+      return;
+    }
+    if (!supabase) { setError('Media uploads are not configured yet.'); return; }
+    setUploadingImage(true); setError('');
+    try {
+      const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, '-');
+      const path = `newsletter/${Date.now()}-${safeName}`;
+      const { error: uploadError } = await supabase.storage.from('site-media').upload(path, file, { contentType: file.type, upsert: false });
+      if (uploadError) throw uploadError;
+      const { data } = supabase.storage.from('site-media').getPublicUrl(path);
+      setHeaderImageUrl(data.publicUrl);
+    } catch (reason: any) {
+      setError(reason.message || 'Could not upload the newsletter image.');
+    } finally { setUploadingImage(false); }
+  }
 
   async function sendTest(event: FormEvent) {
     event.preventDefault();
     if (!canSend) return;
     setSending(true); setMessage(''); setError('');
     try {
-      await sendNewsletterTest(cleanSubject, cleanContent);
+      await sendNewsletterTest(cleanSubject, cleanContent, headerImageUrl || undefined);
       setMessage(`Test email sent to ${adminEmail || 'your admin address'}. Check your inbox, then review the live preview.`);
     } catch (reason: any) {
       setError(reason.message || 'Could not send the test email.');
+    } finally { setSending(false); }
+  }
+
+  async function sendCampaign() {
+    if (!canSend || !massSendingEnabled) return;
+    const recipientLabel = activeCount === null ? 'all active subscribers' : `${activeCount} active subscriber${activeCount === 1 ? '' : 's'}`;
+    if (!window.confirm(`Send this email to ${recipientLabel}? This cannot be undone.`)) return;
+    setSending(true); setMessage(''); setError('');
+    try {
+      const result = await sendNewsletterCampaign(cleanSubject, cleanContent, headerImageUrl || undefined);
+      setMessage(`Campaign complete: ${result.accepted} accepted by Resend${result.failed ? `, ${result.failed} failed` : ''}.`);
+    } catch (reason: any) {
+      setError(reason.message || 'Could not send the campaign.');
     } finally { setSending(false); }
   }
 
@@ -485,13 +548,14 @@ function EmailUpdatesPanel() {
 
   return <section>
     <p className="text-sm text-slate-500">Email updates</p>
-    <div className="mt-1 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><h2 className="text-3xl font-light tracking-tight sm:text-4xl">Compose an update</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Write the newsletter, preview it, and send a test to your own inbox. Sending to every subscriber stays locked until the sending domain is verified.</p></div><span className="w-fit rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#087FD1]">{activeCount === null ? 'Loading' : `${activeCount} active`}</span></div>
+    <div className="mt-1 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><h2 className="text-3xl font-light tracking-tight sm:text-4xl">Compose an update</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Write the newsletter, optionally add a header image, preview it, and send a test to your own inbox.</p></div><span className="w-fit rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#087FD1]">{activeCount === null ? 'Loading' : `${activeCount} active`}</span></div>
 
     <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_360px]">
       <form onSubmit={sendTest} className="admin-card overflow-hidden">
         <div className="flex flex-col justify-between gap-4 border-b border-slate-100 px-6 py-5 sm:flex-row sm:items-center"><div className="flex items-center gap-3"><div className="admin-section-icon"><Send className="h-5 w-5" /></div><div><h3 className="font-semibold">Email content</h3><p className="mt-0.5 text-xs text-slate-500">Plain text. Line breaks are kept in the email.</p></div></div><button disabled={!canSend} className="admin-primary-action flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"><Send className="h-3.5 w-3.5" />{sending ? 'Sending…' : 'Send test to me'}</button></div>
         <div className="grid gap-5 p-6">
           <label className="block min-w-0 text-xs font-semibold text-slate-600">Subject<span className="mt-0.5 ml-2 font-normal text-slate-400">{subject.length}/{subjectLimit}</span><input value={subject} maxLength={subjectLimit} onChange={(event) => setSubject(event.target.value)} placeholder="What is this update about?" className={inputClass} /></label>
+          <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50/60 p-4"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-semibold text-slate-700">Header image <span className="font-normal text-slate-400">(optional)</span></p><p className="mt-1 text-[11px] text-slate-500">Appears above the newsletter content. PNG, JPEG, GIF, or WebP; up to 5 MB.</p></div><label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#087FD1] bg-white px-3 py-2 text-xs font-semibold text-[#087FD1] hover:bg-blue-50"><Upload className="h-3.5 w-3.5" />{uploadingImage ? 'Uploading…' : 'Upload image'}<input type="file" accept="image/png,image/jpeg,image/gif,image/webp" className="sr-only" disabled={uploadingImage} onChange={(event) => { void uploadHeaderImage(event.target.files?.[0]); event.currentTarget.value = ''; }} /></label></div>{headerImageUrl && <div className="mt-4 flex items-start gap-3"><img src={headerImageUrl} alt="Newsletter header preview" className="h-20 w-32 rounded-lg border border-slate-200 object-cover" /><div><p className="text-xs font-medium text-emerald-700">Header image ready</p><button type="button" onClick={() => setHeaderImageUrl('')} className="mt-2 text-xs font-semibold text-red-600 hover:underline">Remove image</button></div></div>}</div>
           <label className="block min-w-0 text-xs font-semibold text-slate-600">Message<span className="mt-0.5 ml-2 font-normal text-slate-400">{content.length}/{contentLimit}</span><textarea rows={14} value={content} maxLength={contentLimit} onChange={(event) => setContent(event.target.value)} placeholder="Write the update your subscribers will receive." className={`${inputClass} resize-y leading-6`} /></label>
           {!subjectValid && <p className="text-xs text-slate-500">Add a subject of {subjectLimit} characters or fewer.</p>}
           {!contentValid && <p className="text-xs text-slate-500">Add a message of {contentLimit} characters or fewer.</p>}
@@ -500,13 +564,13 @@ function EmailUpdatesPanel() {
         </div>
         <div className="flex flex-col gap-4 border-t border-slate-100 bg-slate-50/50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs leading-5 text-slate-500">Test sends go to <span className="font-semibold text-slate-700">{adminEmail || 'your signed-in admin address'}</span> only.</p>
-          <button type="button" disabled={!massSendingEnabled || !canSend} className="flex w-fit cursor-not-allowed items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-400" aria-disabled="true" title="Verify sending domain to activate.">{!massSendingEnabled && <Lock className="h-3.5 w-3.5" />} Send to all subscribers</button>
+          <button type="button" onClick={sendCampaign} disabled={!massSendingEnabled || !canSend || sending} className="flex w-fit items-center gap-2 rounded-lg border border-[#087FD1] bg-white px-4 py-2.5 text-xs font-semibold text-[#087FD1] disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-400" title="Sends only to active subscribers after confirmation.">{!massSendingEnabled && <Lock className="h-3.5 w-3.5" />} Send to all subscribers</button>
         </div>
       </form>
 
       <aside className="space-y-4">
         <div className="admin-preview"><div className="flex items-center justify-between"><p>Inbox preview</p><Mail className="h-4 w-4" /></div><div className="mt-9"><span>Subject</span><h3>{cleanSubject || 'Your subject appears here'}</h3><p className="whitespace-pre-line">{cleanContent || 'Your message appears here exactly as subscribers will read it.'}</p></div><div className="mt-8 border-t border-white/10 pt-4 text-xs text-blue-100/60">Test emails arrive with a “[Test]” prefix so they are never confused with live sends.</div></div>
-        <div className="admin-card p-5"><div className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-amber-600"><Lock className="h-4 w-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">Sending to all subscribers</h3><p className="text-xs text-slate-500">{massSendingEnabled ? 'Mass sending is active.' : 'Verify sending domain to activate.'}</p></div></div><p className="mt-4 text-sm leading-6 text-slate-500">{massSendingEnabled ? 'Mass sending is enabled. Review the audience and message carefully before each send.' : 'Verify your sending domain with DNS records, set the branded sender, then enable mass sending. Until then only your own inbox receives test emails.'}</p><ol className="mt-4 space-y-2 text-xs leading-5 text-slate-500"><li>1. Add the DNS records from your email provider for <code>edrisync.com</code>.</li><li>2. Set <code>RESEND_FROM_EMAIL</code> to the branded sender.</li><li>3. Enable the mass send action once delivery is confirmed.</li></ol></div>
+        <div className="admin-card p-5"><div className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600"><Check className="h-4 w-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">Sending to all subscribers</h3><p className="text-xs text-slate-500">Campaign sending is ready after Resend is configured.</p></div></div><p className="mt-4 text-sm leading-6 text-slate-500">Every campaign requires confirmation, reaches only active subscribers, records accepted and failed messages, and includes a one-click unsubscribe link.</p><ol className="mt-4 space-y-2 text-xs leading-5 text-slate-500"><li>1. Verify the Resend sending domain.</li><li>2. Set <code>RESEND_API_KEY</code> and <code>RESEND_FROM_EMAIL</code> in Supabase Edge Function secrets.</li><li>3. Run migration <code>009_newsletter_campaigns.sql</code> and deploy the campaign functions.</li></ol></div>
       </aside>
     </div>
   </section>;

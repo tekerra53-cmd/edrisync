@@ -23,7 +23,13 @@ export default function ServicesSection({ sectionRef, onServiceDetail }) {
 
   return (
     <section ref={sectionRef} className="service-explorer" aria-labelledby="services-heading">
-      <div className="service-explorer-heading"><div><p>What we do</p><h1 id="services-heading">Our Services</h1></div><span>Four connected capabilities. One strategic partner.</span></div>
+      <div className="service-explorer-heading">
+        <div>
+          <p>What we do</p>
+          <h1 id="services-heading">Our Services</h1>
+          <span>Four connected capabilities. One strategic partner.</span>
+        </div>
+      </div>
       <div className="service-explorer-shell">
         <div className="service-explorer-tabs" role="tablist" aria-label="Our services">
           {services.map((service, index) => <button key={service.label} className={`service-explorer-tab${index === activeIndex ? ' is-active' : ''}`} role="tab" aria-selected={index === activeIndex} aria-controls="service-explorer-panel" id={`service-tab-${index}`} type="button" onClick={() => setActiveIndex(index)}><service.icon aria-hidden="true" /><span>{service.label}</span><ArrowUpRight className="service-explorer-tab-arrow" aria-hidden="true" /></button>)}
