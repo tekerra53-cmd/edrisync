@@ -25,96 +25,108 @@ const subServices = {
     parent: 'Cybersecurity',
     parentLabel: 'Cybersecurity',
     icon: SearchCheck,
-    headline: 'See your security posture clearly. Know what to improve first.',
-    intro: 'A focused review of your people, processes, and technology that turns security uncertainty into a practical, prioritized plan.',
-    overview: 'We assess how your current security controls work in practice, identify gaps against your risk priorities, and help your team focus effort where it can make the greatest difference.',
+    headline: 'Turn an unclear security posture into a decision-ready plan.',
+    intro: 'A focused, evidence-led review of your people, processes, and technology—so leadership can see what matters, why it matters, and what to do next.',
+    overview: 'We assess how your security controls actually operate across the systems, identities, data, and business activities you rely on—rather than treating each tool as an island. We connect evidence and stakeholder context, then trace observations back to the business risks they affect. The result is a risk-ranked view of the gaps worth addressing first, with clear ownership and a practical remediation path.',
     focus: ['Identity and access controls', 'Endpoint and device protection', 'Cloud and infrastructure configuration', 'Security policies and operating practices'],
     deliverables: ['Current-state security findings', 'Risk-ranked recommendations', 'Practical remediation roadmap', 'Leadership-ready findings summary'],
-    outcomes: ['Clear visibility into material security gaps', 'Remediation priorities tied to business risk', 'A stronger basis for investment decisions'],
+    outcomes: ['Clear visibility into material security gaps', 'Remediation priorities connected to business impact', 'A stronger basis for investment and ownership decisions', 'A shared understanding between leadership and security teams of where exposure really sits'],
     steps: ['Set scope and priorities', 'Review controls and evidence', 'Validate findings with your team', 'Present and plan next steps'],
   },
   'Penetration testing': {
     parent: 'Cybersecurity',
     parentLabel: 'Cybersecurity',
     icon: LockKeyhole,
-    headline: 'Find exploitable weaknesses before someone else does.',
-    intro: 'A controlled, clearly scoped security test that shows how weaknesses could be combined and what to fix first.',
-    overview: 'Our testing approach is agreed in advance with your team, designed to minimize disruption, and focused on actionable evidence rather than a list of theoretical issues.',
+    headline: 'See how an attacker could get in—before they do.',
+    intro: 'A controlled, well-governed test that validates real exposure and gives technical owners the evidence to fix it with confidence.',
+    overview: 'We agree the rules of engagement, test only approved scope, validate meaningful findings, and translate the result into a prioritized remediation path—not a long list of theoretical vulnerabilities. Each test is planned with your technical and business owners, conducted within agreed boundaries, and explained in language both engineers and leaders can use.',
     focus: ['External attack surface testing', 'Web application security testing', 'Internal network testing', 'Remediation validation'],
     deliverables: ['Agreed test scope and rules of engagement', 'Evidence-backed technical findings', 'Risk-based remediation guidance', 'Retest summary for resolved issues'],
-    outcomes: ['Validated understanding of real-world exposure', 'Clear technical guidance for remediation', 'Greater confidence in security controls'],
+    outcomes: ['Validated understanding of real-world exposure', 'Clear technical evidence for remediation', 'Greater confidence in the controls protecting critical services', 'A documented record of what has been resolved and what remains'],
     steps: ['Agree scope and safeguards', 'Test approved systems', 'Review and prioritize findings', 'Retest agreed fixes'],
+  },
+  SOC: {
+    parent: 'Cybersecurity',
+    parentLabel: 'Cybersecurity',
+    icon: ShieldCheck,
+    headline: 'Know what matters. Act before disruption spreads.',
+    intro: 'A Security Operations Center built around your business: focused monitoring, human-led investigation, and a clear route from a meaningful signal to decisive action.',
+    overview: 'A useful SOC is not a wall of alerts. It brings together the telemetry that matters, the people who can make decisions, and response playbooks your teams can actually use. Edrisync helps you establish, mature, or augment that capability across cloud, identity, endpoint, network, and business-critical systems.',
+    focus: ['Centralized security visibility and signal prioritization', 'Detection engineering mapped to your real risks', 'Analyst-led triage, investigation, and escalation', 'Incident readiness, reporting, and continuous improvement'],
+    deliverables: ['SOC maturity and telemetry coverage assessment', 'Practical operating model, roles, and escalation paths', 'Prioritized detection use cases and response playbooks', 'Executive risk reporting and improvement roadmap'],
+    outcomes: ['Quicker recognition of credible threats', 'Fewer distracting alerts and clearer analyst focus', 'Coordinated decisions during security incidents', 'Security operations that improve with every investigation'],
+    steps: ['Understand the business and threat landscape', 'Connect priority telemetry and define detections', 'Run and refine investigation playbooks', 'Measure outcomes and continuously improve'],
   },
   'GRC program design': {
     parent: 'GRC & Compliance',
     parentLabel: 'GRC & Compliance',
     icon: Layers3,
-    headline: 'Build a GRC program people can actually operate.',
-    intro: 'Bring governance, risk, and controls together in a practical operating model with clear ownership and useful reporting.',
-    overview: 'We work with stakeholders to understand your obligations and risk priorities, then shape the roles, routines, and information needed to keep the program working over time.',
+    headline: 'Make risk and compliance easier to run—not harder to live with.',
+    intro: 'A practical GRC operating model that gives leaders visibility, teams clear ownership, and controls a useful place in everyday work.',
+    overview: 'We connect obligations, business priorities, risks, controls, evidence, and decision-making routines into one proportionate model. The objective is a program that remains useful after the initial project is complete—designed around named owners, useful decision routines, and evidence teams can maintain rather than adding paperwork disconnected from day-to-day work.',
     focus: ['Governance roles and decision rights', 'Risk assessment and treatment', 'Policies and control framework', 'Evidence, reporting, and review cadence'],
     deliverables: ['GRC operating model and responsibilities', 'Risk register and treatment approach', 'Policy and control framework', 'Implementation roadmap and reporting model'],
-    outcomes: ['Clear ownership of key risks and controls', 'More consistent governance decisions', 'A sustainable foundation for assurance'],
+    outcomes: ['Clear ownership of key risks and controls', 'More consistent, evidence-informed governance decisions', 'A sustainable foundation for assurance and improvement', 'Reduced audit disruption through organized evidence and clear control ownership'],
     steps: ['Understand business context', 'Map obligations and risks', 'Design roles and control routines', 'Launch, measure, and improve'],
   },
   'ISO 27001 readiness': {
     parent: 'GRC & Compliance',
     parentLabel: 'GRC & Compliance',
     icon: FileCheck2,
-    headline: 'Prepare for ISO 27001 with a clear, achievable plan.',
-    intro: 'Understand your current readiness, close the most important gaps, and organize the evidence your information security management system needs.',
-    overview: 'We help translate ISO 27001 requirements into practical activities for your organization, with a focus on risk-based implementation and sustainable ownership.',
+    headline: 'Make ISO 27001 readiness a managed journey, not a scramble.',
+    intro: 'Understand your current position, sequence the work that matters, and build an ISMS your people can sustain beyond the audit.',
+    overview: 'We translate ISO 27001 requirements into practical, risk-based activities for your environment—covering scope, ownership, policies, controls, evidence, and internal review. Readiness support helps prepare for an independent audit; it does not guarantee certification, which is determined independently by an accredited certification body.',
     focus: ['Readiness and gap assessment', 'ISMS scope and risk approach', 'Policy and control alignment', 'Evidence and audit preparation'],
     deliverables: ['ISO 27001 readiness findings', 'Prioritized gap-closure plan', 'ISMS documentation guidance', 'Internal audit and certification preparation support'],
-    outcomes: ['A clear picture of readiness and remaining work', 'Better alignment between risks and controls', 'More organized, accessible audit evidence'],
+    outcomes: ['A clear picture of readiness and the remaining work', 'Better alignment between risks, controls, and evidence', 'More organized, accessible audit evidence', 'A staged plan that reflects your resources and objectives'],
     steps: ['Confirm scope and context', 'Assess current ISMS practices', 'Prioritize and address gaps', 'Prepare evidence and review readiness'],
   },
   'Microsoft 365 enablement': {
     parent: 'Microsoft & Digital Workplace',
     parentLabel: 'Microsoft Enablement',
     icon: Cloud,
-    headline: 'Make Microsoft 365 work securely for your people.',
-    intro: 'Shape a Microsoft 365 environment that supports collaboration, protects information, and is straightforward for teams to adopt.',
-    overview: 'We help you plan and improve Microsoft 365 across collaboration, identity, security, information management, and adoption—based on how your organization works.',
+    headline: 'Give people a Microsoft 365 experience they can trust and use.',
+    intro: 'Design collaboration that feels natural for users while protecting information, strengthening identity, and keeping the environment governable.',
+    overview: 'We help you plan and improve Microsoft 365 across collaboration, identity, security, information management, and adoption—based on how your organization works. The engagement starts with your existing tenant and licensing, identifies improvement opportunities, and prioritizes changes that fit your environment.',
     focus: ['Microsoft 365 tenant and service review', 'Teams and SharePoint collaboration', 'Identity and access configuration', 'Security, governance, and adoption'],
     deliverables: ['Environment assessment and recommendations', 'Target configuration and rollout plan', 'Governance and security guidance', 'User adoption and enablement plan'],
-    outcomes: ['More consistent collaboration practices', 'Improved visibility and control', 'A rollout shaped around user needs'],
+    outcomes: ['More consistent, intuitive collaboration practices', 'Improved visibility, protection, and control', 'A rollout people can adopt with confidence', 'A workplace that scales as your teams and needs grow'],
     steps: ['Discover your current environment', 'Design the target experience', 'Configure and enable teams', 'Measure adoption and optimize'],
   },
   'Azure cloud solutions': {
     parent: 'Microsoft & Digital Workplace',
     parentLabel: 'Microsoft Enablement',
     icon: Cloud,
-    headline: 'Create an Azure foundation designed for your business.',
-    intro: 'Plan and improve your cloud environment with security, governance, and operational needs built in from the start.',
-    overview: 'We help organizations assess their cloud needs and establish Azure foundations that support workloads responsibly, with clear guardrails for identity, networking, cost, and operations.',
+    headline: 'Build an Azure foundation that lets teams move quickly, safely.',
+    intro: 'Create a cloud environment with the guardrails, operating clarity, and flexibility your workloads need to grow responsibly.',
+    overview: 'We help establish a governed Azure foundation across identity, networking, security, management, cost, and workload ownership—so cloud adoption does not create new uncertainty or unmanaged risk. The starting point depends on your workloads and goals, whether you are planning early adoption or improving an existing environment.',
     focus: ['Azure landing zone planning', 'Cloud security and identity', 'Workload migration and modernization', 'Governance, monitoring, and cost visibility'],
     deliverables: ['Cloud readiness and architecture review', 'Azure foundation and guardrail recommendations', 'Workload migration roadmap', 'Operational and cost management guidance'],
-    outcomes: ['A clearer and more controlled cloud environment', 'Improved workload and access visibility', 'A practical path for cloud adoption'],
+    outcomes: ['A clearer, more controlled cloud environment', 'Improved workload, access, and cost visibility', 'A practical path from cloud ambition to operational adoption', 'Day-two operating practices that keep cloud use sustainable'],
     steps: ['Assess workloads and readiness', 'Design the Azure foundation', 'Migrate or modernize in stages', 'Operate, govern, and optimize'],
   },
   'Workflow automation': {
     parent: 'Digital Transformation',
     parentLabel: 'Digital Transformation',
     icon: Workflow,
-    headline: 'Replace repetitive work with dependable workflows.',
-    intro: 'Identify manual bottlenecks and design useful automation that gives people time back while keeping processes visible and controlled.',
-    overview: 'We map how work moves today, identify the right opportunities to automate, and design workflows that fit your tools, approval needs, and operating reality.',
+    headline: 'Remove the friction from work people repeat every day.',
+    intro: 'Find the manual steps worth changing and create dependable workflows that keep decisions, exceptions, and ownership visible.',
+    overview: 'We start with the real process—not a tool. By mapping handoffs, decisions, information, and exceptions, we identify automation opportunities that make work simpler while preserving the governance your organization needs. Tool selection depends on your existing environment, requirements, governance, and support model.',
     focus: ['Process discovery and prioritization', 'Microsoft Power Platform opportunities', 'Approvals and task automation', 'Workflow monitoring and ownership'],
     deliverables: ['Process maps and automation shortlist', 'Solution design and workflow prototype', 'Implementation and testing plan', 'Documentation and handover guidance'],
-    outcomes: ['Fewer repetitive manual steps', 'More consistent handoffs and approvals', 'Better visibility into work in progress'],
+    outcomes: ['Fewer repetitive manual steps and avoidable delays', 'More consistent handoffs, approvals, and exceptions', 'Better visibility into work in progress and ownership', 'A support model that keeps workflows useful after launch'],
     steps: ['Map the current process', 'Prioritize automation opportunities', 'Design and build the workflow', 'Test, launch, and improve'],
   },
   'Systems integration': {
     parent: 'Digital Transformation',
     parentLabel: 'Digital Transformation',
     icon: Network,
-    headline: 'Connect the systems your business depends on.',
-    intro: 'Reduce disconnected work by creating reliable, well-governed ways for your business applications and data to work together.',
-    overview: 'We help clarify how information should move between systems, assess integration options, and plan solutions that account for reliability, security, and future change.',
+    headline: 'Make the systems behind your business work as one.',
+    intro: 'Connect applications and data with integration patterns that are secure, observable, and designed to withstand change.',
+    overview: 'We clarify how information should move, who owns it, and what happens when it fails. Then we shape a practical integration approach that accounts for APIs, security, reliability, monitoring, and long-term support—so connections stay dependable as your environment evolves.',
     focus: ['Application and data-flow discovery', 'Integration architecture and APIs', 'Microsoft and third-party connectivity', 'Monitoring, security, and support model'],
     deliverables: ['Current-state integration map', 'Target architecture and interface design', 'Prioritized integration roadmap', 'Testing, monitoring, and ownership guidance'],
-    outcomes: ['Less duplicate data entry', 'More dependable information flows', 'A clearer foundation for future integration'],
+    outcomes: ['Less duplicate data entry and fewer manual workarounds', 'More dependable, traceable information flows', 'A clearer foundation for future integration and change', 'Defined ownership and support for every connection'],
     steps: ['Discover systems and data owners', 'Design secure integration patterns', 'Build and validate connections', 'Monitor and evolve the solution'],
   },
 };
@@ -129,6 +141,11 @@ const serviceExamples = {
     ['Before a product launch', 'Test approved application and infrastructure scope before it becomes business-critical.'],
     ['After significant changes', 'Check that new features, cloud changes, or network updates have not introduced avoidable exposure.'],
     ['After remediation', 'Retest agreed fixes and provide evidence that priority weaknesses have been addressed.'],
+  ],
+  SOC: [
+    ['When alerts outnumber attention', 'Create a triage model that distinguishes routine noise from signals that warrant investigation and action.'],
+    ['After cloud or identity change', 'Extend visibility across new services, privileged access, endpoints, and the systems your teams depend on.'],
+    ['When incident roles are unclear', 'Define decision-makers, technical owners, communication paths, and tested playbooks before a high-pressure event occurs.'],
   ],
   'GRC program design': [
     ['Growing organizations', 'Establish clear risk ownership and governance routines as teams, systems, and obligations expand.'],
@@ -172,6 +189,11 @@ const serviceQuestions = {
     ['What can be included in a test?', 'Testing may cover approved external assets, applications, or internal environments. The exact targets, methods, timing, and exclusions are agreed in writing before testing begins.'],
     ['How do you manage operational risk?', 'We define rules of engagement and emergency contacts with you, avoid unapproved activity, and coordinate testing windows to reduce the chance of interruption.'],
     ['Do you help validate fixes?', 'Yes. Retesting can be included or agreed as a follow-up so your team can verify whether priority issues have been addressed.'],
+  ],
+  SOC: [
+    ['What does the SOC monitor?', 'We begin with the assets and business activities that matter most, then prioritize telemetry from identity, endpoints, cloud services, network controls, email, and other agreed sources.'],
+    ['Will Edrisync respond directly to an incident?', 'The response model is agreed with you up front. We can define escalation, investigation, containment coordination, and communication paths that fit your internal team and service providers.'],
+    ['How do we know the SOC is improving?', 'We establish practical measures such as detection coverage, alert quality, investigation outcomes, response readiness, and remediation progress—not vanity metrics.'],
   ],
   'GRC program design': [
     ['Is this only for organizations with a mature GRC team?', 'No. The program can start with the responsibilities and practices you already have, then build proportionately around your needs and available capacity.'],
@@ -228,6 +250,18 @@ const serviceDeepDives = {
       ['Test realistic entry points', 'Examine the approved application, external, or internal scope using a controlled and documented approach.'],
       ['Show the evidence', 'Give technical owners enough context to understand, reproduce, and assess each confirmed finding.'],
       ['Prioritize the response', 'Translate results into remediation actions and, where agreed, retest fixes to validate closure.'],
+    ],
+  },
+  SOC: {
+    visual: 'attack-path',
+    eyebrow: 'Turn signals into decisions',
+    heading: 'A SOC that brings focus to the moment it matters.',
+    intro: 'Effective security operations combine well-chosen telemetry, repeatable investigation, and people who know when to involve the business. Edrisync helps turn raw events into a capability your organization can trust.',
+    cards: [
+      ['Start with the crown jewels', 'Identify the identities, data, applications, and operational services where fast detection makes the greatest difference.'],
+      ['Make detections useful', 'Create and tune use cases around likely attack paths, so analysts spend less time on noise and more time on credible risk.'],
+      ['Prepare the response', 'Agree escalation thresholds, decision rights, contacts, and containment actions before an urgent incident demands them.'],
+      ['Learn from every case', 'Feed investigation findings back into detections, logging, controls, and leadership reporting to steadily improve resilience.'],
     ],
   },
   'GRC program design': {
@@ -327,6 +361,17 @@ const serviceDelivery = {
       ['Validate priority fixes', 'Retest agreed changes and provide a concise view of what has been resolved and what remains.'],
     ],
   },
+  SOC: {
+    image: null,
+    imageAlt: 'Illustration of a security operations center',
+    intro: 'Edrisync works alongside security, IT, and business stakeholders to build operations that are measurable, repeatable, and proportionate to the risks you need to manage.',
+    stages: [
+      ['Establish the operational baseline', 'Map critical assets, current tools, available telemetry, existing procedures, and the people accountable for action.'],
+      ['Design coverage that matters', 'Prioritize log sources and detection use cases around business risk, common attack paths, and the evidence needed to investigate them.'],
+      ['Operationalize response', 'Create analyst workflows, escalation criteria, communication plans, and practical incident playbooks with the teams who will use them.'],
+      ['Tune, measure, and mature', 'Review alert quality, investigation trends, response readiness, and remediation outcomes to guide the next improvements.'],
+    ],
+  },
   'GRC program design': {
     image: governanceImage,
     imageAlt: 'Governance and compliance service illustration',
@@ -395,6 +440,56 @@ const serviceDelivery = {
   },
 };
 
+// Kept as content data so every child service uses the same page rhythm while
+// making the day-to-day engagement model specific to the service.
+const serviceOperatingModels = {
+  'Security assessments': [
+    ['Business-led scope', 'We start with the services, information, decisions, and change initiatives that would carry the greatest consequence if controls failed.'],
+    ['Evidence-led review', 'Configuration, process, and stakeholder evidence are tested together so the assessment reflects operation, not paperwork alone.'],
+    ['Owned remediation', 'Findings are grouped into decisions, owners, dependencies, and an achievable sequence of improvement work.'],
+  ],
+  'Penetration testing': [
+    ['Controlled engagement', 'Written rules of engagement set the target scope, permitted techniques, test windows, emergency contacts, and stop conditions.'],
+    ['Validated attack paths', 'Confirmed findings are documented with enough evidence for technical teams to understand exposure and reproduce the issue safely.'],
+    ['Remediation partnership', 'Priority issues are reviewed with the right owners, and agreed fixes can be retested to establish a clear closure record.'],
+  ],
+  SOC: [
+    ['Risk-led coverage', 'Logging and detection use cases are prioritized around critical services, likely attack paths, and the decisions your team must make quickly.'],
+    ['Human-led investigation', 'Analysts use defined triage, evidence, escalation, and communication paths rather than treating every alert as equally urgent.'],
+    ['Continuous tuning', 'Investigation outcomes inform detection quality, telemetry gaps, playbooks, remediation, and leadership reporting.'],
+  ],
+  'GRC program design': [
+    ['Decision-led governance', 'Leadership forums, decision rights, escalation thresholds, and risk acceptance are designed around how your organization already operates.'],
+    ['Owner-led controls', 'Every important risk and control is connected to a named owner, useful evidence, and a review cadence people can sustain.'],
+    ['Assurance-led improvement', 'Concise reporting surfaces material changes, overdue actions, control health, and the decisions that need leadership attention.'],
+  ],
+  'ISO 27001 readiness': [
+    ['Scope-led ISMS design', 'We establish the organizational boundary, interested parties, risk context, and governance needed for a proportionate management system.'],
+    ['Risk-led gap closure', 'Readiness work is sequenced by risk, audit dependency, effort, and ownership instead of treating every requirement as a parallel project.'],
+    ['Evidence-led assurance', 'Policies, controls, records, internal review, and management oversight are organized into a routine that can support independent audit.'],
+  ],
+  'Microsoft 365 enablement': [
+    ['Experience-led design', 'Collaboration patterns, user journeys, information needs, and support expectations shape the target workplace before configuration begins.'],
+    ['Guardrails by default', 'Identity, access, information governance, lifecycle controls, and security settings are designed into the employee experience.'],
+    ['Adoption with ownership', 'Role-based enablement, champions, service ownership, and feedback signals help the new ways of working stick.'],
+  ],
+  'Azure cloud solutions': [
+    ['Workload-led planning', 'Architecture choices begin with application dependencies, resilience needs, data sensitivity, and the business value of each workload.'],
+    ['Platform guardrails', 'Identity, network, policy, monitoring, recovery, and cost controls form a reusable foundation for delivery teams.'],
+    ['Day-two accountability', 'Operational ownership, incident paths, change control, security review, and cost review are established before workloads are handed over.'],
+  ],
+  'Workflow automation': [
+    ['Process before platform', 'We map the real work, including exceptions and decisions, before deciding whether automation is the right intervention.'],
+    ['Human-in-the-loop design', 'Approvals, ownership, notifications, access controls, and exception routes keep important judgment visible in the flow.'],
+    ['Measured handover', 'Success measures, support ownership, documentation, and a feedback cycle keep the workflow dependable after launch.'],
+  ],
+  'Systems integration': [
+    ['Contract-first design', 'Data ownership, interface expectations, access boundaries, and failure behaviour are agreed before connections are built.'],
+    ['Observable delivery', 'Testing covers expected flows, data quality, errors, retries, permissions, and the signals operators need to diagnose issues.'],
+    ['Change-ready operations', 'Monitoring, support, versioning, documentation, and escalation are assigned so integrations remain dependable as systems evolve.'],
+  ],
+};
+
 const focusDetails = {
   'Security assessments': [
     'Review account lifecycle, authentication, privileged access, and the controls that protect sensitive services.',
@@ -407,6 +502,12 @@ const focusDetails = {
     'Test agreed application flows, validation, authentication, and access boundaries.',
     'Where included in scope, evaluate internal paths and segmentation with approved safeguards.',
     'Recheck agreed remediation changes and document any remaining observations.',
+  ],
+  SOC: [
+    'Bring together identity, endpoint, cloud, network, email, and other agreed telemetry so investigations begin with the right context.',
+    'Build and tune detections around meaningful attacker behaviours and the systems most important to your organization.',
+    'Give analysts defined triage paths, evidence requirements, escalation thresholds, and access to the owners who can act.',
+    'Use incident and alert trends to strengthen logging, controls, playbooks, and leadership-level risk decisions.',
   ],
   'GRC program design': [
     'Clarify who makes risk decisions, who advises, and how important issues are escalated.',
@@ -626,6 +727,7 @@ export default function SubServiceDetailPage({ serviceKey, onParentService, onSe
   const Icon = service.icon;
   const delivery = serviceDelivery[serviceKey];
   const deepDive = serviceDeepDives[serviceKey];
+  const operatingModel = serviceOperatingModels[serviceKey];
   const [activeStage, setActiveStage] = useState(0);
   const [openQuestion, setOpenQuestion] = useState(0);
 
@@ -829,6 +931,25 @@ export default function SubServiceDetailPage({ serviceKey, onParentService, onSe
                   ))}
                 </div>
               </Reveal>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f5f8fc] px-6 py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl">
+            <Reveal className="max-w-3xl">
+              <p className="text-xs font-bold uppercase tracking-[.23em] text-[#087fd1]">How the service operates</p>
+              <h2 className="mt-5 text-4xl font-light leading-tight">A delivery model built to work after the engagement.</h2>
+              <p className="mt-4 text-base leading-relaxed text-slate-600">The work is structured to create clear decisions, durable ownership, and a practical rhythm your team can continue to use.</p>
+            </Reveal>
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {operatingModel.map(([title, description], index) => (
+                <Reveal key={title} delay={index * 0.07} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_8px_28px_rgba(4,7,32,.04)]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e5f3ff] text-sm font-bold text-[#087fd1]">0{index + 1}</span>
+                  <h3 className="mt-8 text-lg font-semibold">{title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{description}</p>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>

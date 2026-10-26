@@ -152,7 +152,7 @@ export default function Settings() {
                 </label>
                 <input
                   type="tel"
-                  defaultValue="+1 (555) 123-4567"
+                  defaultValue="+234 803 943 8517"
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>

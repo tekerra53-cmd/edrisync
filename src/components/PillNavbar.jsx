@@ -53,6 +53,7 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
       subServices: [
         'Security assessments',
         'Penetration testing',
+        'SOC',
       ],
     },
     {
@@ -312,7 +313,7 @@ export default function PillNavbar({ refs, announcementVisible = false }) {
                         <div key={service.label}>
                           <div className="flex items-center">
                             <button
-                              onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(subService) })}
+                              onClick={() => handleNav({ action: () => refs?.goServiceDetail?.(service.serviceKey || service.label) })}
                               className="flex min-h-[42px] flex-1 items-center rounded-lg px-3 py-2 text-left text-xs font-medium text-[#000741] transition-all duration-300 hover:bg-[#ffffff]"
                             >
                               {service.label}

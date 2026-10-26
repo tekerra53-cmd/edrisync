@@ -121,7 +121,7 @@ export default function CTASection({ sectionRef }) {
             className="flex flex-col sm:flex-row gap-4 mt-9"
           >
               <a
-                href="tel:+15551234567"
+                href="tel:+2348039438517"
                 className="flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-200 min-h-[52px]"
                 style={{ color: '#000741', border: '1.5px solid rgba(4,7,32,0.28)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(4,7,32,0.06)')}
