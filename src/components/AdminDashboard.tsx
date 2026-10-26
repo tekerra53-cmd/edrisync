@@ -487,6 +487,7 @@ function EmailUpdatesPanel() {
   const [error, setError] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
   const [activeCount, setActiveCount] = useState<number | null>(null);
+  const testSendInFlight = useRef(false);
 
   useEffect(() => {
     supabase?.auth.getUser().then(({ data }) => setAdminEmail(data?.user?.email || '')).catch(() => setAdminEmail(''));
@@ -521,14 +522,17 @@ function EmailUpdatesPanel() {
 
   async function sendTest(event: FormEvent) {
     event.preventDefault();
-    if (!canSend) return;
+    if (!canSend || testSendInFlight.current) return;
+    testSendInFlight.current = true;
     setSending(true); setMessage(''); setError('');
     try {
       await sendNewsletterTest(cleanSubject, cleanContent, headerImageUrl || undefined);
+      setError('');
       setMessage(`Test email sent to ${adminEmail || 'your admin address'}. Check your inbox, then review the live preview.`);
     } catch (reason: any) {
+      setMessage('');
       setError(reason.message || 'Could not send the test email.');
-    } finally { setSending(false); }
+    } finally { testSendInFlight.current = false; setSending(false); }
   }
 
   async function sendCampaign() {
@@ -560,7 +564,7 @@ function EmailUpdatesPanel() {
           {!subjectValid && <p className="text-xs text-slate-500">Add a subject of {subjectLimit} characters or fewer.</p>}
           {!contentValid && <p className="text-xs text-slate-500">Add a message of {contentLimit} characters or fewer.</p>}
           {message && <p role="status" className="flex items-start gap-2 text-xs text-emerald-700"><Check className="mt-px h-3.5 w-3.5 shrink-0" />{message}</p>}
-          {error && <p role="alert" className="text-xs leading-5 text-red-600">{error}<br /><span className="mt-1 block text-slate-500">Check that the <code>send-newsletter-test</code> edge function is deployed and its <code>RESEND_API_KEY</code> secret is set.</span></p>}
+          {error && <p role="alert" className="text-xs leading-5 text-red-600">{error}<br /><span className="mt-1 block text-slate-500">If this continues, check the latest <code>send-newsletter-test</code> invocation in Supabase for its status and error detail.</span></p>}
         </div>
         <div className="flex flex-col gap-4 border-t border-slate-100 bg-slate-50/50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs leading-5 text-slate-500">Test sends go to <span className="font-semibold text-slate-700">{adminEmail || 'your signed-in admin address'}</span> only.</p>
