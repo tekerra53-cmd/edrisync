@@ -485,12 +485,10 @@ function EmailUpdatesPanel() {
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [adminEmail, setAdminEmail] = useState('');
   const [activeCount, setActiveCount] = useState<number | null>(null);
   const testSendInFlight = useRef(false);
 
   useEffect(() => {
-    supabase?.auth.getUser().then(({ data }) => setAdminEmail(data?.user?.email || '')).catch(() => setAdminEmail(''));
     getNewsletterSubscribers().then((subscribers) => setActiveCount(subscribers.filter((subscriber) => subscriber.status === 'subscribed').length)).catch(() => setActiveCount(null));
   }, []);
 
@@ -528,7 +526,7 @@ function EmailUpdatesPanel() {
     try {
       await sendNewsletterTest(cleanSubject, cleanContent, headerImageUrl || undefined);
       setError('');
-      setMessage(`Test email sent to ${adminEmail || 'your admin address'}. Check your inbox, then review the live preview.`);
+      setMessage('Test email sent to info@edrisync.com. Check the inbox, then review the live preview.');
     } catch (reason: any) {
       setMessage('');
       setError(reason.message || 'Could not send the test email.');
@@ -567,7 +565,7 @@ function EmailUpdatesPanel() {
           {error && <p role="alert" className="text-xs leading-5 text-red-600">{error}<br /><span className="mt-1 block text-slate-500">If this continues, check the latest newsletter Edge Function invocation in Supabase for its status and error detail.</span></p>}
         </div>
         <div className="flex flex-col gap-4 border-t border-slate-100 bg-slate-50/50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs leading-5 text-slate-500">Test sends go to <span className="font-semibold text-slate-700">{adminEmail || 'your signed-in admin address'}</span> only.</p>
+          <p className="text-xs leading-5 text-slate-500">Test sends go to <span className="font-semibold text-slate-700">info@edrisync.com</span> only.</p>
           <button type="button" onClick={sendCampaign} disabled={!massSendingEnabled || !canSend || sending} className="flex w-fit items-center gap-2 rounded-lg border border-[#087FD1] bg-white px-4 py-2.5 text-xs font-semibold text-[#087FD1] disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-400" title="Sends only to active subscribers after confirmation.">{!massSendingEnabled && <Lock className="h-3.5 w-3.5" />} Send to all subscribers</button>
         </div>
       </form>

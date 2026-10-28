@@ -44,13 +44,15 @@ Deno.serve(async (request) => {
 
   const apiKey = Deno.env.get('RESEND_API_KEY');
   if (!apiKey) return Response.json({ error: 'Email sending is not configured yet.' }, { status: 503, headers: corsHeaders });
+  const testRecipient = Deno.env.get('NEWSLETTER_TEST_EMAIL');
+  if (!testRecipient) return Response.json({ error: 'Set NEWSLETTER_TEST_EMAIL before sending a test.' }, { status: 503, headers: corsHeaders });
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: Deno.env.get('RESEND_FROM_EMAIL') || 'Edrisync <onboarding@resend.dev>',
-      to: [user.email],
+      to: [testRecipient],
       subject: `[Test] ${cleanSubject}`,
       html: `<main style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;color:#000741">${cleanHeaderImageUrl ? `<img src="${escapeHtml(cleanHeaderImageUrl)}" alt="" style="display:block;width:100%;max-width:640px;height:auto;margin:0 0 24px;border-radius:12px">` : ''}<p style="font-size:12px;color:#64748b">Edrisync email test</p><h1>${escapeHtml(cleanSubject)}</h1><div style="font-size:16px;line-height:1.65">${escapeHtml(cleanContent).replace(/\n/g, '<br>')}</div></main>`,
     }),
