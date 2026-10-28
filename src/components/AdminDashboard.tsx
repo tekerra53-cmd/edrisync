@@ -564,7 +564,7 @@ function EmailUpdatesPanel() {
           {!subjectValid && <p className="text-xs text-slate-500">Add a subject of {subjectLimit} characters or fewer.</p>}
           {!contentValid && <p className="text-xs text-slate-500">Add a message of {contentLimit} characters or fewer.</p>}
           {message && <p role="status" className="flex items-start gap-2 text-xs text-emerald-700"><Check className="mt-px h-3.5 w-3.5 shrink-0" />{message}</p>}
-          {error && <p role="alert" className="text-xs leading-5 text-red-600">{error}<br /><span className="mt-1 block text-slate-500">If this continues, check the latest <code>send-newsletter-test</code> invocation in Supabase for its status and error detail.</span></p>}
+          {error && <p role="alert" className="text-xs leading-5 text-red-600">{error}<br /><span className="mt-1 block text-slate-500">If this continues, check the latest newsletter Edge Function invocation in Supabase for its status and error detail.</span></p>}
         </div>
         <div className="flex flex-col gap-4 border-t border-slate-100 bg-slate-50/50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs leading-5 text-slate-500">Test sends go to <span className="font-semibold text-slate-700">{adminEmail || 'your signed-in admin address'}</span> only.</p>

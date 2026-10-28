@@ -2,8 +2,14 @@ import { supabase } from '../lib/supabase';
 
 async function callNewsletterFunction<T>(name: string, body: Record<string, unknown>) {
   if (!supabase) throw new Error('Email sending is not connected yet.');
-  const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-  if (sessionError || !session?.access_token) throw new Error('Your session has expired. Sign in again before sending an email.');
+  // A saved browser session can outlive its access token. Refresh it before
+  // sending so Edge Functions never receive a stale Authorization header.
+  const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession();
+  const session = refreshData.session;
+  if (refreshError || !session?.access_token) throw new Error('Your session has expired. Sign out, sign in again, and complete MFA before sending an email.');
+
+  const { error: userError } = await supabase.auth.getUser(session.access_token);
+  if (userError) throw new Error('Your sign-in could not be verified. Sign out, sign in again, and complete MFA before sending an email.');
 
   const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/${name}`, {
     method: 'POST',
